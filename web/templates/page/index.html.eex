@@ -24,10 +24,10 @@
       </p>
       <p>
         I think a site like that, if done right, will eventually be of great use to encourage people to contribute to the Elixir community.
-        You can read the full reasoning behind this in the <a href="" target="_blank">project proposal</a>.
+        You can read the full reasoning behind this in the <a href="http://trivelop.de/2015/06/21/proposing-elixir-community-site/" target="_blank">project proposal</a>.
       </p>
       <p>
-        Ah, nearly forgot: I want to build this site, right here.
+        Ah, nearly forgot: I want to build this site, <a href="https://github.com/rrrene/elixirstatus-web">right here</a>.
       </p>
     </div>
   </div>
@@ -47,10 +47,10 @@
   <hr>
 
   <footer>
-    <a href="http://trivelop.de/">@rrrene</a> |
-    <a href="http://inch-ci.org/">Inch CI</a> |
+    <a href="http://trivelop.de/" target="_blank">@rrrene</a> |
+    <a href="http://inch-ci.org/" target="_blank">Inch CI</a> |
     <a href="http://elixirstatus.com/">elixirstatus.com</a> |
-    <a href="http://trivelop.de/">contact</a>
+    <a href="http://trivelop.de/" target="_blank">contact</a>
     <%= if @current_user do %>
       | <a href="<%= git_hub_auth_path @conn, :sign_out %>">Log out</a>
     <% end %>

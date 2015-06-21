@@ -23,5 +23,7 @@
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
     <script>require("web/static/js/app")</script>
+
+    <%= render ElixirStatus.SharedView, "tracking.html" %>
   </body>
 </html>

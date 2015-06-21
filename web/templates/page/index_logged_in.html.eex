@@ -16,7 +16,7 @@
         <blockquote>ElixirStatus, an upcoming community site for Elixir: elixirstatus.com</blockquote>
       </p>
       <p>
-        <a class="btn btn-primary" href="https://twitter.com/intent/tweet?hashtags=myelixirstatus&text=ElixirStatus, an upcoming community site for Elixir: elixirstatus.com" target="_blank">Tweet this now!</a>
+        <a class="btn btn-primary" href="https://twitter.com/intent/tweet?text=ElixirStatus, an upcoming community site for Elixir: elixirstatus.com" target="_blank">Tweet this now!</a>
       </p>
     </div>
   </div>

@@ -33,7 +33,9 @@ defmodule ElixirStatus.GitHubAuthController do
     token = GitHubAuth.get_token!(code: code)
 
     # Request the user's data with the access token
-    user = OAuth2.AccessToken.get!(token, "/user")
+    user_auth_params = OAuth2.AccessToken.get!(token, "/user")
+
+    find_or_create_user(user_auth_params)
 
     # Store the user in the session under `:current_user` and redirect to /.
     # In most cases, we'd probably just store the user's ID that can be used
@@ -43,9 +45,17 @@ defmodule ElixirStatus.GitHubAuthController do
     # If you need to make additional resource requests, you may want to store
     # the access token as well.
     conn
-    |> put_session(:current_user, user)
+    |> put_session(:current_user, user_auth_params)
     |> put_session(:access_token, token.access_token)
     |> redirect(to: "/")
+  end
+
+  def find_or_create_user(user_auth_params) do
+    user = ElixirStatus.UserController.find_by_email(user_auth_params["email"])
+    if !user do
+      user = ElixirStatus.UserController.create_from_auth_params(user_auth_params)
+    end
+    user
   end
 end
 

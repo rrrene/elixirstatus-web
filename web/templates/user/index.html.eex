@@ -1,0 +1,25 @@
+<h2>Listing <%= Enum.count(@users) %> users</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>FullName</th>
+      <th>Email</th>
+      <th>Provider</th>
+      <th>UserName</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%= for user <- @users do %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.full_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.provider %></td>
+        <td><%= user.user_name %></td>
+        <td><%= user.inserted_at %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -26,6 +26,12 @@ defmodule ElixirStatus.Router do
     get "/callback", GitHubAuthController, :callback
   end
 
+  scope "/users", ElixirStatus do
+    pipe_through :browser # Use the default browser stack
+
+    get "/", UserController, :index
+  end
+
   # Fetch the current user from the session and add it to `conn.assigns`. This
   # will allow you to have access to the current user in your views with
   # `@current_user`.
