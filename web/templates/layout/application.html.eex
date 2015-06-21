@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hello Phoenix!</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  </head>
+
+  <body>
+    <div class="content container">
+      <div class="masthead">
+        <h3 class="masthead-title">
+        </h3>
+      </div>
+        <%= @inner %>
+    </div>
+
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script>require("web/static/js/app")</script>
+  </body>
+</html>

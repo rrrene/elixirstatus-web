@@ -1,0 +1,57 @@
+.post-author {
+  position: absolute;
+  margin-left: -80px;
+
+  .avatar {
+    background-size: 100% 100%;
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+  }
+}
+
+footer,
+footer a {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+
+.btn-primary {
+  color: #fff;
+  background-color: #428bca;
+  border-color: #357ebd;
+}
+.btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.btn {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #286090;
+  border-color: #204d74;
+}
+.btn.focus, .btn:focus, .btn:hover {
+  text-decoration: none;
+}
