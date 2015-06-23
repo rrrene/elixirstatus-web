@@ -3,6 +3,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th>Id</th>
       <th>FullName</th>
       <th>Email</th>
       <th>Provider</th>
