@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Phoenix!</title>
+    <title>elixirstatus</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
   </head>
@@ -18,7 +18,7 @@
         <h3 class="masthead-title">
         </h3>
       </div>
-        <%= @inner %>
+      <%= @inner %>
     </div>
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
