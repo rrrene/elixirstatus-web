@@ -6,6 +6,7 @@
   "hackney": {:hex, :hackney, "1.1.0"},
   "httpoison": {:hex, :httpoison, "0.7.0"},
   "idna": {:hex, :idna, "1.0.2"},
+  "mariaex": {:hex, :mariaex, "0.1.7"},
   "oauth2": {:hex, :oauth2, "0.1.1"},
   "phoenix": {:hex, :phoenix, "0.13.1"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "0.4.0"},
