@@ -1,8 +1,5 @@
 
-<p>
-  By signing in, you show that you would like this site to exist.
-</p>
 <a class="btn btn-primary btn-lg" href="<%= git_hub_auth_path @conn, :sign_in %>">
-  <i class="fa fa-github"></i>
-  Sign in with GitHub
+  <img src="https://twemoji.maxcdn.com/36x36/2764.png" style="height: 18px; vertical-align: middle; display: inline-block;"> +1 for this to be made
 </a>
+<small>Signs you in via GitHub.</small>
