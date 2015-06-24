@@ -10,7 +10,7 @@ defmodule ElixirStatus.User do
     timestamps
   end
 
-  @required_fields ~w(full_name email provider user_name)
+  @required_fields ~w(full_name provider user_name)
   @optional_fields ~w()
 
   @doc """
