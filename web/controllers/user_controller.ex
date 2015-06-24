@@ -15,9 +15,9 @@ defmodule ElixirStatus.UserController do
     Repo.insert(user_params)
   end
 
-  def find_by_email(email, provider \\ "github") do
+  def find_by_user_name(user_name, provider \\ "github") do
     query = from u in User,
-            where: u.email == ^email and u.provider == ^provider,
+            where: u.user_name == ^user_name and u.provider == ^provider,
             select: u
     Repo.one(query)
   end

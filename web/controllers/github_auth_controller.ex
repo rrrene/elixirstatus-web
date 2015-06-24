@@ -51,7 +51,7 @@ defmodule ElixirStatus.GitHubAuthController do
   end
 
   def find_or_create_user(user_auth_params) do
-    user = ElixirStatus.UserController.find_by_email(user_auth_params["email"])
+    user = ElixirStatus.UserController.find_by_user_name(user_auth_params["login"])
     if !user do
       user = ElixirStatus.UserController.create_from_auth_params(user_auth_params)
     end
