@@ -1,0 +1,36 @@
+
+<div class="post">
+  <div class="post-author">
+    <div class="avatar " style="background-image: url(/images/avatar_rrrene.jpg)"></div>
+  </div>
+  <h1 class="post-title">
+    <a href="/">
+      elixirstatus.com
+    </a>
+  </h1>
+
+  <span class="post-date">24 Jun 2015 by <a href="https://twitter.com/rrrene" target="_blank">@rrrene</a></span>
+
+  <div class="post-body">
+    <p>
+      Hi there,
+    </p>
+    <p>
+      I'm @rrrene, maintainer of <a href="http://inch-ci.org/" target="_blank">Inch CI</a> and <a href="https://github.com/rrrene/inch_ex" target="_blank">InchEx</a>.
+    </p>
+    <p>
+      This page exists because I think we need a site where people can post what they made in Elixir, simliar to <a href="http://rubyflow.com/" target="_blank">RubyFlow</a> for Ruby, where annoucements don't disappear after a day like on Twitter, A site that is build in Elixir, that is Open Source and integrates nicely with the existing ecosystem.
+    </p>
+    <p>
+      I think a site like that, if done right, will eventually be of great use to encourage people to contribute to the Elixir community.
+
+    </p>
+    <p><strong><em>You can read the full reasoning behind this in the <a href="http://trivelop.de/2015/06/24/proposing-elixir-community-site/" target="_blank">project proposal</a>.</em></strong>
+    </p>
+    <p>
+      Ah, nearly forgot: I want to build this site, with your help, <a href="https://github.com/rrrene/elixirstatus-web" target="_blank">right here</a>.
+    </p>
+  </div>
+</div>
+
+<hr>
