@@ -19,17 +19,16 @@
       I'm @rrrene, maintainer of <a href="http://inch-ci.org/" target="_blank">Inch CI</a> and <a href="https://github.com/rrrene/inch_ex" target="_blank">InchEx</a>.
     </p>
     <p>
-      This page exists because <strong><em>I think we need a site</em></strong> where people can post what they made in Elixir, simliar to <a href="http://rubyflow.com/" target="_blank">RubyFlow</a> for Ruby, <strong><em>where annoucements don't disappear after a day</em></strong> like on Twitter, A site that is build in Elixir, that is Open Source and integrates nicely with the existing ecosystem.
+      This page exists because <strong><em>I think we need a site</em></strong> where people can post what they made in Elixir, simliar to <a href="http://rubyflow.com/" target="_blank">RubyFlow</a> for Ruby, <strong><em>where annoucements don't disappear after a day</em></strong> like on Twitter. A service that is build in Elixir, that is Open Source and integrates nicely with the existing ecosystem.
     </p>
     <p>
-      I think a site like that, if done right, will eventually be of great use <strong><em>to encourage people to contribute to the Elixir community.</em></strong>
-
+      I think a service like that, if done right, will eventually be of great use <strong><em>to encourage people to contribute to the Elixir community.</em></strong>
     </p>
     <p>
-      You can read the full reasoning behind this in the <a href="http://trivelop.de/2015/06/24/proposing-elixir-community-site/" target="_blank">project proposal</a>.
+      You can read the wordy reasoning behind this in the <a href="http://trivelop.de/2015/06/26/announcing-elixirstatus/" target="_blank">announcement</a>.
     </p>
     <p>
-      Ah, nearly forgot: <strong><em>I want to build this site</em></strong>, with your help, <a href="https://github.com/rrrene/elixirstatus-web" target="_blank">right here</a>.
+      Ah, nearly forgot: <strong><em>I want to build this site</em></strong> with your help, <a href="https://github.com/rrrene/elixirstatus-web" target="_blank">right here</a>.
     </p>
   </div>
 </div>
