@@ -1,5 +1,6 @@
 defmodule ElixirStatus.GitHubAuthController do
   use ElixirStatus.Web, :controller
+  alias ElixirStatus.UserController
 
   plug :action
 
@@ -17,8 +18,7 @@ defmodule ElixirStatus.GitHubAuthController do
   """
   def sign_out(conn, _params) do
     conn
-    |> put_session(:current_user, nil)
-    |> put_session(:access_token, nil)
+    |> put_session(:current_user_id, nil)
     |> redirect(to: "/")
   end
 
@@ -35,7 +35,7 @@ defmodule ElixirStatus.GitHubAuthController do
     # Request the user's data with the access token
     user_auth_params = OAuth2.AccessToken.get!(token, "/user")
 
-    find_or_create_user(user_auth_params)
+    current_user = find_or_create_user(user_auth_params)
 
     # Store the user in the session under `:current_user` and redirect to /.
     # In most cases, we'd probably just store the user's ID that can be used
@@ -45,17 +45,14 @@ defmodule ElixirStatus.GitHubAuthController do
     # If you need to make additional resource requests, you may want to store
     # the access token as well.
     conn
-    |> put_session(:current_user, user_auth_params)
-    |> put_session(:access_token, token.access_token)
+    |> put_session(:current_user_id, current_user.id)
     |> redirect(to: "/")
   end
 
   def find_or_create_user(user_auth_params) do
-    user = ElixirStatus.UserController.find_by_user_name(user_auth_params["login"])
-    if !user do
-      user = ElixirStatus.UserController.create_from_auth_params(user_auth_params)
+    case UserController.find_by_user_name(user_auth_params["login"]) do
+      nil -> UserController.create_from_auth_params(user_auth_params)
+      user -> user
     end
-    user
   end
 end
-

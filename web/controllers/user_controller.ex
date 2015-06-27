@@ -22,6 +22,13 @@ defmodule ElixirStatus.UserController do
     Repo.one(query)
   end
 
+  def find_by_id(user_id) do
+    case user_id do
+      nil -> nil
+      _ -> Repo.get(User, user_id)
+    end
+  end
+
   def index(conn, _params) do
     users = Repo.all(User)
     render(conn, "index.html", users: users)

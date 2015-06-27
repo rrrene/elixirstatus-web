@@ -1,10 +1,10 @@
 <div class="logged_in">
   <div class="post">
     <div class="post-author">
-      <div class="avatar " style="background-image: url(<%= @current_user["avatar_url"] %>)"></div>
+      <div class="avatar " style="background-image: url(<%=# @current_user.avatar_url %>)"></div>
     </div>
     <h1 class="post-title">
-      Welcome, <%= @current_user["login"] %>!
+      Welcome, <%= @current_user.user_name %>!
     </h1>
 
     <div class="post-body">
@@ -20,5 +20,4 @@
       </p>
     </div>
   </div>
-
 </div>
