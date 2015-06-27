@@ -11,8 +11,8 @@ config :logger, level: :warn
 
 # Configure your database
 config :elixir_status, ElixirStatus.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  adapter: Ecto.Adapters.MySQL,
+  username: "root",
+  password: "",
   database: "elixir_status_test",
   size: 1 # Use a single connection for transactional tests
