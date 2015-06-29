@@ -9,6 +9,14 @@ defmodule ElixirStatus.GitHubAuthController do
   based on the chosen strategy.
   """
   def sign_in(conn, _params) do
+    handle_sign_in_for(Mix.env, conn)
+  end
+
+  defp handle_sign_in_for(:test, conn) do
+    sign_in_via_auth conn, %{"name" => "René Föhring", "login" => "rrrene", "email" => "rf@bamaru.de"}
+  end
+
+  defp handle_sign_in_for(_, conn) do
     redirect conn, external: GitHubAuth.authorize_url!
   end
 
@@ -33,8 +41,10 @@ defmodule ElixirStatus.GitHubAuthController do
     token = GitHubAuth.get_token!(code: code)
 
     # Request the user's data with the access token
-    user_auth_params = OAuth2.AccessToken.get!(token, "/user")
+    sign_in_via_auth conn, OAuth2.AccessToken.get!(token, "/user")
+  end
 
+  defp sign_in_via_auth(conn, user_auth_params) do
     current_user = find_or_create_user(user_auth_params)
 
     # Store the user in the session under `:current_user` and redirect to /.
@@ -55,4 +65,5 @@ defmodule ElixirStatus.GitHubAuthController do
       user -> user
     end
   end
+
 end
