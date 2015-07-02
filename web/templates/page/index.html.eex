@@ -1,5 +1,5 @@
 <div class="posts">
-  <%= if @current_user do %>
+  <%= if logged_in?(assigns) do %>
 
     <%= render ElixirStatus.PageView, "index_logged_in.html", current_user: @current_user, conn: @conn %>
 
@@ -20,7 +20,7 @@
     <a href="http://trivelop.de/" target="_blank">my blog</a> |
     <a href="http://twitter.com/rrrene" target="_blank">@rrrene</a> |
     <a href="http://trivelop.de/" target="_blank">contact</a>
-    <%= if @current_user do %>
+    <%= if logged_in?(assigns) do %>
       | <a href="<%= git_hub_auth_path @conn, :sign_out %>">Log out</a>
     <% end %>
   </footer>

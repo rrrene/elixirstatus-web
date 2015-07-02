@@ -29,11 +29,11 @@ defmodule ElixirStatus.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "~> 0.13.1"},
+    [{:phoenix, "~> 0.14.0"},
      {:phoenix_ecto, "~> 0.4"},
      {:mariaex, "~> 0.1.0"},
-     {:phoenix_html, "~> 1.0"},
-     {:phoenix_live_reload, "~> 0.4", only: :dev},
+     {:phoenix_html, "~> 1.1"},
+     {:phoenix_live_reload, "~> 0.4.3", only: :dev},
      {:cowboy, "~> 1.0"},
      {:oauth2, "~> 0.1.0"}]
   end

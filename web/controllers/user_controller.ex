@@ -3,8 +3,6 @@ defmodule ElixirStatus.UserController do
 
   alias ElixirStatus.User
 
-  plug :action
-
   def create_from_auth_params(user_auth_params) do
     user_params = %User{
       full_name: user_auth_params["name"],
