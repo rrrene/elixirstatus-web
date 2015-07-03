@@ -11,7 +11,7 @@ defmodule ElixirStatus.GitHubAuthController do
   end
 
   defp handle_sign_in_for(:test, conn) do
-    sign_in_via_auth conn, %{"name" => "René Föhring", "login" => "rrrene", "email" => "rf@bamaru.de"}
+    sign_in_via_auth conn, %{"name" => "René Föhring", "login" => "rrrene", "email" => "rf@bamaru.de", "avatar_url" => "http://elixirstatus.com/images/avatar_rrrene.jpg"}
   end
 
   defp handle_sign_in_for(_, conn) do
@@ -45,23 +45,22 @@ defmodule ElixirStatus.GitHubAuthController do
   defp sign_in_via_auth(conn, user_auth_params) do
     current_user = find_or_create_user(user_auth_params)
 
-    # Store the user in the session under `:current_user` and redirect to /.
-    # In most cases, we'd probably just store the user's ID that can be used
-    # to fetch from the database. In this case, since this example app has no
-    # database, I'm just storing the user map.
-    #
-    # If you need to make additional resource requests, you may want to store
-    # the access token as well.
     conn
     |> put_session(:current_user_id, current_user.id)
     |> redirect(to: "/")
   end
 
   def find_or_create_user(user_auth_params) do
-    case UserController.find_by_user_name(user_auth_params["login"]) do
+    %{"login" => user_name, "avatar_url" => url} = user_auth_params
+    try do
+      ElixirStatus.Avatar.load! user_name, url
+    rescue
+      e -> IO.inspect {"error", e}
+    end
+
+    case UserController.find_by_user_name(user_name) do
       nil -> UserController.create_from_auth_params(user_auth_params)
       user -> user
     end
   end
-
 end

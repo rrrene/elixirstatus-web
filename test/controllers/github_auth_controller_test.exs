@@ -8,5 +8,7 @@ defmodule ElixirStatus.GitHubAuthControllerTest do
 
     conn = get conn, "/auth/sign_out"
     assert html_response(conn, 302)
+
+    assert File.exists?("tmp/test/avatar/rrrene.jpg")
   end
 end

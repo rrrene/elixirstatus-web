@@ -8,10 +8,12 @@ erl_crash.dump
 
 # Static artifacts
 /node_modules
+/tmp
 
 # Since we are building js and css from web/static,
 # we ignore priv/static/{css,js}. You may want to
 # comment this depending on your deployment strategy.
+/priv/static/images/github/
 /priv/static/css
 /priv/static/js
 
