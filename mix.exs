@@ -32,10 +32,10 @@ defmodule ElixirStatus.Mixfile do
     [
       {:cowboy, "~> 1.0"},
       {:httpoison, "~> 0.7"},
-      {:mariaex, "~> 0.1.0"},
+      {:mariaex, "~> 0.3.0"},
       {:oauth2, "~> 0.1.0"},
       {:phoenix, "~> 0.14.0"},
-      {:phoenix_ecto, "~> 0.4"},
+      {:phoenix_ecto, "~> 0.5"},
       {:phoenix_html, "~> 1.1"},
       {:phoenix_live_reload, "~> 0.4.3", only: :dev}
     ]

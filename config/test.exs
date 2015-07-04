@@ -12,6 +12,7 @@ config :logger, level: :warn
 # Configure your database
 config :elixir_status, ElixirStatus.Repo,
   adapter: Ecto.Adapters.MySQL,
+  pool: Ecto.Adapters.SQL.Sandbox,
   username: "root",
   password: "",
   database: "elixir_status_test",

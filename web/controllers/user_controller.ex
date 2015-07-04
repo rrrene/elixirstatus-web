@@ -4,13 +4,12 @@ defmodule ElixirStatus.UserController do
   alias ElixirStatus.User
 
   def create_from_auth_params(user_auth_params) do
-    user_params = %User{
+    %User{
       full_name: user_auth_params["name"],
       user_name: user_auth_params["login"],
       email: user_auth_params["email"],
-      provider: "github",
-    }
-    Repo.insert(user_params)
+      provider: "github"
+    } |> Repo.insert!
   end
 
   def find_by_user_name(user_name, provider \\ "github") do
