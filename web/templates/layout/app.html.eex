@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <%= if logged_in?(assigns) do %>
+      <meta name="logged_in_as" content="<%= @current_user.user_name %>">
+    <% end %>
 
     <title>elixirstatus</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
