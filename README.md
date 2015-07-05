@@ -10,6 +10,8 @@ It will be a small site for developers to post their creations: new projects, bl
 
 No link-sharing in a wider sense, just posting your own stuff.
 
+![Screenshot](http://trivelop.de/public/images/2015-07-05/elixirstatus2.png)
+
 So it won't be a large site, but it will make up for it by being well-integrated into existing services and trends, like GitHub, Twitter, and RSS.
 
 It will make it easy to follow new projects and blogs in the Elixir community.
