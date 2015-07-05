@@ -24,7 +24,7 @@ defmodule GitHubAuth do
     OAuth2.Client.authorize_url!(new(), params)
   end
 
-  def get_token!(params \\ [], headers \\ []) do
+  def get_token!(params \\ [], _headers \\ []) do
     OAuth2.Client.get_token!(new(), params)
   end
 

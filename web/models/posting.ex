@@ -12,7 +12,7 @@ defmodule ElixirStatus.Posting do
 
     timestamps
 
-    belongs_to :user, User
+    belongs_to :user, ElixirStatus.User
   end
 
   @required_fields ~w(user_id uid permalink title text published_at public)
@@ -26,8 +26,8 @@ defmodule ElixirStatus.Posting do
   """
   def changeset(model, params \\ :empty) do
     model
-    |> cast(params, @required_fields, @optional_fields)
-    |> validate_length(:title, min: 1)
-    |> validate_length(:text, min: 1)
+      |> cast(params, @required_fields, @optional_fields)
+      |> validate_length(:title, min: 1)
+      |> validate_length(:text, min: 1)
   end
 end

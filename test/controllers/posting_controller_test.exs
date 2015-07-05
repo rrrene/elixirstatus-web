@@ -124,6 +124,7 @@ defmodule ElixirStatus.PostingControllerTest do
             |> put posting_path(conn, :update, posting), posting: invalid_params
 
     refute Repo.get_by(Posting, invalid_attr)
+    assert redirected_to(conn) == posting_path(conn, :index)
   end
 
   @tag posting_update: true
@@ -136,6 +137,7 @@ defmodule ElixirStatus.PostingControllerTest do
             |> put posting_path(conn, :update, posting), posting: invalid_params
 
     refute Repo.get_by(Posting, invalid_attr)
+    assert redirected_to(conn) == posting_path(conn, :index)
   end
 
   @tag posting_update: true
@@ -174,19 +176,18 @@ defmodule ElixirStatus.PostingControllerTest do
   test "shows posting", _ do
     posting = Repo.insert! valid_posting
     conn = get conn, posting_path(conn, :show, posting)
-    assert html_response(conn, 200) =~ "Show posting"
+    assert html_response(conn, 200) =~ posting.title
   end
 
   test "shows posting via permalink", _ do
     posting = Repo.insert! valid_posting
     conn = get conn, permalink_posting_path(conn, :show, posting.permalink)
-    assert html_response(conn, 200) =~ "Show posting"
+    assert html_response(conn, 200) =~ posting.title
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
-    assert_raise Ecto.NoResultsError, fn ->
-      get conn, posting_path(conn, :show, -1)
-    end
+    conn = get conn, posting_path(conn, :show, -1)
+    assert html_response(conn, 404)
   end
 
   #

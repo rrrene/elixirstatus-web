@@ -2,6 +2,7 @@ defmodule ElixirStatus.PostingController do
   use ElixirStatus.Web, :controller
   use Timex
 
+  alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
 
   plug :authenticate, :logged_in when action in [:create, :edit, :update, :delete]
@@ -10,8 +11,7 @@ defmodule ElixirStatus.PostingController do
   plug :scrub_params, "posting" when action in [:create, :update]
 
   def index(conn, _params) do
-    postings = Repo.all(Posting)
-    render(conn, "index.html", postings: postings)
+    render(conn, "index.html", postings: get_all)
   end
 
   def new(conn, _params) do
@@ -27,6 +27,7 @@ defmodule ElixirStatus.PostingController do
 
     if changeset.valid? do
       Repo.insert!(changeset)
+        |> Publisher.after_create
 
       conn
         |> put_flash(:info, "Posting created successfully.")
@@ -36,14 +37,12 @@ defmodule ElixirStatus.PostingController do
     end
   end
 
-  def show(conn, %{"permalink" => permalink}) do
-    posting = Repo.get_by!(Posting, permalink: permalink)
-    render(conn, "show.html", posting: posting)
+  def show(conn, %{"id" => id}) do
+    render(conn, "show.html", posting: current_posting(conn))
   end
 
-  def show(conn, %{"id" => id}) do
-    posting = Repo.get!(Posting, id)
-    render(conn, "show.html", posting: posting)
+  def show(conn, %{"permalink" => permalink}) do
+    render(conn, "show.html", posting: current_posting(conn))
   end
 
   def edit(conn, %{"id" => id}) do
@@ -59,6 +58,7 @@ defmodule ElixirStatus.PostingController do
 
     if changeset.valid? do
       Repo.update!(changeset)
+        |> Publisher.after_update
 
       conn
         |> put_flash(:info, "Posting updated successfully.")
@@ -78,12 +78,20 @@ defmodule ElixirStatus.PostingController do
   end
 
   defp load_posting(conn, _) do
-    case conn do
-      %{params: %{"id" => id}} ->
-        conn = assign(conn, :posting, Repo.get!(Posting, id))
+    posting = case conn do
+      %{params: %{"id" => id}} -> get_by_id(id)
+      %{params: %{"permalink" => permalink}} -> get_by_permalink(permalink)
       _ -> nil
     end
-    conn
+    if is_nil(posting) do
+      conn
+        |> put_status(:not_found)
+        |> render(ElixirStatus.ErrorView, "404.html")
+        |> halt
+    else
+      conn
+        |> assign(:posting, posting)
+    end
   end
 
   defp authenticate(conn, :logged_in) do
@@ -106,7 +114,7 @@ defmodule ElixirStatus.PostingController do
   end
 
   defp extract_valid_params(%{"title" => title, "text" => text}) do
-    %{"title" => String.strip(title), "text" => String.strip(text)}
+    %{"title" => String.strip(title || ""), "text" => String.strip(text || "")}
   end
 
   defp extract_valid_params(%{"title" => title, "text" => text, "scheduled_at" => scheduled_at}) do
@@ -122,19 +130,13 @@ defmodule ElixirStatus.PostingController do
     %{
       user_id: Auth.current_user(conn).id,
       uid: uid,
-      permalink: generate_permalink(uid, params["title"]),
+      permalink: Publisher.permalink(uid, params["title"]),
       text: params["text"],
       title: params["title"],
       scheduled_at: params["scheduled_at"],
       published_at: Ecto.DateTime.utc,
       public: true
     }
-  end
-
-  defp generate_permalink(uid, title) do
-    Regex.split(~r/\s|\%20/, "#{uid}-#{title}")
-      |> Enum.join("-")
-      |> String.downcase
   end
 
   defp generate_uid(model, size \\ 4) do
@@ -145,7 +147,7 @@ defmodule ElixirStatus.PostingController do
     :crypto.strong_rand_bytes(size*2)
       |> :base64.encode_to_string
       |> to_string
-      |> String.replace(~r/[\/\-\+]/, "")
+      |> String.replace(~r/[\/\-\+\=]/, "")
       |> String.slice(0, size)
   end
 
@@ -154,5 +156,24 @@ defmodule ElixirStatus.PostingController do
       nil -> uid
       _   -> new_uid(model, size, new_uid(size))
     end
+  end
+
+  defp get_all do
+    query = from(p in Posting, where: p.public == ^true)
+    query |> Ecto.Query.preload(:user) |> Repo.all
+  end
+
+  defp get_by_id(id) do
+    query = from(p in Posting, where: p.id == ^id)
+    query |> Ecto.Query.preload(:user) |> Repo.one
+  end
+
+  defp get_by_permalink(permalink) do
+    String.split(permalink, "-") |> Enum.at(0) |> get_by_uid
+  end
+
+  defp get_by_uid(uid) do
+    query = from(p in Posting, where: p.uid == ^uid)
+    query |> Ecto.Query.preload(:user) |> Repo.one
   end
 end
