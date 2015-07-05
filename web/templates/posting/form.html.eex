@@ -1,0 +1,56 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if f.errors != [] do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below:</p>
+      <ul>
+        <%= for {attr, message} <- f.errors do %>
+          <li><%= humanize(attr) %> <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :user_id, "User" %>
+    <%= number_input f, :user_id, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :uid, "Uid" %>
+    <%= text_input f, :uid, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :permalink, "Permalink" %>
+    <%= text_input f, :permalink, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :title, "Title" %>
+    <%= text_input f, :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :text, "Text" %>
+    <%= textarea f, :text, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :scheduled_at, "Scheduled at" %>
+    <%= datetime_select f, :scheduled_at, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :published_at, "Published at" %>
+    <%= datetime_select f, :published_at, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :public, "Public" %>
+    <%= checkbox f, :public, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

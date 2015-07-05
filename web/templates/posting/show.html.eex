@@ -1,0 +1,47 @@
+<h2>Show posting</h2>
+
+<ul>
+
+  <li>
+    <strong>User:</strong>
+    <%= @posting.user_id %>
+  </li>
+
+  <li>
+    <strong>Uid:</strong>
+    <%= @posting.uid %>
+  </li>
+
+  <li>
+    <strong>Permalink:</strong>
+    <%= @posting.permalink %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @posting.title %>
+  </li>
+
+  <li>
+    <strong>Text:</strong>
+    <%= @posting.text %>
+  </li>
+
+  <li>
+    <strong>Scheduled at:</strong>
+    <%= @posting.scheduled_at %>
+  </li>
+
+  <li>
+    <strong>Published at:</strong>
+    <%= @posting.published_at %>
+  </li>
+
+  <li>
+    <strong>Public:</strong>
+    <%= @posting.public %>
+  </li>
+
+</ul>
+
+<%= link "Back", to: posting_path(@conn, :index) %>

@@ -8,6 +8,8 @@ defmodule ElixirStatus.User do
     field :user_name, :string
 
     timestamps
+
+    has_many :postings, Posting
   end
 
   @required_fields ~w(full_name provider user_name)

@@ -18,6 +18,9 @@ defmodule ElixirStatus.Router do
 
     get "/", PageController, :index
     get "/about", PageController, :about
+
+    resources "/postings", PostingController
+    get "/p/:permalink", PostingController, :show, as: :permalink_posting
   end
 
   scope "/auth", alias: ElixirStatus do

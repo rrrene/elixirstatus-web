@@ -37,7 +37,8 @@ defmodule ElixirStatus.Mixfile do
       {:phoenix, "~> 0.14.0"},
       {:phoenix_ecto, "~> 0.5"},
       {:phoenix_html, "~> 1.1"},
-      {:phoenix_live_reload, "~> 0.4.3", only: :dev}
+      {:phoenix_live_reload, "~> 0.4.3", only: :dev},
+      {:timex, "~> 0.16.0"}
     ]
   end
 end

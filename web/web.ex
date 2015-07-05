@@ -33,6 +33,8 @@ defmodule ElixirStatus.Web do
 
       # Import URL helpers from the router
       import ElixirStatus.Router.Helpers
+
+      alias ElixirStatus.Auth
     end
   end
 

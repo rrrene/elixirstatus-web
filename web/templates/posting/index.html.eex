@@ -1,0 +1,40 @@
+<h2>Listing postings</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Uid</th>
+      <th>Permalink</th>
+      <th>Title</th>
+      <th>Text</th>
+      <th>Scheduled at</th>
+      <th>Published at</th>
+      <th>Public</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for posting <- @postings do %>
+    <tr>
+      <td><%= posting.user_id %></td>
+      <td><%= posting.uid %></td>
+      <td><%= posting.permalink %></td>
+      <td><%= posting.title %></td>
+      <td><%= posting.text %></td>
+      <td><%= posting.scheduled_at %></td>
+      <td><%= posting.published_at %></td>
+      <td><%= posting.public %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: posting_path(@conn, :show, posting), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: posting_path(@conn, :edit, posting), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: posting_path(@conn, :delete, posting), method: :delete, class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New posting", to: posting_path(@conn, :new) %>
