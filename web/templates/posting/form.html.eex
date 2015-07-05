@@ -1,31 +1,35 @@
-<%= form_for @changeset, @action, fn f -> %>
-  <%= if f.errors != [] do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below:</p>
-      <ul>
-        <%= for {attr, message} <- f.errors do %>
-          <li><%= humanize(attr) %> <%= message %></li>
-        <% end %>
-      </ul>
+<div class="post new-post">
+  <div class="post-avatar">
+    <div class="image" style="background-image: url(<%= raw "/images/github/#{@current_user_name}.jpg" %>)"></div>
+  </div>
+  <%= form_for @changeset, @action, fn f -> %>
+    <%= if f.errors != [] do %>
+      <div class="alert alert-danger">
+        <p>Oops, something went wrong! Please check the errors below:</p>
+        <ul>
+          <%= for {attr, message} <- f.errors do %>
+            <li><%= humanize(attr) %> <%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= text_input f, :title, class: "post-title", palceholder: "Title goes here" %>
+
+    <span class="post-date">
+      Today by
+      <a href="https://github.com/<%= raw @current_user_name %>" target="_blank">@<%= raw @current_user_name %></a>
+    </span>
+
+    <%= textarea f, :text, class: "post-body", placeholder: "Text should describe what you made in prose. Don't forget to link to your project/blog post!" %>
+
+    <div class="functions">
+      <div class="buttons">
+        <small>Markdown and simple HTML allowed.</small>
+        <span>
+          <a href="/preview_post" class="btn btn-preview">Preview</a>
+          <%= submit "Post this", class: "btn btn-primary" %>
+        </span>
+      </div>
     </div>
   <% end %>
-
-  <div class="form-group">
-    <%= label f, :title, "Title" %>
-    <%= text_input f, :title, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :text, "Text" %>
-    <%= textarea f, :text, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :scheduled_at, "Scheduled at" %>
-    <%= datetime_select f, :scheduled_at, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
-  </div>
-<% end %>
+</div>

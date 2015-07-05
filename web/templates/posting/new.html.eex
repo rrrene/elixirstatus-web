@@ -1,6 +1,7 @@
 <h2>New posting</h2>
 
-<%= render "form.html", changeset: @changeset,
+<%= render "form.html", current_user_name: current_user(@conn).user_name,
+                        changeset: @changeset,
                         action: posting_path(@conn, :create) %>
 
 <%= link "Back", to: posting_path(@conn, :index) %>

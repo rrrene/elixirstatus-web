@@ -31,6 +31,7 @@ defmodule ElixirStatus.Mixfile do
   defp deps do
     [
       {:cowboy, "~> 1.0"},
+      {:earmark, "> 0.1.0" },
       {:httpoison, "~> 0.7"},
       {:html_sanitize_ex, "~> 0.1.1"},
       {:mariaex, "~> 0.3.0"},

@@ -1,0 +1,17 @@
+<div class="post">
+  <div class="post-avatar">
+    <div class="image" style="background-image: url(<%= raw "/images/github/#{@posting.user.user_name}.jpg" %>)"></div>
+  </div>
+
+  <h1 class="post-title"><%= link sanitize(@posting.title), to: permalink_posting_path(@conn, :show, @posting.permalink) %></h1>
+
+  <span class="post-date">
+    <%= @posting.published_at |> human_readable_date %>
+    by
+    <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank">@<%= raw @posting.user.user_name %></a>
+  </span>
+
+  <div class="post-body">
+    <%= sanitized_markdown @posting.text %>
+  </div>
+</div>

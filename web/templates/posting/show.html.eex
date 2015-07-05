@@ -1,6 +1,3 @@
-<h2><%= sanitize @posting.title %></h2>
-  <%= @posting.published_at %>  <%= @posting.user.user_name %>
-
-<%= sanitize @posting.text %>
+<%= render ElixirStatus.PostingView, "posting.html", conn: @conn, posting: @posting %>
 
 <%= link "Back", to: posting_path(@conn, :index) %>
