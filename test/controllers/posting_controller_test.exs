@@ -164,8 +164,17 @@ defmodule ElixirStatus.PostingControllerTest do
   # NEW
   #
 
+  test "not renders form for new resources", %{conn: conn} do
+    conn = logged_out_conn()
+            |> get posting_path(conn, :new)
+
+    assert_login_required(conn)
+  end
+
   test "renders form for new resources", %{conn: conn} do
-    conn = get conn, posting_path(conn, :new)
+    conn = logged_in_conn()
+            |> get posting_path(conn, :new)
+
     assert html_response(conn, 200) =~ "New posting"
   end
 

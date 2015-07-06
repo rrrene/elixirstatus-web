@@ -5,7 +5,7 @@ defmodule ElixirStatus.PostingController do
   alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
 
-  plug :authenticate, :logged_in when action in [:create, :edit, :update, :delete]
+  plug :authenticate, :logged_in when action in [:new, :create, :edit, :update, :delete]
   plug :load_posting when action in [:edit, :update, :delete, :show]
   plug :authenticate, :same_user_or_admin when action in [:edit, :update, :delete]
   plug :scrub_params, "posting" when action in [:create, :update]
