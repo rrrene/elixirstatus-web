@@ -66,7 +66,7 @@ defmodule ElixirStatus.Publisher do
   end
 
   defp update_on_twitter(_tweet, _) do
-    # TODO: actually tweet this
+    ExTwitter.update(_tweet)
   end
 
   def short_title(title, max \\ 100, truncate_with \\ "...") do
