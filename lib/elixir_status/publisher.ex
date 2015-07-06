@@ -61,12 +61,12 @@ defmodule ElixirStatus.Publisher do
     posting
   end
 
-  defp update_on_twitter(_tweet, :test) do
-    #IO.inspect {:tweeting, tweet}
+  defp update_on_twitter(_tweet, :prod) do
+    ExTwitter.update(_tweet)
   end
 
   defp update_on_twitter(_tweet, _) do
-    ExTwitter.update(_tweet)
+    IO.inspect {:tweeting, _tweet}
   end
 
   def short_title(title, max \\ 100, truncate_with \\ "...") do
