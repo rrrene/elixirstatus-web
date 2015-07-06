@@ -11,6 +11,9 @@ defmodule ElixirStatus.PostingController do
   plug :scrub_params, "posting" when action in [:create, :update]
 
   def index(conn, _params) do
+    conn
+      |> ElixirStatus.ImpressionController.impression("frontpage")
+
     render(conn, "index.html", postings: get_all)
   end
 

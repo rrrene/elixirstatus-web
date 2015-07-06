@@ -1,0 +1,47 @@
+<h2>Show impression</h2>
+
+<ul>
+
+  <li>
+    <strong>Current user:</strong>
+    <%= @impression.current_user_id %>
+  </li>
+
+  <li>
+    <strong>Category:</strong>
+    <%= @impression.category %>
+  </li>
+
+  <li>
+    <strong>Subject:</strong>
+    <%= @impression.subject %>
+  </li>
+
+  <li>
+    <strong>Subject uid:</strong>
+    <%= @impression.subject_uid %>
+  </li>
+
+  <li>
+    <strong>Accept language:</strong>
+    <%= @impression.accept_language %>
+  </li>
+
+  <li>
+    <strong>User agent:</strong>
+    <%= @impression.user_agent %>
+  </li>
+
+  <li>
+    <strong>Remote ip:</strong>
+    <%= @impression.remote_ip %>
+  </li>
+
+  <li>
+    <strong>Session hash:</strong>
+    <%= @impression.session_hash %>
+  </li>
+
+</ul>
+
+<%= link "Back", to: impression_path(@conn, :index) %>

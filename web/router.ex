@@ -19,12 +19,15 @@ defmodule ElixirStatus.Router do
     get "/", PageController, :index
     get "/about", PageController, :about
 
+    post "/impression", ImpressionController, :create
+
     resources "/postings", PostingController
     get "/p/:permalink", PostingController, :show, as: :permalink_posting
   end
 
   scope "/auth", alias: ElixirStatus do
     pipe_through :browser
+
     get "/", GitHubAuthController, :sign_in
     get "/sign_out", GitHubAuthController, :sign_out
     get "/callback", GitHubAuthController, :callback
@@ -34,6 +37,13 @@ defmodule ElixirStatus.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", UserController, :index
+  end
+
+  # Other scopes may use custom stacks.
+  scope "/impression", ElixirStatus do
+    pipe_through :api
+
+    post "/", ImpressionController, :create, as: :impression
   end
 
   # Fetch the current user from the session and add it to `conn.assigns`. This
