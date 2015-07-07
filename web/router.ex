@@ -23,6 +23,8 @@ defmodule ElixirStatus.Router do
 
     resources "/postings", PostingController
     get "/p/:permalink", PostingController, :show, as: :permalink_posting
+
+    get "/=:uid", ShortLinkController, :show
   end
 
   scope "/auth", alias: ElixirStatus do

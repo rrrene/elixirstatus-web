@@ -11,9 +11,9 @@ defmodule ElixirStatus.PostingController do
   plug :scrub_params, "posting" when action in [:create, :update]
 
   def index(conn, _params) do
-    ElixirStatus.Impressionist.record(conn, "frontpage")
-
-    render(conn, "index.html", postings: get_all)
+    conn
+      |> ElixirStatus.Impressionist.record("frontpage")
+      |> render("index.html", postings: get_all)
   end
 
   def new(conn, _params) do
@@ -45,9 +45,10 @@ defmodule ElixirStatus.PostingController do
 
   def show(conn, %{"id" => id}) do
     posting = current_posting(conn)
-    ElixirStatus.Impressionist.record(conn, "detail", "postings", posting.uid)
 
-    render(conn, "show.html", posting: posting)
+    conn
+      |> ElixirStatus.Impressionist.record("detail", "postings", posting.uid)
+      |> render("show.html", posting: posting)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -131,7 +132,7 @@ defmodule ElixirStatus.PostingController do
   end
 
   defp to_create_params(params, conn) do
-    uid = generate_uid(Posting)
+    uid = ElixirStatus.UID.generate(Posting)
     %{
       user_id: Auth.current_user(conn).id,
       uid: uid,
@@ -142,25 +143,6 @@ defmodule ElixirStatus.PostingController do
       published_at: Ecto.DateTime.utc,
       public: true
     }
-  end
-
-  defp generate_uid(model, size \\ 4) do
-    new_uid(model, size, new_uid(size))
-  end
-
-  defp new_uid(size) do
-    :crypto.strong_rand_bytes(size*2)
-      |> :base64.encode_to_string
-      |> to_string
-      |> String.replace(~r/[\/\-\+\=]/, "")
-      |> String.slice(0, size)
-  end
-
-  defp new_uid(model, size, uid) do
-    case Repo.get_by(model, uid: uid) do
-      nil -> uid
-      _   -> new_uid(model, size, new_uid(size))
-    end
   end
 
   defp get_all do

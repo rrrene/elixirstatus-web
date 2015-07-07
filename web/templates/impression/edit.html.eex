@@ -1,6 +1,0 @@
-<h2>Edit impression</h2>
-
-<%= render "form.html", changeset: @changeset,
-                        action: impression_path(@conn, :update, @impression) %>
-
-<%= link "Back", to: impression_path(@conn, :index) %>

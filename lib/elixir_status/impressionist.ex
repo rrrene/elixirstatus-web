@@ -18,6 +18,7 @@ defmodule ElixirStatus.Impressionist do
 
   def record(conn, params) do
     spawn fn -> create_impression(conn, params) end
+    conn
   end
 
   def record(conn, "" <> context, subject_type, subject_uid) do
@@ -30,7 +31,6 @@ defmodule ElixirStatus.Impressionist do
                       |> extract_valid_params
                       |> to_create_params(conn)
 
-    IO.inspect {:impression_params, impression_params}
     changeset = Impression.changeset(%Impression{}, impression_params)
 
     if changeset.valid?, do: Repo.insert!(changeset)
