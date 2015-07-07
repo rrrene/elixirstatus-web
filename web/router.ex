@@ -11,6 +11,8 @@ defmodule ElixirStatus.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug :assign_current_user
   end
 
   scope "/", ElixirStatus do
@@ -18,8 +20,6 @@ defmodule ElixirStatus.Router do
 
     get "/", PageController, :index
     get "/about", PageController, :about
-
-    post "/impression", ImpressionController, :create
 
     resources "/postings", PostingController
     get "/p/:permalink", PostingController, :show, as: :permalink_posting
@@ -46,6 +46,13 @@ defmodule ElixirStatus.Router do
     pipe_through :api
 
     post "/", ImpressionController, :create, as: :impression
+  end
+
+  # Other scopes may use custom stacks.
+  scope "/api", ElixirStatus do
+    pipe_through :api
+
+    post "/external", ImpressionController, :external, as: :external
   end
 
   # Fetch the current user from the session and add it to `conn.assigns`. This

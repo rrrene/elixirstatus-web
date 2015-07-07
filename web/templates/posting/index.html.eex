@@ -6,20 +6,17 @@
   <thead>
     <tr>
       <th>User</th>
-      <th>Title</th>
-      <th>Text</th>
-      <th>Published at</th>
-
       <th></th>
     </tr>
   </thead>
   <tbody>
 <%= for posting <- @postings do %>
     <tr>
-      <td><%= posting.user.user_name %></td>
-      <td><%= posting.title %></td>
-      <td><%= posting.text %></td>
-      <td><%= posting.published_at %></td>
+      <td>
+
+        <%= render ElixirStatus.PostingView, "posting.html", conn: @conn, posting: posting %>
+
+      </td>
 
       <td class="text-right">
         <%= link "Permalink", to: permalink_posting_path(@conn, :show, posting.permalink), class: "btn btn-default btn-xs" %>

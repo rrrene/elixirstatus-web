@@ -1,4 +1,4 @@
-<div class="post">
+<div class="post" data-posting-uid="<%= raw @posting.uid %>">
   <div class="post-avatar">
     <div class="image" style="background-image: url(<%= raw "/images/github/#{@posting.user.user_name}.jpg" %>)"></div>
   </div>
