@@ -11,8 +11,7 @@ defmodule ElixirStatus.PostingController do
   plug :scrub_params, "posting" when action in [:create, :update]
 
   def index(conn, _params) do
-    conn
-      |> ElixirStatus.ImpressionController.impression("frontpage")
+    ElixirStatus.Impressionist.record(conn, "frontpage")
 
     render(conn, "index.html", postings: get_all)
   end
@@ -40,12 +39,15 @@ defmodule ElixirStatus.PostingController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    render(conn, "show.html", posting: current_posting(conn))
+  def show(conn, %{"permalink" => permalink}) do
+    show(conn, %{"id" => current_posting(conn)})
   end
 
-  def show(conn, %{"permalink" => permalink}) do
-    render(conn, "show.html", posting: current_posting(conn))
+  def show(conn, %{"id" => id}) do
+    posting = current_posting(conn)
+    ElixirStatus.Impressionist.record(conn, "detail", "postings", posting.uid)
+
+    render(conn, "show.html", posting: posting)
   end
 
   def edit(conn, %{"id" => id}) do
