@@ -5,7 +5,10 @@ defmodule ElixirStatus.Publisher do
     He is e.g. tasked with promoting it on Twitter.
   """
 
+  alias ElixirStatus.LinkShortener
   alias ElixirStatus.Posting
+
+  @base_url "http://elixirstatus.com"
 
   @doc """
     Called when a posting is created by PostingController.
@@ -46,16 +49,17 @@ defmodule ElixirStatus.Publisher do
 
 
   defp create_all_short_links(posting) do
-    # TODO: implement URL shortener
+    text = Earmark.to_html(posting.text)
+    Regex.scan(~r/href=\"([^\"]+?)\"/, text)
+      |> Enum.map(fn([_, x]) -> LinkShortener.to_uid(x) end)
+
     posting
   end
 
   defp post_to_twitter(posting) do
     %Posting{title: title, permalink: permalink} = posting
 
-    url = "http://elixirstatus.com/p/#{permalink}" |> short_url
-
-    "#{short_title(title)} #{url} #elixirlang"
+    "#{short_title(title)} #{short_url(permalink)} #elixirlang"
       |> update_on_twitter(Mix.env)
 
     posting
@@ -77,8 +81,8 @@ defmodule ElixirStatus.Publisher do
     end
   end
 
-  defp short_url(url) do
-    # TODO: implement URL shortener
-    url
+  defp short_url(permalink) do
+    uid = "#{@base_url}/p/#{permalink}" |> LinkShortener.to_uid
+    "#{@base_url}/=#{uid}"
   end
 end

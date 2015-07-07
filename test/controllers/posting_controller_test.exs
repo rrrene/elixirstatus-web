@@ -3,7 +3,7 @@ defmodule ElixirStatus.PostingControllerTest do
   use ElixirStatus.ConnLoginHelper
 
   alias ElixirStatus.Posting
-  @valid_attrs %{text: "some content", title: "some content"}
+  @valid_attrs %{text: "some [content](http://github.com/) on the [web](http://google.com/)", title: "some content"}
   @invalid_attrs %{permalink: "haxxor-perma-link", public: true, published_at: %{day: 17, hour: 14, min: 0, month: 4, year: 2010}, scheduled_at: %{day: 17, hour: 14, min: 0, month: 4, year: 2010}, uid: "some content", user_id: 42}
 
   setup do

@@ -39,11 +39,11 @@ defmodule ElixirStatus.PostingController do
     end
   end
 
-  def show(conn, %{"permalink" => permalink}) do
+  def show(conn, %{"permalink" => _}) do
     show(conn, %{"id" => current_posting(conn)})
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => _}) do
     posting = current_posting(conn)
 
     conn
