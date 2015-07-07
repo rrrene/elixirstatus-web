@@ -2,7 +2,7 @@
 
 I already integrated Phoenix in my project [Inch CI](https://inch-ci.org/), but have not yet build a frontend site with it. I want to do this here.
 
-This will become http://elixirstatus.com, my first *complete* Phoenix project. 
+This will become http://elixirstatus.com, my first *complete* Phoenix project.
 
 ## What will this be?
 
@@ -26,9 +26,9 @@ The important thing here is this is inspired by the original RubyFlow. Giving de
 
 - [x] Build and launch [landing page](http://elixirstatus.com/)
 - [ ] Design functional UI
-- [ ] Add postings
+- [x] Add postings
 - [ ] GitHub integration
-- [ ] Twitter setup
+- [x] Twitter setup
 - [ ] Fun!
 
 ## Usage
