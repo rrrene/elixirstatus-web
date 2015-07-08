@@ -16,4 +16,14 @@ defmodule ElixirStatus.ImpressionController do
       |> Impressionist.record("postings:#{posting_uid}", "short_links", link_uid)
       |> json(%{"ok" => true})
   end
+
+  def postings(conn, %{"context" => context, "uids" => posting_uids}) do
+    posting_uids
+      |> String.split(",")
+      |> Enum.each(fn uid ->
+          Impressionist.record(conn, context, "posting", uid)
+        end)
+
+    json(conn, %{"ok" => true})
+  end
 end

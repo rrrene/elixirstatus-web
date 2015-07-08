@@ -2,7 +2,7 @@
 
 <%= link "New posting", to: posting_path(@conn, :new) %>
 
-<table class="table">
+<table class="table posts">
   <thead>
     <tr>
       <th>User</th>

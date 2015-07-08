@@ -53,6 +53,7 @@ defmodule ElixirStatus.Router do
     pipe_through :api
 
     post "/external", ImpressionController, :external, as: :external
+    post "/postings", ImpressionController, :postings, as: :postings
   end
 
   # Fetch the current user from the session and add it to `conn.assigns`. This
