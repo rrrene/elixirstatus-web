@@ -31,14 +31,32 @@ The important thing here is this is inspired by the original RubyFlow. Giving de
 - [x] Twitter setup
 - [ ] Fun!
 
+
+
 ## Usage
 
 To start your new Phoenix application:
 
 1. Install dependencies with `mix deps.get`
-2. Start Phoenix endpoint with `mix phoenix.server`
+2. [Register a GitHub application](https://github.com/settings/applications/new) for local testing:
+    
+    Application name: `<your choice>`
+
+    Homepage-URL: `localhost:4000`
+
+    Application description: `<your choice>`
+
+    Authorization callback URL: `http://localhost:4000/auth/callback`
+
+3. Start Phoenix endpoint with 
+
+```
+CLIENT_ID=<your_github_app_client_id> CLIENT_SECRET=<your_github_app_client_secret> mix phoenix.server
+```
 
 Now you can visit `localhost:4000` from your browser.
+
+
 
 ## Contribution
 
