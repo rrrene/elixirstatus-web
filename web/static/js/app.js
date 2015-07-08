@@ -19,3 +19,23 @@ jQuery(function($) {
     visited($(this));
   });
 });
+
+function autoSavingContent(element, time) {
+
+  var domElement = $(element);
+
+  if (localStorage) {
+    var content = localStorage.getItem("autoSave" + element);
+    if (content) {
+      domElement.val(content);
+    }
+  }
+
+  domElement.autoSave(element, function ( ) {
+    console.log("Autosaving... ", element);
+  }, time);
+}
+
+autoSavingContent("#posting_text", 500);
+autoSavingContent("#posting_title", 502);
+$("input[type='submit']").click(function () { localStorage.clear() });
