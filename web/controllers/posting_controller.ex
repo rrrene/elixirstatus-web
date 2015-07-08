@@ -13,7 +13,8 @@ defmodule ElixirStatus.PostingController do
   def index(conn, _params) do
     conn
       |> ElixirStatus.Impressionist.record("frontpage")
-      |> render("index.html", postings: get_all)
+      |> render("index.html", postings: get_all,
+                              created_posting: load_created_posting(conn))
   end
 
   def new(conn, _params) do
@@ -28,11 +29,11 @@ defmodule ElixirStatus.PostingController do
     changeset = Posting.changeset(%Posting{}, posting_params)
 
     if changeset.valid? do
-      Repo.insert!(changeset)
-        |> Publisher.after_create
+      posting = Repo.insert!(changeset)
+      posting |> Publisher.after_create
 
       conn
-        |> put_flash(:info, "Posting created successfully.")
+        |> put_session(:created_posting_uid, posting.uid)
         |> redirect(to: posting_path(conn, :index))
     else
       render(conn, "new.html", changeset: changeset)
@@ -98,6 +99,24 @@ defmodule ElixirStatus.PostingController do
       conn
         |> assign(:posting, posting)
     end
+  end
+
+  def load_created_posting(conn) do
+    uid = get_session(conn, :created_posting_uid)
+    case load_created_posting_by_uid(uid)  do
+      nil ->
+        conn
+          |> put_session(:created_posting_uid, nil)
+        nil
+      posting -> posting
+    end
+  end
+
+  def load_created_posting_by_uid(nil), do: nil
+
+  def load_created_posting_by_uid(uid) do
+    get_by_uid(uid)
+    # TODO: return nil if posting is older than 3 minutes
   end
 
   defp authenticate(conn, :logged_in) do

@@ -2,6 +2,15 @@
 
 <%= link "New posting", to: posting_path(@conn, :new) %>
 
+<%= if @created_posting do %>
+  <p>
+    Just created a posting!!!
+  </p>
+  <p>
+    <strong>TODO:</strong> Show some context sensitive stuff.
+  </p>
+<% end %>
+
 <table class="table posts">
   <thead>
     <tr>
