@@ -52,8 +52,11 @@ To start the ElixirStatus application:
     $ mix ecto.create
     $ mix ecto.migrate
     ```
-
-4. [Register a GitHub application](https://github.com/settings/applications/new) for local testing:
+4. Seed database
+    ```bash
+    $ mix run priv/repo/seeds/seed.exs
+    ``` 
+5. [Register a GitHub application](https://github.com/settings/applications/new) for local testing:
 
     Application name: `<your choice>`
 
@@ -63,7 +66,7 @@ To start the ElixirStatus application:
 
     Authorization callback URL: `http://localhost:4000/auth/callback`
 
-5. Start Phoenix endpoint with
+6. Start Phoenix endpoint with
     ```bash
     CLIENT_ID=<your_github_app_client_id> CLIENT_SECRET=<your_github_app_client_secret> mix phoenix.server
     ```
