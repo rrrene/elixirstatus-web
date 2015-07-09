@@ -37,9 +37,19 @@ The important thing here is this is inspired by the original RubyFlow. Giving de
 
 To start your new Phoenix application:
 
-1. Install dependencies with `mix deps.get`
-2. [Register a GitHub application](https://github.com/settings/applications/new) for local testing:
-    
+1. Install dependencies with:
+    ```bash
+    $ mix deps.get
+    ```
+
+2. Create and migrate the database with:
+    ```bash
+    $ mix ecto.create
+    $ mix ecto.migrate
+    ```
+
+3. [Register a GitHub application](https://github.com/settings/applications/new) for local testing:
+
     Application name: `<your choice>`
 
     Homepage-URL: `localhost:4000`
@@ -48,11 +58,10 @@ To start your new Phoenix application:
 
     Authorization callback URL: `http://localhost:4000/auth/callback`
 
-3. Start Phoenix endpoint with 
-
-```
-CLIENT_ID=<your_github_app_client_id> CLIENT_SECRET=<your_github_app_client_secret> mix phoenix.server
-```
+4. Start Phoenix endpoint with
+    ```bash
+    CLIENT_ID=<your_github_app_client_id> CLIENT_SECRET=<your_github_app_client_secret> mix phoenix.server
+    ```
 
 Now you can visit `localhost:4000` from your browser.
 
