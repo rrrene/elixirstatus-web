@@ -52,7 +52,8 @@ To start the ElixirStatus application:
     $ mix ecto.create
     $ mix ecto.migrate
     ```
-4. Seed database
+4. Seed database with:
+
     ```bash
     $ mix run priv/repo/seeds/seed.exs
     ``` 
