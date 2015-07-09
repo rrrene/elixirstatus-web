@@ -28,6 +28,18 @@ uid = ElixirStatus.UID.generate(Posting)
 
 # ---------------------------------------------------------------------------
 
+title = "New project: FluxCapacitorEx"
+text = """
+I just recently started this `time_travel` related project, FluxCapacitorEx.
+
+It takes both Ecto.DateTime and Erlang tuples as input and converts them to the 1950's ...
+"""
+uid = ElixirStatus.UID.generate(Posting)
+%Posting{user_id: 7, uid: uid, permalink: Publisher.permalink(uid, title), text: text, title: title, scheduled_at: nil, published_at: Ecto.DateTime.utc, public: true}
+  |> Repo.insert!
+
+# ---------------------------------------------------------------------------
+
 title = "Learning Elixir is one year old today!"
 text = """
 It’s been one year since my first post on Learning Elixir.
@@ -76,20 +88,6 @@ This is a fake announcement by ^ this person.
 """
 uid = ElixirStatus.UID.generate(Posting)
 %Posting{user_id: 6, uid: uid, permalink: Publisher.permalink(uid, title), text: text, title: title, scheduled_at: nil, published_at: Ecto.DateTime.utc, public: true}
-  |> Repo.insert!
-
-# ---------------------------------------------------------------------------
-
-title = "New project: FluxCapacitorEx"
-text = """
-This is a fake announcement by ^ this person.
-
-***If you are him or her, you can help this project out:***
-
-[Edit this on GitHub](https://github.com/rrrene/elixirstatus-web/edit/master/priv/repo/seeds/postings_dev.exs) to add a more convincing text!
-"""
-uid = ElixirStatus.UID.generate(Posting)
-%Posting{user_id: 7, uid: uid, permalink: Publisher.permalink(uid, title), text: text, title: title, scheduled_at: nil, published_at: Ecto.DateTime.utc, public: true}
   |> Repo.insert!
 
 # ---------------------------------------------------------------------------
