@@ -9,9 +9,23 @@
     <%= @posting.published_at |> human_readable_date %>
     by
     <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank">@<%= raw @posting.user.user_name %></a>
+    <%= if @belongs_to_me? do %>
+      <span class="functions">
+        | <%= link "edit", to: posting_path(@conn, :edit, @posting) %>
+      </span>
+    <% end %>
   </span>
 
   <div class="post-body">
     <%= sanitized_markdown @posting.text %>
   </div>
 </div>
+
+<%= if @just_created_by_me? do %>
+  <p>
+    Just created a posting!!!
+  </p>
+  <p>
+    <strong>TODO:</strong> Show some context sensitive stuff.
+  </p>
+<% end %>

@@ -32,4 +32,8 @@
       </div>
     </div>
   <% end %>
+
+  <%= if @editing? do %>
+    <%= link "Delete", to: posting_path(@conn, :delete, @posting), method: :delete %>
+  <% end %>
 </div>

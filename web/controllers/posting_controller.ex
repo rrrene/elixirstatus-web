@@ -49,7 +49,8 @@ defmodule ElixirStatus.PostingController do
 
     conn
       |> ElixirStatus.Impressionist.record("detail", "postings", posting.uid)
-      |> render("show.html", posting: posting)
+      |> render("show.html",  posting: posting,
+                              created_posting: load_created_posting(conn))
   end
 
   def edit(conn, %{"id" => id}) do
@@ -165,7 +166,9 @@ defmodule ElixirStatus.PostingController do
   end
 
   defp get_all do
-    query = from(p in Posting, where: p.public == ^true)
+    query = from p in Posting,
+                  where: p.public == ^true,
+                  order_by: [desc: :published_at]
     query |> Ecto.Query.preload(:user) |> Repo.all
   end
 

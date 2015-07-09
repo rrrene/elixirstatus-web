@@ -2,20 +2,10 @@
 
 <%= link "New posting", to: posting_path(@conn, :new) %>
 
-<%= if @created_posting do %>
-  <p>
-    Just created a posting!!!
-  </p>
-  <p>
-    <strong>TODO:</strong> Show some context sensitive stuff.
-  </p>
-<% end %>
-
 <table class="table posts">
   <thead>
     <tr>
       <th>User</th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -23,16 +13,14 @@
     <tr>
       <td>
 
-        <%= render ElixirStatus.PostingView, "posting.html", conn: @conn, posting: posting %>
+<%= render ElixirStatus.PostingView, "posting.html", conn: @conn,
+            posting: posting,
+            belongs_to_me?: ElixirStatus.Auth.belongs_to_current_user?(@conn, posting),
+            just_created_by_me?: @created_posting == posting
+            %>
 
       </td>
 
-      <td class="text-right">
-        <%= link "Permalink", to: permalink_posting_path(@conn, :show, posting.permalink), class: "btn btn-default btn-xs" %>
-        <%= link "Show", to: posting_path(@conn, :show, posting), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: posting_path(@conn, :edit, posting), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: posting_path(@conn, :delete, posting), method: :delete, class: "btn btn-danger btn-xs" %>
-      </td>
     </tr>
 <% end %>
   </tbody>
