@@ -35,20 +35,25 @@ The important thing here is this is inspired by the original RubyFlow. Giving de
 
 ## Usage
 
-To start your new Phoenix application:
+To start the ElixirStatus application:
 
-1. Install dependencies with:
+1. Install mix dependencies with:
     ```bash
     $ mix deps.get
     ```
 
-2. Create and migrate the database with:
+2. Install Node.js dependencies, for the asset pipeline, with:
+    ```bash
+    $ npm install
+    ```
+
+3. Create and migrate the database with:
     ```bash
     $ mix ecto.create
     $ mix ecto.migrate
     ```
 
-3. [Register a GitHub application](https://github.com/settings/applications/new) for local testing:
+4. [Register a GitHub application](https://github.com/settings/applications/new) for local testing:
 
     Application name: `<your choice>`
 
@@ -58,7 +63,7 @@ To start your new Phoenix application:
 
     Authorization callback URL: `http://localhost:4000/auth/callback`
 
-4. Start Phoenix endpoint with
+5. Start Phoenix endpoint with
     ```bash
     CLIENT_ID=<your_github_app_client_id> CLIENT_SECRET=<your_github_app_client_secret> mix phoenix.server
     ```
