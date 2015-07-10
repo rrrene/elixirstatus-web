@@ -1,12 +1,12 @@
 defmodule ViewHelper do
-
-  def current_user(conn), do: conn.assigns[:current_user]
+  # why does `import ElixirStatus.Auth` not work here?
+  def current_user(conn), do: ElixirStatus.Auth.current_user(conn)
+  def logged_in?(conn), do: ElixirStatus.Auth.logged_in?(conn)
+  def admin?(conn), do: ElixirStatus.Auth.admin?(conn)
 
   def human_readable_date(date) do
     date
   end
-
-  def logged_in?(conn), do: !is_nil(current_user(conn))
 
   def sanitize(text) do
     HtmlSanitizeEx.basic_html(text)
