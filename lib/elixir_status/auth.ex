@@ -6,8 +6,8 @@ defmodule ElixirStatus.Auth do
   @doc "Returns true if the logged in user is an admin."
   def admin?(conn) do
     case current_user(conn) do
-      nil   -> false
-      _user -> false # TODO: implement list of admin users
+      nil  -> false
+      user -> Enum.member?(admin_user_ids, user.id)
     end
   end
 
@@ -24,4 +24,11 @@ defmodule ElixirStatus.Auth do
 
   @doc "Returns true if a user is logged in."
   def logged_in?(conn), do: !is_nil current_user(conn)
+
+  defp admin_user_ids do
+    case Application.get_env(:elixir_status, :admin_user_ids) do
+      nil -> []
+      ids -> ids
+    end
+  end
 end

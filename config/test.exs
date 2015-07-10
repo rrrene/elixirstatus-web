@@ -17,3 +17,6 @@ config :elixir_status, ElixirStatus.Repo,
   password: "",
   database: "elixir_status_test",
   size: 1 # Use a single connection for transactional tests
+
+
+config :elixir_status, :admin_user_ids, [1234]

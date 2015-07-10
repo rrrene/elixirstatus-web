@@ -102,7 +102,7 @@ defmodule ElixirStatus.PostingController do
     end
   end
 
-  def load_created_posting(conn) do
+  defp load_created_posting(conn) do
     uid = get_session(conn, :created_posting_uid)
     case load_created_posting_by_uid(uid)  do
       nil ->
@@ -113,9 +113,9 @@ defmodule ElixirStatus.PostingController do
     end
   end
 
-  def load_created_posting_by_uid(nil), do: nil
+  defp load_created_posting_by_uid(nil), do: nil
 
-  def load_created_posting_by_uid(uid) do
+  defp load_created_posting_by_uid(uid) do
     get_by_uid(uid)
     # TODO: return nil if posting is older than 3 minutes
   end
