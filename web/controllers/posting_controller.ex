@@ -13,7 +13,7 @@ defmodule ElixirStatus.PostingController do
   def index(conn, params) do
     conn
       |> ElixirStatus.Impressionist.record("frontpage")
-      |> render("index.html", postings: get_all(params),
+      |> render("index.html", postings: get_all(params).entries,
                               created_posting: load_created_posting(conn))
   end
 

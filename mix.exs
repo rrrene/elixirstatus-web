@@ -43,7 +43,7 @@ defmodule ElixirStatus.Mixfile do
       {:timex, "~> 0.16.0"},
       {:oauth, github: "tim/erlang-oauth"},
       {:extwitter, "~> 0.4"},
-      {:scrivener, "~> 0.9.0"}
+      {:scrivener, "~> 0.10.0"}
     ]
   end
 end
