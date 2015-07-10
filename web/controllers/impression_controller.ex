@@ -18,11 +18,13 @@ defmodule ElixirStatus.ImpressionController do
   end
 
   def postings(conn, %{"context" => context, "uids" => posting_uids}) do
-    posting_uids
-      |> String.split(",")
-      |> Enum.each(fn uid ->
-          Impressionist.record(conn, context, "posting", uid)
-        end)
+    if posting_uids != "" do
+      posting_uids
+        |> String.split(",")
+        |> Enum.each(fn uid ->
+            Impressionist.record(conn, context, "posting", uid)
+          end)
+    end
 
     json(conn, %{"ok" => true})
   end

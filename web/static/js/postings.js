@@ -15,11 +15,13 @@ function loadFrontpagePostingTracker() {
 
     var context = "frontpage";
 
-    $.ajax("/api/postings", {"method": "POST", "data": {"context": context, "uids": not_yet_viewed.join(',')}});
+    if( not_yet_viewed.length > 0 ) {
+      $.ajax("/api/postings", {"method": "POST", "data": {"context": context, "uids": not_yet_viewed.join(',')}});
 
-    not_yet_viewed.forEach(function(uid, index) {
-      already_viewed[uid] = true;
-    });
+      not_yet_viewed.forEach(function(uid, index) {
+        already_viewed[uid] = true;
+      });
+    }
   }
 
   function nowLookingAt(posting_uids) {
