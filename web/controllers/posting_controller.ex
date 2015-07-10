@@ -166,7 +166,7 @@ defmodule ElixirStatus.PostingController do
 
   defp get_all(params) do
     query = from(p in Posting, where: p.public == ^true)
-    query |> Ecto.Query.preload(:user) |> Repo.paginate
+    query |> Ecto.Query.preload(:user) |> Repo.paginate(params)
   end
 
   defp get_by_id(id) do
