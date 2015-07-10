@@ -10,10 +10,10 @@ defmodule ElixirStatus.PostingController do
   plug :authenticate, :same_user_or_admin when action in [:edit, :update, :delete]
   plug :scrub_params, "posting" when action in [:create, :update]
 
-  def index(conn, _params) do
+  def index(conn, params) do
     conn
       |> ElixirStatus.Impressionist.record("frontpage")
-      |> render("index.html", postings: get_all,
+      |> render("index.html", postings: get_all(params),
                               created_posting: load_created_posting(conn))
   end
 
@@ -164,9 +164,9 @@ defmodule ElixirStatus.PostingController do
     }
   end
 
-  defp get_all do
+  defp get_all(params) do
     query = from(p in Posting, where: p.public == ^true)
-    query |> Ecto.Query.preload(:user) |> Repo.all
+    query |> Ecto.Query.preload(:user) |> Repo.paginate
   end
 
   defp get_by_id(id) do
