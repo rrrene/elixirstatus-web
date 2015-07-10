@@ -12,6 +12,9 @@ defmodule ElixirStatus.Auth do
   end
 
   def belongs_to_current_user?(conn, object) do
-    object.user_id == current_user(conn).id
+    case current_user(conn) do
+      nil  -> false
+      user -> object.user_id == user.id
+    end
   end
 end

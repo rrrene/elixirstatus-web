@@ -26,7 +26,7 @@ defmodule ElixirStatus.PostingControllerTest do
   #
 
   @tag posting_create: true
-  test "creates resource and redirects when data is valid", %{conn: conn} do
+  test "creates resource and redirects when data is valid", _ do
     conn = logged_in_conn()
             |> post posting_path(conn, :create), posting: @valid_attrs
 
@@ -44,11 +44,21 @@ defmodule ElixirStatus.PostingControllerTest do
   end
 
   @tag posting_create: true
-  test "does not create resource and renders errors when data is invalid", %{conn: conn} do
+  test "does not create resource and renders errors when data is invalid", _ do
     conn = logged_in_conn()
             |> post posting_path(conn, :create), posting: @invalid_attrs
 
     assert html_response(conn, 200) =~ "New posting"
+  end
+
+  @tag posting_create: true
+  test "does not create resource with given permalink", _ do
+    attrs = %{permalink: "haxxor", text: "some [content](http://github.com/) on the [web](http://google.com/)", title: "some content"}
+    conn = logged_in_conn()
+            |> post posting_path(conn, :create), posting: attrs
+
+    refute Repo.get_by(Posting, attrs)
+    assert redirected_to(conn) == posting_path(conn, :index)
   end
 
   #
@@ -148,6 +158,44 @@ defmodule ElixirStatus.PostingControllerTest do
             |> put posting_path(conn, :update, posting), posting: @valid_attrs
 
     assert Repo.get_by(Posting, @valid_attrs)
+    assert redirected_to(conn) == posting_path(conn, :index)
+  end
+
+  @tag posting_update: true
+  test "won't update not white listed attribute: permalink", _ do
+    attrs = %{permalink: "haxxor-permalink-update"}
+    conn = logged_in_conn()
+    posting = Repo.insert! valid_posting(user_id: current_user(conn).id)
+    conn = conn
+            |> put posting_path(conn, :update, posting), posting: attrs
+
+    refute Repo.get_by(Posting, attrs)
+    assert redirected_to(conn) == posting_path(conn, :index)
+  end
+
+  @tag posting_update: true
+  test "won't update not white listed attribute: uid", _ do
+    attrs = %{uid: "haxxor-uid-update"}
+    conn = logged_in_conn()
+    posting = Repo.insert! valid_posting(user_id: current_user(conn).id)
+    conn = conn
+            |> put posting_path(conn, :update, posting), posting: attrs
+
+    refute Repo.get_by(Posting, attrs)
+    assert redirected_to(conn) == posting_path(conn, :index)
+  end
+
+  @tag posting_update: true
+  test "won't update not white listed attribute: public", _ do
+    attrs = %{public: false}
+    conn = logged_in_conn()
+    posting = Repo.insert! valid_posting(user_id: current_user(conn).id)
+    assert posting.public == true
+
+    conn = conn
+            |> put posting_path(conn, :update, posting), posting: attrs
+
+    refute Repo.get(Posting, posting.id).public == false
     assert redirected_to(conn) == posting_path(conn, :index)
   end
 

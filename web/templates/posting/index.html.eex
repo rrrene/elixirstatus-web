@@ -1,6 +1,13 @@
-<h2>Listing postings</h2>
+<%= if logged_in?(@conn) do %>
+<%= render "form.html", current_user_name: current_user(@conn).user_name,
+                        changeset: @changeset,
+                        action: posting_path(@conn, :create),
+                        posting: nil,
+                        editing?: false %>
+<% end %>
 
-<%= link "New posting", to: posting_path(@conn, :new) %>
+
+<h2>Listing postings</h2>
 
 <table class="table posts">
   <thead>

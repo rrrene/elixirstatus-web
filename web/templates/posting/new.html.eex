@@ -2,6 +2,8 @@
 
 <%= render "form.html", current_user_name: current_user(@conn).user_name,
                         changeset: @changeset,
-                        action: posting_path(@conn, :create) %>
+                        action: posting_path(@conn, :create),
+                        posting: nil,
+                        editing?: false %>
 
 <%= link "Back", to: posting_path(@conn, :index) %>

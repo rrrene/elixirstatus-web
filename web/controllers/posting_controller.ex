@@ -14,12 +14,12 @@ defmodule ElixirStatus.PostingController do
     conn
       |> ElixirStatus.Impressionist.record("frontpage")
       |> render("index.html", postings: get_all,
-                              created_posting: load_created_posting(conn))
+                              created_posting: load_created_posting(conn),
+                              changeset: Posting.changeset(%Posting{}))
   end
 
   def new(conn, _params) do
-    changeset = Posting.changeset(%Posting{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: Posting.changeset(%Posting{}))
   end
 
   def create(conn, %{"posting" => posting_params}) do
