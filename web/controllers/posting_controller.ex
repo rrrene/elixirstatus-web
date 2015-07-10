@@ -140,11 +140,11 @@ defmodule ElixirStatus.PostingController do
   end
 
   defp extract_valid_params(%{"title" => title, "text" => text}) do
-    %{"title" => String.strip(title || ""), "text" => String.strip(text || "")}
+    %{"title" => title || "", "text" => text || ""}
   end
 
   defp extract_valid_params(%{"title" => title, "text" => text, "scheduled_at" => scheduled_at}) do
-    %{"title" => String.strip(title), "text" => String.strip(text), "scheduled_at" => scheduled_at}
+    %{"title" => title || "", "text" => text || "", "scheduled_at" => scheduled_at}
   end
 
   defp extract_valid_params(_) do
