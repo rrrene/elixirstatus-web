@@ -1,0 +1,228 @@
+@import "_config";
+
+/*
+ * Body resets
+ *
+ * Update the foundational and global aspects of the page.
+ */
+
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+/*
+ * Posts and pages
+ *
+ * Each post is wrapped in `.post` and is used on default and post layouts. Each
+ * page is wrapped in `.page` and is only used on the page layout.
+ */
+
+.page,
+.post {
+  margin-bottom: 2em;
+}
+
+/* Blog post or page title */
+.page-title,
+.post-title,
+.post-title a {
+  color: #303030;
+}
+.page-title,
+.post-title {
+  margin-top: 0rem !important;
+}
+
+/* Meta data line below post title */
+.post-meta {
+  display: block;
+  margin-top: -.5rem;
+  margin-bottom: 1rem;
+  color: #9a9a9a;
+
+  strong {
+    font-weight: normal;
+    font-style: normal;
+    background-color: #ffa;
+  }
+}
+
+
+/*
+ * Pagination
+ *
+ * Super lightweight (HTML-wise) blog pagination. `span`s are provide for when
+ * there are no more previous or next posts to show.
+ */
+
+.pagination {
+  overflow: hidden; /* clearfix */
+  margin-left: -1rem;
+  margin-right: -1rem;
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+  color: #ccc;
+  text-align: center;
+}
+
+/* Pagination items can be `span`s or `a`s */
+.pagination-item {
+  display: block;
+  padding: 1rem;
+  border: 1px solid #eee;
+}
+.pagination-item:first-child {
+  margin-bottom: -1px;
+}
+
+/* Only provide a hover state for linked pagination items */
+a.pagination-item:hover {
+  background-color: #f5f5f5;
+}
+
+@media (min-width: 30em) {
+  .pagination {
+    margin: 3rem 0;
+  }
+  .pagination-item {
+    float: left;
+    width: 50%;
+  }
+  .pagination-item:first-child {
+    margin-bottom: 0;
+    border-top-left-radius:    4px;
+    border-bottom-left-radius: 4px;
+  }
+  .pagination-item:last-child {
+    margin-left: -1px;
+    border-top-right-radius:    4px;
+    border-bottom-right-radius: 4px;
+  }
+}
+
+
+/*
+ *  __                  __
+ * /\ \                /\ \
+ * \ \ \___   __  __   \_\ \     __
+ *  \ \  _ `\/\ \/\ \  /'_` \  /'__`\
+ *   \ \ \ \ \ \ \_\ \/\ \_\ \/\  __/
+ *    \ \_\ \_\/`____ \ \___,_\ \____\
+ *     \/_/\/_/`/___/> \/__,_ /\/____/
+ *                /\___/
+ *                \/__/
+ *
+ * Designed, built, and released under MIT license by @mdo. Learn more at
+ * https://github.com/poole/hyde.
+ */
+
+
+/*
+ * Contents
+ *
+ * Global resets
+ * Sidebar
+ * Container
+ * Reverse layout
+ * Themes
+ */
+
+
+/*
+ * Global resets
+ *
+ * Update the foundational and global aspects of the page.
+ */
+
+html,
+input.post-title {
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+}
+/*
+*/
+
+
+/* Container
+ *
+ * Align the contents of the site above the proper threshold with some margin-fu
+ * with a 25%-wide `.sidebar`.
+ */
+
+.content {
+  margin-left:  auto;
+  margin-right: auto;
+  padding: 2rem 1rem 1rem 1rem;
+}
+.footer {
+  font-size: 0.75rem;
+  border-top: 2px solid #eee;
+}
+
+@include phablet_landscape_and_bigger {
+  .post {
+    padding-left: 80px;
+  }
+
+  .post-avatar {
+    display: block !important;
+    position: absolute;
+    margin-left: -80px;
+
+    .image {
+      background-color: #f0f0f0;
+      background-size: 100% 100%;
+      width: 64px;
+      height: 64px;
+      border-radius: 25%;
+    }
+  }
+}
+
+@include tablet_portrait_and_bigger {
+  .content {
+    max-width: 740px;
+  }
+}
+
+@include tablet_landscape_and_bigger {
+  .content,
+  .footer {
+    margin-left: 16rem;
+  }
+  .content .container,
+  .footer {
+    padding-left: 2rem;
+    padding-right: 1rem;
+  }
+}
+
+
+@include desktop_and_bigger {
+  .content,
+  .footer {
+    margin-left: 20rem;
+    max-width: 890px;
+  }
+}
+
+/* Elixir */
+body .content .post-body a,
+body .related-posts li a:hover {
+  color: #8D29BE;
+  text-decoration: underline;
+}
+
+.footer {
+  font-size: 14px;
+  text-align: center;
+  color: #000;
+  padding: 10px;
+}

@@ -1,0 +1,56 @@
+
+
+$desktop_width: 1280px;
+
+$tablet_landscape_width: 1024px;
+$tablet_portrait_width: 768px;
+
+// let's use phablet for big phones and small tablets :)
+$phablet_landscape_width: 600px;
+$phablet_portrait_width: 400px;
+
+
+// 64em: tablet 1024px
+// 48em: 768
+// 30em: 480
+
+@mixin desktop_and_bigger {
+  @media screen and (min-width: $desktop_width - 1px) {
+    @content;
+  }
+}
+
+@mixin tablet_landscape_and_bigger {
+  @media screen and (min-width: $tablet_landscape_width - 1px) {
+    @content;
+  }
+}
+
+@mixin tablet_portrait_and_bigger {
+  @media screen and (min-width: $tablet_portrait_width - 1px) {
+    @content;
+  }
+}
+
+@mixin phablet_landscape_and_bigger {
+  @media screen and (min-width: $phablet_landscape_width - 1px) {
+    @content;
+  }
+}
+
+@mixin phablet_portrait_and_bigger {
+  @media screen and (min-width: $phablet_portrait_width - 1px) {
+    @content;
+  }
+}
+
+@mixin clearAfter {
+  &:after {
+    content: ".";
+    display: block;
+    clear: both;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+  }
+}

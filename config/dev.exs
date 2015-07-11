@@ -34,4 +34,5 @@ config :elixir_status, ElixirStatus.Repo,
   database: "elixir_status_dev",
   size: 10 # The amount of database connections in the pool
 
+config :elixir_status, :base_url, "http://localhost:4000"
 config :elixir_status, :admin_user_ids, [1]

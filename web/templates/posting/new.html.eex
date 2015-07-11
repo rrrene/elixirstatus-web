@@ -1,10 +1,11 @@
-<h2>New posting</h2>
+<%= link "Back", to: posting_path(@conn, :index), class: "btn btn-back" %>
+
+<h2>Create your posting</h2>
 
 <%= render "form.html", current_user_name: current_user(@conn).user_name,
                         changeset: @changeset,
                         action: posting_path(@conn, :create),
                         conn: @conn,
                         posting: nil,
+                        css_class: "new-post",
                         editing?: false %>
-
-<%= link "Back", to: posting_path(@conn, :index) %>

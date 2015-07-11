@@ -16,12 +16,35 @@
   </head>
 
   <body>
-    <div class="content container">
-      <div class="masthead">
-        <h3 class="masthead-title">
-        </h3>
+    <div class="content">
+      <div class="container">
+        <%= @inner %>
       </div>
-      <%= @inner %>
+    </div>
+
+    <div class="footer">
+      <div class="inner">
+      <p>
+      </p><p>ElixirStatus let's you publish links back to stuff you created: new projects, blog posts or version updates.</p>
+
+      <p>
+        It is an <a href="https://github.com/rrrene/elixirstatus-web" target="_blank">open source project</a>, built by community members
+       with <a href="http://trivelop.de/inch" target="_blank">Elixir</a>+<a href="http://trivelop.de/inch" target="_blank">Phoenix</a>.
+      </p>
+
+      <p>
+        Please contact René Föhring (<a href="https://twitter.com/rrrene" target="_blank">@rrrene</a>) if you have any questions and <a href="https://github.com/inch-ci/inch_ci-web/issues/new" target="_blank">create an issue</a> if anything seems broken or worthy of improvement.
+      </p>
+
+      <p>
+        <%= if logged_in?(@conn) do %>
+          <a href="/auth/sign_out">Sign out</a>
+        <% else %>
+          <a href="/auth">Sign in with GitHub</a>
+        <% end %>
+      </p>
+
+      </div>
     </div>
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>

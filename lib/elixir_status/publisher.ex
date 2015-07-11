@@ -8,8 +8,6 @@ defmodule ElixirStatus.Publisher do
   alias ElixirStatus.LinkShortener
   alias ElixirStatus.Posting
 
-  @base_url "http://elixirstatus.com"
-
   @doc """
     Called when a posting is created by PostingController.
 
@@ -82,7 +80,9 @@ defmodule ElixirStatus.Publisher do
   end
 
   defp short_url(permalink) do
-    uid = "#{@base_url}/p/#{permalink}" |> LinkShortener.to_uid
-    "#{@base_url}/=#{uid}"
+    uid = "#{base_url}/p/#{permalink}" |> LinkShortener.to_uid
+    "#{base_url}/=#{uid}"
   end
+
+  defp base_url, do: Application.get_env(:elixir_status, :base_url)
 end

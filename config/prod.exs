@@ -33,6 +33,8 @@ config :elixir_status, ElixirStatus.Endpoint,
 # Do not print debug messages in production
 config :logger, :console, level: :info
 
+config :elixir_status, :base_url, "http://elixirstatus.com"
+
 # ## Using releases
 #
 # If you are doing OTP releases, you need to instruct Phoenix

@@ -12,18 +12,23 @@ exports.config = {
       //
       // To change the order of concatenation of files, explictly mention here
       // https://github.com/brunch/brunch/tree/stable/docs#concatenation
-      // order: {
-      //   before: [
-      //     'web/static/vendor/js/jquery-2.1.1.js',
-      //     'web/static/vendor/js/bootstrap.min.js'
-      //   ]
-      // }
     },
     stylesheets: {
-      joinTo: 'css/app.css'
+      joinTo: 'css/app.css',
+      order: {
+        before: [
+          'web/static/css/layout.scss',
+          'web/static/css/typo.scss'
+        ]
+      }
     },
     templates: {
-      joinTo: 'js/app.js'
+      joinTo: 'js/app.js',
+      order: {
+        before: [
+          'web/static/vendor/jquery-1.11.3.min.js'
+        ]
+      }
     }
   },
 

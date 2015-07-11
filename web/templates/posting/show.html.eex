@@ -1,6 +1,6 @@
+<%= link "Back", to: posting_path(@conn, :index), class: "btn btn-back" %>
+
 <%= render ElixirStatus.PostingView, "posting.html", conn: @conn,
             posting: @posting,
             belongs_to_me?: ElixirStatus.Auth.belongs_to_current_user?(@conn, @posting),
             just_created_by_me?: @created_posting == @posting %>
-
-<%= link "Back", to: posting_path(@conn, :index) %>

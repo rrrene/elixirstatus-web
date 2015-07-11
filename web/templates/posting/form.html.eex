@@ -1,4 +1,4 @@
-<div class="post new-post">
+<div class="post <%= @css_class %>">
   <div class="post-avatar">
     <div class="image" style="background-image: url(<%= raw "/images/github/#{@current_user_name}.jpg" %>)"></div>
   </div>
@@ -13,11 +13,14 @@
         </ul>
       </div>
     <% end %>
-    <%= text_input f, :title, id: "posting_title", class: "post-title", palceholder: "Title goes here" %>
+    <%= text_input f, :title, id: "posting_title", class: "post-title", placeholder: "Title goes here" %>
 
-    <span class="post-date">
-      Today by
-      <a href="https://github.com/<%= raw @current_user_name %>" target="_blank">@<%= raw @current_user_name %></a>
+    <span class="post-meta">
+      <span class="post-date">Today</span>
+      <span class="post-author">
+        by
+        <a href="https://github.com/<%= raw @current_user_name %>" target="_blank">@<%= raw @current_user_name %></a>
+      </span>
     </span>
 
     <%= textarea f, :text, id: "posting_text", class: "post-body", placeholder: "Text should describe what you made in prose. Don't forget to link to your project/blog post!" %>
@@ -34,7 +37,8 @@
   <% end %>
 
   <%= if @editing? do %>
-    <%= link "Delete", to: posting_path(@conn, :delete, @posting), method: :delete %>
+    <hr>
+    <%= link "Delete this posting", to: posting_path(@conn, :delete, @posting), method: :delete, class: "btn btn-danger" %>
   <% end %>
 </div>
 

@@ -1,0 +1,34 @@
+@import "_config";
+
+body.debug {
+  .container {
+    border: 1px solid hotpink;
+    &:before {
+      display: block;
+      position: absolute;
+      background: hotpink;
+      content: "container";
+      right: 0;
+    }
+  }
+  .post {
+    border: 1px solid green;
+    &:before {
+      display: block;
+      position: absolute;
+      background: green;
+      content: "post";
+      right: 0;
+    }
+  }
+  .footer {
+    border: 1px solid hotpink;
+    &:before {
+      display: block;
+      position: absolute;
+      background: hotpink;
+      content: "footer";
+      right: 0;
+    }
+  }
+}

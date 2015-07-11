@@ -1,10 +1,11 @@
-<h2>Edit posting</h2>
+<%= link "Back", to: posting_path(@conn, :index), class: "btn btn-back" %>
+
+<h2>Edit your posting</h2>
 
 <%= render "form.html", current_user_name: current_user(@conn).user_name,
                         changeset: @changeset,
                         action: posting_path(@conn, :update, @posting),
                         posting: @posting,
                         conn: @conn,
+                        css_class: "edit-post",
                         editing?: true %>
-
-<%= link "Back", to: posting_path(@conn, :index) %>

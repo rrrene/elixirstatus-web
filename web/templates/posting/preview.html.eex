@@ -5,10 +5,12 @@
 
   <h1 class="post-title"><%= sanitize(@posting.title) %></h1>
 
-  <span class="post-date">
-    <%= @posting.published_at |> human_readable_date %>
-    by
-    <a href="https://github.com/<%= raw current_user(@conn).user_name %>" target="_blank">@<%= raw current_user(@conn).user_name %></a>
+  <span class="post-meta">
+    <span class="post-date">PREVIEW</span>
+    <span class="post-author">
+      by
+      <a href="https://github.com/<%= raw current_user(@conn).user_name %>" target="_blank">@<%= raw current_user(@conn).user_name %></a>
+    </span>
   </span>
 
   <div class="post-body">

@@ -1,0 +1,185 @@
+@import "_config";
+
+/*
+ * Sidebar
+ *
+ * Flexible banner for housing site name, intro, and "footer" content. Starts
+ * out above content in mobile and later moves to the side with wider viewports.
+ */
+.sidebar {
+  text-align: center;
+  color: rgba(255,255,255,.5);
+  background-color: #432C50;
+  border: 2px solid #432C50;
+  border-bottom-color: #8F58B9;
+}
+
+/* Sidebar links */
+.sidebar a {
+  color: #fff;
+}
+
+.sidebar-header {
+  text-align: center;
+  font-size: 0.875rem;
+  padding: 0.25rem;
+  img {
+    width: 32px;
+    height: 32px;
+    border-radius: 25%;
+    vertical-align: top;
+  }
+  h1 {
+    display: inline;
+  }
+  p {
+    margin: 0;
+    display: none;
+  }
+}
+.sidebar-nav {
+  display: none;
+}
+
+/* About section */
+.sidebar-header h1 {
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 1.25rem;
+}
+
+/* Sidebar nav */
+.sidebar-nav-item {
+  display: block;
+  line-height: 1.75;
+  background: #150C1A;
+  border-top: 1px solid #222;
+  padding: 0.25rem;
+}
+a.sidebar-nav-item:hover,
+a.sidebar-nav-item:focus {
+  text-decoration: underline;
+}
+.sidebar-nav-item.active {
+  font-weight: bold;
+  background: #271134;
+}
+
+/* Slide effect
+ *
+ * Handle the sliding effects of the sidebar and content in one spot, seperate
+ * from the default styles.
+ *
+ * As an a heads up, we don't use `transform: translate3d()` here because when
+ * mixed with `position: fixed;` for the sidebar toggle, it creates a new
+ * containing block. Put simply, the fixed sidebar toggle behaves like
+ * `position: absolute;` when transformed.
+ *
+ * Read more about it at http://meyerweb.com/eric/thoughts/2011/09/12/.
+ */
+
+#sidebar-checkbox:checked ~ .sidebar-nav {
+  display: block;
+}
+
+
+/* Hide the sidebar checkbox that we toggle with `.sidebar-toggle` */
+.sidebar-checkbox {
+  display: none;
+}
+
+/* Style the `label` that we use to target the `.sidebar-checkbox` */
+.sidebar-toggle {
+  position: absolute;
+  top:  0.5rem;
+  left: 1rem;
+  display: block;
+  width: 2.2rem;
+  padding: .5rem .65rem;
+  color: #FFFFFF;
+  background-color: #76449B;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.sidebar-toggle:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-bottom: .125rem;
+  border-top: .375rem double;
+  border-bottom: .125rem solid;
+
+  /* Make the border inside the box */
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.sidebar-toggle:active,
+#sidebar-checkbox:checked ~ .sidebar-toggle {
+  opacity: 0.6;
+}
+
+/* Move sidebar to the left */
+@include tablet_landscape_and_bigger {
+  .sidebar-toggle {
+    position: fixed;
+    width: 2.25rem;
+  }
+  .sidebar-toggle:before {
+    padding-bottom: .15rem;
+    border-top-width: .45rem;
+    border-bottom-width: .15rem;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 16rem;
+
+    padding: 2rem 1rem 1rem 1rem;
+
+    border-bottom-color: transparent;
+    border-right-color: #8F58B9;
+  }
+
+  .sidebar-header {
+    h1 {
+      display: block;
+    }
+    img {
+      width: 128px;
+      height: 128px;
+    }
+    p {
+      display: block;
+    }
+  }
+
+  .sidebar-nav-container {
+    position: absolute;
+    right:  1rem;
+    bottom: 1rem;
+    left:   1rem;
+  }
+  .sidebar-nav-item.active {
+    background: transparent;
+  }
+
+  .sidebar-toggle {
+    display: none;
+  }
+  .sidebar-nav {
+    display: block;
+
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
+  .sidebar-nav-item {
+    background: transparent;
+    border: none;
+  }
+}

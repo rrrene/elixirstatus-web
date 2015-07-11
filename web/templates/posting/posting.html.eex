@@ -3,16 +3,19 @@
     <div class="image" style="background-image: url(<%= raw "/images/github/#{@posting.user.user_name}.jpg" %>)"></div>
   </div>
 
-  <h1 class="post-title"><%= link sanitize(@posting.title), to: permalink_posting_path(@conn, :show, @posting.permalink) %></h1>
+  <h1 class="post-title"><%= link sanitized_inline_markdown(@posting.title), to: permalink_posting_path(@conn, :show, @posting.permalink) %></h1>
 
-  <span class="post-date">
-    <%= @posting.published_at |> human_readable_date %>
-    by
-    <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank">@<%= raw @posting.user.user_name %></a>
+  <span class="post-meta">
+    <span class="post-date"><%= @posting.published_at |> human_readable_date %></span>
+    <span class="post-author">
+      by
+      <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank">@<%= raw @posting.user.user_name %></a>
+    </span>
 
-    <%= if @belongs_to_me? do %>
       <span class="functions">
-        | <%= link "edit", to: posting_path(@conn, :edit, @posting) %>
+        <%= if @belongs_to_me? do %>
+          | <%= link "edit", to: posting_path(@conn, :edit, @posting) %>
+        <% end %>
 
         <%= if admin?(@conn) do %>
           <span class="admin">
@@ -20,19 +23,30 @@
           </span>
         <% end %>
       </span>
-    <% end %>
   </span>
 
   <div class="post-body">
     <%= sanitized_markdown @posting.text %>
   </div>
-</div>
 
-<%= if @just_created_by_me? do %>
-  <p>
-    Just created a posting!!!
-  </p>
-  <p>
-    <strong>TODO:</strong> Show some context sensitive stuff.
-  </p>
-<% end %>
+  <%= if @just_created_by_me? do %>
+    <div class="post-options">
+      <div class="twitter-integration">
+        <hr>
+        @elixirstatus just tweeted your post using the #elixirlang hashtag.
+
+        <br><strong>Tweet it yourself using #myelixirstatus to maximize its circulation:</strong>
+        <div class="tweet">
+          <a class="btn btn-tweet" style="display: inline-block; float: right;" href="https://twitter.com/intent/tweet?hashtags=myelixirstatus&text=<%= URI.encode tweet_text(@conn, @posting) %>" target="_blank"><i class="icon-twitter"></i> Tweet!</a>
+          <%= tweet_text(@conn, @posting) %>
+          #myelixirstatus
+          <div style="clear:both"></div>
+        </div>
+        <small class="tweet-hint">
+          Simple logic: If more people know about this site, more people will read your posts.
+        </small>
+        <hr>
+      </div>
+    </div>
+  <% end %>
+</div>

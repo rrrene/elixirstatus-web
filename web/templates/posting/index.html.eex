@@ -1,47 +1,44 @@
-<%= if logged_in?(@conn) do %>
-<%= render "form.html", current_user_name: current_user(@conn).user_name,
-                        changeset: @changeset,
-                        action: posting_path(@conn, :create),
-                        conn: @conn,
-                        posting: nil,
-                        editing?: false %>
-<% end %>
+
+<div class="posts">
+  <%= if logged_in?(@conn) do %>
+    <%= if @page_number == 1 && is_nil(@created_posting) do %>
+      <%= render "form.html", current_user_name: current_user(@conn).user_name,
+                              changeset: @changeset,
+                              action: posting_path(@conn, :create),
+                              conn: @conn,
+                              posting: nil,
+                              editing?: false %>
+    <% else %>
+      <a class="btn btn-sign-in" href="/postings/new"><i class="icon-pen"></i> Submit another post</a>
+    <% end %>
+  <% else %>
+    <div class="post sign-in-to-post">
+      <div class="post-avatar">
+        <div class="image" style="background-color: #f5f5f5; border: 1px dashed #aaa;"></div>
+      </div>
+      <a class="btn btn-sign-in" href="/auth"><i class="icon-git"></i> Sign in and post</a>
+    </div>
+  <% end %>
 
 
-<h2>Listing postings</h2>
-
-<table class="table posts">
-  <thead>
-    <tr>
-      <th>User</th>
-    </tr>
-  </thead>
-  <tbody>
 <%= for posting <- @postings do %>
-    <tr>
-      <td>
-
-<%= render ElixirStatus.PostingView, "posting.html", conn: @conn,
-            posting: posting,
-            belongs_to_me?: ElixirStatus.Auth.belongs_to_current_user?(@conn, posting),
-            just_created_by_me?: @created_posting == posting
-            %>
-
-      </td>
-
-    </tr>
+  <%= render ElixirStatus.PostingView, "posting.html", conn: @conn,
+              posting: posting,
+              belongs_to_me?: ElixirStatus.Auth.belongs_to_current_user?(@conn, posting),
+              just_created_by_me?: @created_posting == posting
+              %>
 <% end %>
-  </tbody>
-</table>
+</div>
 
-<!-- pagination -->
 <div class="pagination">
-<%= if @page_number > 1 do %>
-  <%= link "Previous", to: posting_path(@conn, :index, page: @page_number - 1), class: "btn btn-default" %>
-<% end %>
-<%= if @page_number < @total_pages do %>
-  <%= link "Next", to: posting_path(@conn, :index, page: @page_number + 1), class: "btn btn-default" %>
-<% end %>
-</div
-
-<%= link "New posting", to: posting_path(@conn, :new) %>
+  <%= if @page_number > 1 do %>
+    <%= link "Previous", to: posting_path(@conn, :index, page: @page_number - 1), class: "pagination-item older" %>
+  <% else %>
+    <span class="pagination-item older">Previous</span>
+  <% end %>
+  <%= if @page_number < @total_pages do %>
+    <%= link "Next", to: posting_path(@conn, :index, page: @page_number + 1), class: "pagination-item newer" %>
+  <% else %>
+    <span class="pagination-item newer">Next</span>
+  <% end %>
+</div>
