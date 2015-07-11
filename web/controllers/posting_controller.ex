@@ -11,9 +11,12 @@ defmodule ElixirStatus.PostingController do
   plug :scrub_params, "posting" when action in [:create, :update]
 
   def index(conn, params) do
+    page = get_all(params)
     conn
       |> ElixirStatus.Impressionist.record("frontpage")
-      |> render("index.html", postings: get_all(params).entries,
+      |> render("index.html", postings: page.entries,
+                              page_number: page.page_number,
+                              total_pages: page.total_pages,
                               created_posting: load_created_posting(conn))
   end
 

@@ -38,4 +38,14 @@
   </tbody>
 </table>
 
+<!-- pagination -->
+<div class="pagination">
+<%= if @page_number > 1 do %>
+  <%= link "Previous", to: posting_path(@conn, :index, page: @page_number - 1), class: "btn btn-default" %>
+<% end %>
+<%= if @page_number < @total_pages do %>
+  <%= link "Next", to: posting_path(@conn, :index, page: @page_number + 1), class: "btn btn-default" %>
+<% end %>
+</div
+
 <%= link "New posting", to: posting_path(@conn, :new) %>
