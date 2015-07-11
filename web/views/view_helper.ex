@@ -12,6 +12,8 @@ defmodule ViewHelper do
     HtmlSanitizeEx.basic_html(text)
   end
 
+  def sanitized_markdown(nil), do: ""
+
   def sanitized_markdown(text) do
     text
       |> Earmark.to_html

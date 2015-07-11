@@ -1,3 +1,22 @@
+function previewPosting() {
+  var url = $(this).data("preview-url");
+  $.ajax(url, {
+                "method": "GET",
+                "data": {
+                  "title": $("#posting_title").val(),
+                  "text": $("#posting_text").val()
+                },
+                "success": onPreviewPosting
+              });
+}
+
+function onPreviewPosting(html) {
+  $('.preview-post-wrapper').html(html);
+}
+
+function loadPostingFormModule() {
+  $("a[data-preview-url]").click(previewPosting);
+}
 
 function loadPostingIndexModule() {
   loadFrontpagePostingTracker();
@@ -59,3 +78,4 @@ function loadFrontpagePostingTracker() {
 }
 
 if( $(".posts").length > 0 ) jQuery(loadPostingIndexModule);
+if( $(".new-post, .edit-post").length > 0 ) jQuery(loadPostingFormModule);

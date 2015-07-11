@@ -21,7 +21,6 @@ jQuery(function($) {
 });
 
 function autoSavingContent(element, time) {
-
   var domElement = $(element);
 
   if (localStorage) {

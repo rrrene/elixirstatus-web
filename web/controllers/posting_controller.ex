@@ -1,6 +1,5 @@
 defmodule ElixirStatus.PostingController do
   use ElixirStatus.Web, :controller
-  use Timex
 
   alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
@@ -38,6 +37,12 @@ defmodule ElixirStatus.PostingController do
     else
       render(conn, "new.html", changeset: changeset)
     end
+  end
+
+  def preview(conn, params) do
+    render(conn, "preview.html",
+            layout: {ElixirStatus.LayoutView, "blank.html"},
+            posting: %Posting{title: params["title"], text: params["text"]})
   end
 
   def show(conn, %{"permalink" => _}) do

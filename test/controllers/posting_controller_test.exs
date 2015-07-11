@@ -62,6 +62,28 @@ defmodule ElixirStatus.PostingControllerTest do
   end
 
   #
+  # PREVIEW
+  #
+
+  @tag posting_preview: true
+  test "previews resource", _ do
+    attrs = %{"title" => "some content", "text" => "some [content](http://github.com/) on the [web](http://google.com/)"}
+    conn = logged_in_conn()
+            |> get preview_posting_path(conn, :preview), attrs
+
+    assert html_response(conn, 200) =~ attrs["title"]
+  end
+
+  @tag posting_preview: true
+  test "previews resource even with invalid attributes", _ do
+    attrs = %{"title" => "", "text" => ""}
+    conn = logged_in_conn()
+            |> get preview_posting_path(conn, :preview), attrs
+
+    assert html_response(conn, 200)
+  end
+
+  #
   # EDIT
   #
 

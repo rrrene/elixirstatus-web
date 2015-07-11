@@ -13,20 +13,20 @@
         </ul>
       </div>
     <% end %>
-    <%= text_input f, :title, class: "post-title", palceholder: "Title goes here" %>
+    <%= text_input f, :title, id: "posting_title", class: "post-title", palceholder: "Title goes here" %>
 
     <span class="post-date">
       Today by
       <a href="https://github.com/<%= raw @current_user_name %>" target="_blank">@<%= raw @current_user_name %></a>
     </span>
 
-    <%= textarea f, :text, class: "post-body", placeholder: "Text should describe what you made in prose. Don't forget to link to your project/blog post!" %>
+    <%= textarea f, :text, id: "posting_text", class: "post-body", placeholder: "Text should describe what you made in prose. Don't forget to link to your project/blog post!" %>
 
     <div class="functions">
       <div class="buttons">
-        <small>Markdown and simple HTML allowed.</small>
+        <small>Use Markdown (formatting help).</small>
         <span>
-          <a href="/preview_post" class="btn btn-preview">Preview</a>
+          <a href="#" class="btn btn-preview" data-preview-url="<%= preview_posting_path(@conn, :preview) %>">Preview</a>
           <%= submit "Post this", class: "btn btn-primary" %>
         </span>
       </div>
@@ -37,3 +37,7 @@
     <%= link "Delete", to: posting_path(@conn, :delete, @posting), method: :delete %>
   <% end %>
 </div>
+
+<%= if !@editing? do %>
+  <div class="preview-post-wrapper"></div>
+<% end %>
