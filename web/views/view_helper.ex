@@ -20,4 +20,11 @@ defmodule ViewHelper do
       |> HtmlSanitizeEx.basic_html
       |> Phoenix.HTML.raw
   end
+
+  def sanitized_inline_markdown(text) do
+    {:safe, text} = sanitized_markdown(text)
+    text
+      |> String.replace(~r/(<\/?p>)/, "")
+      |> Phoenix.HTML.raw
+  end
 end

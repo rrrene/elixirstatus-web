@@ -5,6 +5,12 @@
 })(document);
 
 jQuery(function($) {
+  $("a[data-toggle]").click(function(evt) {
+    evt.preventDefault();
+    var selector = $(this).data("toggle");
+    $(selector).toggle();
+  });
+
   function visited(clicked_link) {
     var url = clicked_link.attr("href");
     var posting_uid = clicked_link.closest(".post[data-posting-uid]").data("posting-uid");
@@ -38,6 +44,5 @@ function autoSavingContent(element, time) {
 autoSavingContent("#posting_text", 500);
 autoSavingContent("#posting_title", 502);
 $("input[type='submit']").click(function () { localStorage.clear() });
-
 
 require("web/static/js/postings");
