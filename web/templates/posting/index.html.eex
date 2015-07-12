@@ -7,6 +7,7 @@
                               action: posting_path(@conn, :create),
                               conn: @conn,
                               posting: nil,
+                              css_class: "new-post",
                               editing?: false %>
     <% else %>
       <a class="btn btn-sign-in" href="/postings/new"><i class="icon-pen"></i> Submit another post</a>
@@ -20,14 +21,13 @@
     </div>
   <% end %>
 
-
-<%= for posting <- @postings do %>
-  <%= render ElixirStatus.PostingView, "posting.html", conn: @conn,
-              posting: posting,
-              belongs_to_me?: ElixirStatus.Auth.belongs_to_current_user?(@conn, posting),
-              just_created_by_me?: @created_posting == posting
-              %>
-<% end %>
+  <%= for posting <- @postings do %>
+    <%= render ElixirStatus.PostingView, "posting.html", conn: @conn,
+                posting: posting,
+                belongs_to_me?: ElixirStatus.Auth.belongs_to_current_user?(@conn, posting),
+                just_created_by_me?: @created_posting == posting
+                %>
+  <% end %>
 </div>
 
 <div class="pagination">
