@@ -58,9 +58,14 @@ small {
   .admin {
     a {
       display: inline-block;
-      background: #faa;
-      padding: 2px 4px;
-      color: #f00;
+      padding: 2px 8px;
+      background: #f0f0f0;
+      color: #aaa;
+      text-decoration: none;
+      &:hover {
+        background: #faa;
+        color: #f00;
+      }
     }
   }
   @include clearAfter

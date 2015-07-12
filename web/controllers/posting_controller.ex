@@ -7,6 +7,7 @@ defmodule ElixirStatus.PostingController do
   plug :authenticate, :logged_in when action in [:new, :create, :edit, :update, :delete]
   plug :load_posting when action in [:edit, :update, :delete, :show]
   plug :authenticate, :same_user_or_admin when action in [:edit, :update, :delete]
+  plug :authenticate, :admin when action in [:unpublish]
   plug :scrub_params, "posting" when action in [:create, :update]
 
   def index(conn, params) do
@@ -84,6 +85,16 @@ defmodule ElixirStatus.PostingController do
     end
   end
 
+  def unpublish(conn, %{"id" => id}) do
+    posting = Repo.get!(Posting, id)
+    changeset = Posting.changeset(posting, %{public: false})
+
+    if changeset.valid?, do: Repo.update!(changeset)
+
+    conn
+      |> redirect(to: posting_path(conn, :index))
+  end
+
   def delete(conn, %{"id" => id}) do
     posting = Repo.get!(Posting, id)
     Repo.delete!(posting)
@@ -137,6 +148,14 @@ defmodule ElixirStatus.PostingController do
 
   defp authenticate(conn, :same_user_or_admin) do
     if Auth.admin?(conn) || Auth.belongs_to_current_user?(conn, current_posting(conn)) do
+      conn
+    else
+      redirect(conn, to: "/") |> halt
+    end
+  end
+
+  defp authenticate(conn, :admin) do
+    if Auth.admin?(conn) do
       conn
     else
       redirect(conn, to: "/") |> halt

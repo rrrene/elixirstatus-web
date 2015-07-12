@@ -48,7 +48,7 @@ defmodule ElixirStatus.PostingControllerTest do
     conn = logged_in_conn()
             |> post posting_path(conn, :create), posting: @invalid_attrs
 
-    assert html_response(conn, 200) =~ "New posting"
+    assert html_response(conn, 200)
   end
 
   @tag posting_create: true
@@ -96,7 +96,7 @@ defmodule ElixirStatus.PostingControllerTest do
   end
 
   @tag posting_edit: true
-  test "does not render form for editing chosen resource if not same user", _ do
+  test "does not render form for editing chosen posting if not same user", _ do
     conn = logged_in_conn()
     posting = Repo.insert! valid_posting(user_id: 1234)
     conn = get conn, posting_path(conn, :edit, posting)
@@ -104,11 +104,11 @@ defmodule ElixirStatus.PostingControllerTest do
   end
 
   @tag posting_edit: true
-  test "renders form for editing chosen resource if same user", _ do
+  test "renders form for editing chosen posting if same user", _ do
     conn = logged_in_conn()
     posting = Repo.insert! valid_posting(user_id: current_user(conn).id)
     conn = get conn, posting_path(conn, :edit, posting)
-    assert html_response(conn, 200) =~ "Edit posting"
+    assert html_response(conn, 200)
   end
 
   #
@@ -116,7 +116,7 @@ defmodule ElixirStatus.PostingControllerTest do
   #
 
   @tag posting_update: true
-  test "does not update chosen resource if not logged in", %{conn: conn} do
+  test "does not update chosen posting if not logged in", %{conn: conn} do
     posting = Repo.insert! valid_posting
     conn = logged_out_conn()
         |> put posting_path(conn, :update, posting), posting: @valid_attrs
@@ -125,7 +125,7 @@ defmodule ElixirStatus.PostingControllerTest do
   end
 
   @tag posting_update: true
-  test "does not update chosen resource if not same user", %{conn: conn} do
+  test "does not update chosen posting if not same user", %{conn: conn} do
     posting = Repo.insert! valid_posting(user_id: 1234)
     conn = logged_in_conn()
         |> put posting_path(conn, :update, posting), posting: @valid_attrs
@@ -173,7 +173,7 @@ defmodule ElixirStatus.PostingControllerTest do
   end
 
   @tag posting_update: true
-  test "updates chosen resource and redirects when data is valid", _ do
+  test "updates chosen posting and redirects when data is valid", _ do
     conn = logged_in_conn()
     posting = Repo.insert! valid_posting(user_id: current_user(conn).id)
     conn = conn
@@ -222,12 +222,24 @@ defmodule ElixirStatus.PostingControllerTest do
   end
 
   #
+  # UNPUBLISH
+  #
+
+  @tag posting_update: true
+  test "does not unpublish chosen posting if not logged in", _ do
+    posting = Repo.insert! valid_posting
+    conn = post logged_in_conn(), posting_path(conn, :unpublish, posting)
+
+    assert Repo.get(Posting, posting.id).public
+  end
+
+  #
   # INDEX
   #
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, posting_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing postings"
+    assert html_response(conn, 200)
   end
 
   #
@@ -245,16 +257,22 @@ defmodule ElixirStatus.PostingControllerTest do
     conn = logged_in_conn()
             |> get posting_path(conn, :new)
 
-    assert html_response(conn, 200) =~ "New posting"
+    assert html_response(conn, 200)
   end
 
   #
   # SHOW
   #
 
+  test "shows posting when logged in", _ do
+    posting = Repo.insert! valid_posting
+    conn = get logged_out_conn(), posting_path(conn, :show, posting)
+    assert html_response(conn, 200) =~ posting.title
+  end
+
   test "shows posting", _ do
     posting = Repo.insert! valid_posting
-    conn = get conn, posting_path(conn, :show, posting)
+    conn = get logged_in_conn(), posting_path(conn, :show, posting)
     assert html_response(conn, 200) =~ posting.title
   end
 
@@ -274,7 +292,7 @@ defmodule ElixirStatus.PostingControllerTest do
   #
 
   @tag posting_delete: true
-  test "does not delete chosen resource if not logged in", _ do
+  test "does not delete chosen posting if not logged in", _ do
     posting = Repo.insert! valid_posting(user_id: 1234)
     conn = logged_out_conn()
         |> delete posting_path(conn, :delete, posting)
@@ -283,7 +301,7 @@ defmodule ElixirStatus.PostingControllerTest do
   end
 
   @tag posting_delete: true
-  test "does not delete chosen resource if not same user", _ do
+  test "does not delete chosen posting if not same user", _ do
     posting = Repo.insert! valid_posting(user_id: 1234)
     conn = logged_in_conn()
         |> delete posting_path(conn, :delete, posting)
@@ -292,7 +310,7 @@ defmodule ElixirStatus.PostingControllerTest do
   end
 
   @tag posting_delete: true
-  test "deletes chosen resource", _ do
+  test "deletes chosen posting", _ do
     conn = logged_in_conn()
     posting = Repo.insert! valid_posting(user_id: current_user(conn).id)
     conn = conn

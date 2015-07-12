@@ -11,6 +11,20 @@ jQuery(function($) {
     $(selector).toggle();
   });
 
+  $("a[data-confirm]").click(function(evt) {
+    var message = $(this).data("confirm");
+    var result = confirm(message);
+    console.log(result);
+    if( result ) {
+      // pass
+      return true;
+    } else {
+      evt.preventDefault();
+      evt.stopPropagation();
+      return false;
+    }
+  });
+
   function visited(clicked_link) {
     var url = clicked_link.attr("href");
     var posting_uid = clicked_link.closest(".post[data-posting-uid]").data("posting-uid");

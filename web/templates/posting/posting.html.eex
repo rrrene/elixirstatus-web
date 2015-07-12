@@ -19,7 +19,10 @@
 
         <%= if admin?(@conn) do %>
           <span class="admin">
-            <%= link "Delete", to: posting_path(@conn, :delete, @posting), method: :delete %>
+          <a href="#" data-toggle="#unpublish-<%= @posting.uid %>"><i class=icon-cross_mark></i></a>
+            <span id="unpublish-<%= @posting.uid %>" style="display: none">
+              <%= link "Unpublish", to: posting_path(@conn, :unpublish, @posting), method: :post %>
+            </span>
           </span>
         <% end %>
       </span>
@@ -33,7 +36,7 @@
     <div class="post-options">
       <div class="twitter-integration">
         <hr>
-        @elixirstatus just tweeted your post using the #elixirlang hashtag.
+        <a href="https://twitter.com/elixirstatus" target="_blank">@elixirstatus</a> just tweeted your post using the #elixirlang hashtag.
 
         <br><strong>Tweet it yourself using #myelixirstatus to maximize its circulation:</strong>
         <div class="tweet">
