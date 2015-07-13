@@ -88,6 +88,13 @@ I am no designer (as [Inch CI](https://inch-ci.org/) probably shows) *and* still
 
 René Föhring (@rrrene)
 
+But ElixirStatus is a community project and received fantastic contributions from these community members:
+
+- Hans Pagh (@Hanspagh)
+- Phil Nash (@philnash)
+- Riza Fahmi (@rizafahmi)
+- Peter Suschlik (@splattael)
+
 
 
 ## Credits
