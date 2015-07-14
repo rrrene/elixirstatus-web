@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>ElixirStatus</title>
+    <description>Elixir annoucements service</description>
+    <link>http://elixirstatus.com/</link>
+    <%= for posting <- @postings do %>
+    <item>
+      <title><%= posting.title %></title>
+      <description><%= posting.text %></description>
+      <pubDate><%= xml_readable_date posting.published_at %></pubDate>
+      <link><%= to_short_url(@conn, posting) %></link>
+      <guid><%= to_short_url(@conn, posting) %></guid>
+    </item>
+    <% end %>
+  </channel>
+</rss>
