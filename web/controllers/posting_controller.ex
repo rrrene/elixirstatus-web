@@ -5,6 +5,8 @@ defmodule ElixirStatus.PostingController do
   alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
 
+  @just_created_timeout 60 # seconds
+
   plug :authenticate, :logged_in when action in [:new, :create, :edit, :update, :delete]
   plug :load_posting when action in [:edit, :update, :delete, :show]
   plug :authenticate, :same_user_or_admin when action in [:edit, :update, :delete]
@@ -136,8 +138,13 @@ defmodule ElixirStatus.PostingController do
   defp load_created_posting_by_uid(nil), do: nil
 
   defp load_created_posting_by_uid(uid) do
-    get_by_uid(uid)
-    # TODO: return nil if posting is older than 3 minutes
+    posting = get_by_uid(uid)
+    seconds_since_posting = Date.diff(posting.published_at, Date.now, :secs)
+    if seconds_since_posting < @just_created_timeout do
+      posting
+    else
+      nil
+    end
   end
 
   defp authenticate(conn, :logged_in) do
