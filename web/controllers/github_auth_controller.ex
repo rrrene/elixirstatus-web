@@ -24,7 +24,7 @@ defmodule ElixirStatus.GitHubAuthController do
   """
   def sign_out(conn, _params) do
     conn
-      |> put_session(:current_user_id, nil)
+      |> clear_session
       |> redirect(to: "/")
   end
 

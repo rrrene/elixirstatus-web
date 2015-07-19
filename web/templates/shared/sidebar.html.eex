@@ -1,0 +1,27 @@
+
+<div class="sidebar">
+  <div class="container">
+    <div class="sidebar-header">
+      <a href="/"><img src="<%= static_path(@conn, "/images/logo.png") %>" class="logo"/></a>
+      <h1><a href="/">elixirstatus</a></h1>
+      <p>Announce your new project, blog post or version update.</p>
+    </div>
+  </div>
+  <div class="container sidebar-nav-container">
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+    <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item active" href="/">Home</a>
+      <a class="sidebar-nav-item" href="<%= page_path(@conn, :about) %>">About</a>
+      <span class="sidebar-nav-item">You can follow via</span>
+      <a class="sidebar-nav-item" href="https://twitter.com/elixirstatus" target="_blank">Twitter</a>
+      <span class="sidebar-nav-item"><a href="/rss">RSS</a></span>
+      <span class="sidebar-nav-item">Running on Phoenix!</span>
+      <a class="sidebar-nav-item" href="https://github.com/rrrene/elixirstatus-web" target="_blank">Open Source</a>
+    </nav>
+  </div>
+</div>

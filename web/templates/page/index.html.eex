@@ -9,19 +9,4 @@
     <%= render ElixirStatus.PageView, "index_not_logged_in.html", conn: @conn %>
 
   <% end %>
-
-  <hr>
-
-  <footer>
-    <a href="http://elixirstatus.com/">elixirstatus.com</a> |
-    <a href="http://twitter.com/elixirstatus" target="_blank">@elixirstatus</a> |
-    <a href="http://inch-ci.org/" target="_blank">Inch CI</a> |
-    <a href="http://twitter.com/inchci" target="_blank">@InchCI</a> |
-    <a href="http://trivelop.de/" target="_blank">my blog</a> |
-    <a href="http://twitter.com/rrrene" target="_blank">@rrrene</a> |
-    <a href="http://trivelop.de/" target="_blank">contact</a>
-    <%= if logged_in?(@conn) do %>
-      | <a href="<%= git_hub_auth_path @conn, :sign_out %>">Log out</a>
-    <% end %>
-  </footer>
 </div>

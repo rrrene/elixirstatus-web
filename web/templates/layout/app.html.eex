@@ -16,36 +16,15 @@
   </head>
 
   <body>
+    <%= render ElixirStatus.SharedView, "sidebar.html", conn: @conn %>
+
     <div class="content">
       <div class="container">
         <%= @inner %>
       </div>
     </div>
 
-    <div class="footer">
-      <div class="inner">
-      <p>
-      </p><p>ElixirStatus let's you publish links back to stuff you created: new projects, blog posts or version updates.</p>
-
-      <p>
-        It is an <a href="https://github.com/rrrene/elixirstatus-web" target="_blank">open source project</a>, built by community members
-       with <a href="http://elixir-lang.org" target="_blank">Elixir</a>+<a href="http://phoenixframework.org" target="_blank">Phoenix</a>.
-      </p>
-
-      <p>
-        Please contact René Föhring (<a href="https://twitter.com/rrrene" target="_blank">@rrrene</a>) if you have any questions and <a href="https://github.com/rrrene/elixirstatus-web/issues/new" target="_blank">create an issue</a> if anything seems broken or worthy of improvement.
-      </p>
-
-      <p>
-        <%= if logged_in?(@conn) do %>
-          <a href="/auth/sign_out">Sign out</a>
-        <% else %>
-          <a href="/auth">Sign in with GitHub</a>
-        <% end %>
-      </p>
-
-      </div>
-    </div>
+    <%= render ElixirStatus.SharedView, "footer.html", conn: @conn %>
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
     <script>require("web/static/js/app")</script>

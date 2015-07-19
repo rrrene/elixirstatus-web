@@ -162,9 +162,12 @@ input.post-title {
   padding: 2rem 1rem 1rem 1rem;
 }
 .footer {
-  font-size: 0.75rem;
+  font-size: 14px;
+  color: #aaa;
+  padding: 10px;
   border-top: 2px solid #eee;
 }
+
 
 @include phablet_landscape_and_bigger {
   .post {
@@ -218,11 +221,4 @@ body .content .post-body a,
 body .related-posts li a:hover {
   color: #8D29BE;
   text-decoration: underline;
-}
-
-.footer {
-  font-size: 14px;
-  text-align: center;
-  color: #000;
-  padding: 10px;
 }

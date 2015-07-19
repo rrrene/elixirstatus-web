@@ -1,7 +1,7 @@
 
 <div class="post">
-  <div class="post-author">
-    <div class="avatar " style="background-image: url(/images/avatar_rrrene.jpg)"></div>
+  <div class="post-avatar">
+    <div class="image " style="background-image: url(/images/avatar_rrrene.jpg)"></div>
   </div>
   <h1 class="post-title">
     <a href="/">
