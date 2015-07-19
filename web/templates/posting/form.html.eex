@@ -3,17 +3,7 @@
     <div class="image" style="background-image: url(<%= raw "/images/github/#{@current_user_name}.jpg" %>)"></div>
   </div>
   <%= form_for @changeset, @action, fn f -> %>
-    <%= if f.errors != [] do %>
-      <div class="alert alert-danger">
-        <p>Oops, something went wrong! Please check the errors below:</p>
-        <ul>
-          <%= for {attr, message} <- f.errors do %>
-            <li><%= humanize(attr) %> <%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <%= text_input f, :title, id: "posting_title", class: "post-title", placeholder: "Title goes here" %>
+    <%= text_input f, :title, id: "posting_title", class: class_with_error(f, :title, "post-title"), placeholder: "Title goes here" %>
 
     <span class="post-meta">
       <span class="post-date">Today</span>
@@ -23,7 +13,7 @@
       </span>
     </span>
 
-    <%= textarea f, :text, id: "posting_text", class: "post-body", placeholder: "Text should describe what you made in prose. Don't forget to link to your project/blog post!" %>
+    <%= textarea f, :text, id: "posting_text", class: class_with_error(f, :text, "post-body"), placeholder: "Text should describe what you made in prose. Don't forget to link to your project/blog post!" %>
 
     <div class="functions">
       <div class="buttons">
@@ -34,6 +24,21 @@
         </span>
       </div>
     </div>
+
+    <div id="formatting-help" style="display: none;">
+      <table>
+        <tr>
+          <th>What you type</th>
+          <th>What you get</th>
+        </tr>
+        <%= for term <- ["[Link](https://github.com/)", "**bold**", "*italics*", "***highlight***", "`inline code`", "Indent with four spaces to render code blocks:\n\n    # This is rendered as a\n    # code block."] do %>
+          <tr>
+            <td><pre><%= raw term%></pre></td>
+            <td><%= sanitized_inline_markdown(term) %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
   <% end %>
 
   <%= if @editing? do %>
@@ -43,18 +48,3 @@
 </div>
 
 <div class="preview-post-wrapper"></div>
-
-<div id="formatting-help" style="display: none;">
-  <table>
-    <tr>
-      <th>What you type</th>
-      <th>What you get</th>
-    </tr>
-    <%= for term <- ["[Link](https://github.com/)", "**bold**", "*italics*", "***highlight***", "`inline code`", "Indent with four spaces to render code blocks:\n\n    # This is rendered as a\n    # code block."] do %>
-      <tr>
-        <td><pre><%= raw term%></pre></td>
-        <td><%= sanitized_inline_markdown(term) %></td>
-      </tr>
-    <% end %>
-  </table>
-</div>

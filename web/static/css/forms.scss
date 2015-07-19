@@ -17,3 +17,8 @@ textarea.post-body {
   font-size: inherit;
   min-height: 200px;
 }
+
+form input.error,
+form textarea.error {
+  border: 2px solid #faa;
+}

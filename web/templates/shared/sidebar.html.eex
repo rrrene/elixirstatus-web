@@ -19,7 +19,7 @@
       <a class="sidebar-nav-item" href="<%= page_path(@conn, :about) %>">About</a>
       <span class="sidebar-nav-item">You can follow via</span>
       <a class="sidebar-nav-item" href="https://twitter.com/elixirstatus" target="_blank">Twitter</a>
-      <span class="sidebar-nav-item"><a href="/rss">RSS</a></span>
+      <a class="sidebar-nav-item" href="/rss">RSS</a>
       <span class="sidebar-nav-item">Running on Phoenix!</span>
       <a class="sidebar-nav-item" href="https://github.com/rrrene/elixirstatus-web" target="_blank">Open Source</a>
     </nav>

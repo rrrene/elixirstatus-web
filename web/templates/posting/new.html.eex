@@ -1,6 +1,6 @@
 <%= link "Back", to: posting_path(@conn, :index), class: "btn btn-back" %>
 
-<h2>Create your posting</h2>
+<h2>New posting</h2>
 
 <%= render "form.html", current_user_name: current_user(@conn).user_name,
                         changeset: @changeset,

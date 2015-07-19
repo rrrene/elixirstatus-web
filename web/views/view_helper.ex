@@ -1,6 +1,19 @@
 defmodule ViewHelper do
   use Timex
 
+  def class_with_error(form, field, base_class) do
+    if error_on_field?(form, field) do
+      "#{base_class} error"
+    else
+      base_class
+    end
+  end
+
+  def error_on_field?(form, field) do
+    Enum.map(form.errors, fn({attr, _message}) -> attr end)
+      |> Enum.member?(field)
+  end
+
   # why does `import ElixirStatus.Auth` not work here?
   def current_user(conn), do: ElixirStatus.Auth.current_user(conn)
   def logged_in?(conn), do: ElixirStatus.Auth.logged_in?(conn)

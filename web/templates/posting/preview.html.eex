@@ -3,7 +3,7 @@
     <div class="image" style="background-image: url(<%= raw "/images/github/#{current_user(@conn).user_name}.jpg" %>)"></div>
   </div>
 
-  <h1 class="post-title"><%= sanitize(@posting.title) %></h1>
+  <h1 class="post-title"><%= sanitized_inline_markdown(@posting.title) %></h1>
 
   <span class="post-meta">
     <span class="post-date">PREVIEW</span>

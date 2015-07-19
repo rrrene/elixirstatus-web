@@ -59,8 +59,8 @@ small {
     a {
       display: inline-block;
       padding: 2px 8px;
-      background: #f0f0f0;
-      color: #aaa;
+      background: #f5f5f5;
+      color: #ddd;
       text-decoration: none;
       &:hover {
         background: #faa;
@@ -78,6 +78,7 @@ strong > em {
 }
 
 #formatting-help {
+  margin-top: 20px;
   pre {
     background: transparent;
   }

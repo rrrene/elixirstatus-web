@@ -46,11 +46,21 @@ defmodule ElixirStatus.PostingController do
     end
   end
 
+  @preview_default_title "-- insert title --"
+  @preview_default_text  "-- insert text --"
+
   def preview(conn, params) do
     render(conn, "preview.html",
             layout: {ElixirStatus.LayoutView, "blank.html"},
-            posting: %Posting{title: params["title"], text: params["text"]})
+            posting: %Posting{
+                      title: default(params["title"], @preview_default_title),
+                      text: default(params["text"], @preview_default_text)
+                    })
   end
+
+  def default(nil, value), do: value
+  def default("", value), do: value
+  def default(value, _), do: value
 
   def show(conn, %{"permalink" => _}) do
     show(conn, %{"id" => current_posting(conn)})
