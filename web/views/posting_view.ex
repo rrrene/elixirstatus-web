@@ -1,6 +1,5 @@
 defmodule ElixirStatus.PostingView do
   use ElixirStatus.Web, :view
-  import ViewHelper
 
   def tweet_text(conn, posting) do
     short_title = posting.title |> ElixirStatus.Publisher.short_title

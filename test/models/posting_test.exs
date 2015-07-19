@@ -1,9 +1,10 @@
 defmodule ElixirStatus.PostingTest do
   use ElixirStatus.ModelCase
+  use Timex
 
   alias ElixirStatus.Posting
 
-  @valid_attrs %{title: "some content", text: "some content", permalink: "some content", public: true, published_at: %{day: 17, hour: 14, min: 0, month: 4, year: 2010}, scheduled_at: %{day: 17, hour: 14, min: 0, month: 4, year: 2010}, uid: "some content", user_id: 42}
+  @valid_attrs %{title: "some content", text: "some content", permalink: "some content", public: true, published_at: Date.now, scheduled_at: nil, uid: "some content", user_id: 42}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

@@ -1,6 +1,7 @@
 defmodule ElixirStatus.PostingControllerTest do
   use ElixirStatus.ConnCase
   use ElixirStatus.ConnLoginHelper
+  use Timex
 
   alias ElixirStatus.Posting
   @valid_attrs %{text: "some [content](http://github.com/) on the [web](http://google.com/)", title: "some content"}
@@ -18,7 +19,7 @@ defmodule ElixirStatus.PostingControllerTest do
   defp valid_posting() do
     %Posting{user_id: 1234, text: "gibberish", title: "some more gibberish",
             uid: "abcd", permalink: "abcd-some-more-gibberish",
-            public: true, published_at: Ecto.DateTime.utc}
+            public: true, published_at: Date.now}
   end
 
   #

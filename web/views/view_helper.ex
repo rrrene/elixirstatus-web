@@ -7,8 +7,6 @@ defmodule ViewHelper do
   def admin?(conn), do: ElixirStatus.Auth.admin?(conn)
 
   def human_readable_date(date) do
-    {:ok, date} = Ecto.DateTime.dump(date)
-    date = Date.from(date)
     {:ok, readable} = if this_year?(date) do
                         if today?(date) do
                           {:ok, "Today"}

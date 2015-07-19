@@ -1,5 +1,6 @@
 defmodule ElixirStatus.PostingController do
   use ElixirStatus.Web, :controller
+  use Timex
 
   alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
@@ -187,7 +188,7 @@ defmodule ElixirStatus.PostingController do
       text: params["text"],
       title: params["title"],
       scheduled_at: params["scheduled_at"],
-      published_at: Ecto.DateTime.utc,
+      published_at: Date.now,
       public: true
     }
   end

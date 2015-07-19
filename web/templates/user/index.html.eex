@@ -19,7 +19,7 @@
         <td><%= user.email %></td>
         <td><%= user.provider %></td>
         <td><%= user.user_name %></td>
-        <td><%= user.inserted_at %></td>
+        <td><%= human_readable_date user.inserted_at %></td>
       </tr>
   <% end %>
   </tbody>

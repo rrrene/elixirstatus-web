@@ -19,6 +19,7 @@ defmodule ElixirStatus.Web do
   def model do
     quote do
       use Ecto.Model
+      use Timex.Ecto.Timestamps
     end
   end
 
@@ -50,6 +51,8 @@ defmodule ElixirStatus.Web do
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
+
+      import ViewHelper
     end
   end
 
