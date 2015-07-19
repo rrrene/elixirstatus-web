@@ -29,11 +29,11 @@
 
       <p>
         It is an <a href="https://github.com/rrrene/elixirstatus-web" target="_blank">open source project</a>, built by community members
-       with <a href="http://trivelop.de/inch" target="_blank">Elixir</a>+<a href="http://trivelop.de/inch" target="_blank">Phoenix</a>.
+       with <a href="http://elixir-lang.org" target="_blank">Elixir</a>+<a href="http://phoenixframework.org" target="_blank">Phoenix</a>.
       </p>
 
       <p>
-        Please contact René Föhring (<a href="https://twitter.com/rrrene" target="_blank">@rrrene</a>) if you have any questions and <a href="https://github.com/inch-ci/inch_ci-web/issues/new" target="_blank">create an issue</a> if anything seems broken or worthy of improvement.
+        Please contact René Föhring (<a href="https://twitter.com/rrrene" target="_blank">@rrrene</a>) if you have any questions and <a href="https://github.com/rrrene/elixirstatus-web/issues/new" target="_blank">create an issue</a> if anything seems broken or worthy of improvement.
       </p>
 
       <p>

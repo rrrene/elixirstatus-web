@@ -38,10 +38,17 @@
   background-color: #8163C0;
   border-color: #6540B2;
 }
+body .content .post-body .btn-tweet,
 .btn-tweet {
   color: #fff;
+  text-decoration: none;
   background-color: #428bca;
   border-color: #357ebd;
+  &:visited,
+  &:link,
+  &:active {
+    color: #fff;
+  }
 }
 .btn-tweet:hover {
   color: #fff;

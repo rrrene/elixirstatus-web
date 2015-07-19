@@ -16,7 +16,7 @@
         <blockquote>An upcoming announcement service for Elixir: elixirstatus.com</blockquote>
       </p>
       <p>
-        <a class="btn btn-primary" href="https://twitter.com/intent/tweet?hashtags=elixirlang&text=An upcoming announcement service for Elixir: elixirstatus.com" target="_blank"><img src="https://twemoji.maxcdn.com/36x36/1f423.png" style="height: 18px; vertical-align: middle; display: inline-block;"> Tweet this</a>
+        <a class="btn btn-tweet" href="https://twitter.com/intent/tweet?hashtags=elixirlang&text=An upcoming announcement service for Elixir: elixirstatus.com" target="_blank"><img src="https://twemoji.maxcdn.com/36x36/1f423.png" style="height: 18px; vertical-align: middle; display: inline-block;"> Tweet this</a>
       </p>
     </div>
   </div>
