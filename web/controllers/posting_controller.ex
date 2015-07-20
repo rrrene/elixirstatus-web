@@ -216,7 +216,7 @@ defmodule ElixirStatus.PostingController do
     }
   end
 
-  defp get_all(params \\ %{}) do
+  def get_all(params \\ %{}) do
     query = from p in Posting,
                   where: p.public == ^true,
                   order_by: [desc: :published_at]

@@ -32,6 +32,13 @@ defmodule ViewHelper do
     readable
   end
 
+  def xml_readable_date(date) do
+    {:ok, date} = Ecto.DateTime.dump(date)
+    date = Date.from(date)
+    {:ok, readable} = DateFormat.format(date, "%e %b %Y %T %z", :strftime)
+    readable
+  end
+
   defp this_year?(date), do: date.year == Ecto.DateTime.utc.year
 
   defp today?(date) do
