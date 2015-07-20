@@ -9,6 +9,7 @@
     <%= if logged_in?(@conn) do %>
       <meta name="logged_in_as" content="<%= @current_user.user_name %>">
     <% end %>
+    <meta property="og:image" content="<%= og_image_url(assigns) %>" />
 
     <title>elixirstatus</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">

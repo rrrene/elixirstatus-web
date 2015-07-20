@@ -80,9 +80,10 @@ defmodule ElixirStatus.Publisher do
   end
 
   defp short_url(permalink) do
-    uid = "#{base_url}/p/#{permalink}" |> LinkShortener.to_uid
-    "#{base_url}/=#{uid}"
+    uid = "/p/#{permalink}"
+            |> ElixirStatus.URL.from_path
+            |> LinkShortener.to_uid
+    "/=#{uid}"
+      |> ElixirStatus.URL.from_path
   end
-
-  defp base_url, do: Application.get_env(:elixir_status, :base_url)
 end

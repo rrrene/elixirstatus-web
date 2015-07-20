@@ -8,11 +8,8 @@ defmodule ElixirStatus.PostingView do
 
   defp to_short_url(conn, posting) do
     uid = permalink_posting_path(conn, :show, posting.permalink)
-            |> to_url
+            |> ElixirStatus.URL.from_path
             |> ElixirStatus.LinkShortener.to_uid
-    short_link_path(conn, :show, uid) |> to_url
+    short_link_path(conn, :show, uid) |> ElixirStatus.URL.from_path
   end
-
-  defp to_url(path), do: "#{base_url}#{path}"
-  defp base_url, do: Application.get_env(:elixir_status, :base_url)
 end
