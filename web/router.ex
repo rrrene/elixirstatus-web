@@ -18,6 +18,7 @@ defmodule ElixirStatus.Router do
   scope "/", ElixirStatus do
     pipe_through :browser # Use the default browser stack
 
+    get "/rss", FeedController, :rss
     get "/", PageController, :index
     get "/about", PageController, :about
 

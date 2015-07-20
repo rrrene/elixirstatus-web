@@ -22,13 +22,14 @@ Yes and no. I always have the feeling my project and update announcements get dr
 
 The important thing here is this is inspired by the original RubyFlow. Giving developers a venue where they can be heard whether they are a Phoenix contributor or an unknown coder who wrote his first blog post about recursion. Equal voice for everyone.
 
-## Open Roadmap
+## Open Roadmap #21
 
 - [x] Build and launch [landing page](http://elixirstatus.com/)
-- [ ] Design functional UI
 - [x] Add postings
-- [ ] GitHub integration
+- [x] GitHub integration
 - [x] Twitter setup
+- [ ] Design functional UI
+- [ ] Beta phase ([described here](https://github.com/rrrene/elixirstatus-web/issues/21))
 - [ ] Fun!
 
 
@@ -86,6 +87,13 @@ I am no designer (as [Inch CI](https://inch-ci.org/) probably shows) *and* still
 ## Author
 
 René Föhring (@rrrene)
+
+But ElixirStatus is a community project and received fantastic contributions from these community members:
+
+- Hans Pagh (@Hanspagh)
+- Phil Nash (@philnash)
+- Riza Fahmi (@rizafahmi)
+- Peter Suschlik (@splattael)
 
 
 
