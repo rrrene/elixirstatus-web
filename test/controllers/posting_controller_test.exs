@@ -229,7 +229,7 @@ defmodule ElixirStatus.PostingControllerTest do
   @tag posting_update: true
   test "does not unpublish chosen posting if not logged in", _ do
     posting = Repo.insert! valid_posting
-    conn = post logged_in_conn(), posting_path(conn, :unpublish, posting)
+    post logged_in_conn(), posting_path(conn, :unpublish, posting)
 
     assert Repo.get(Posting, posting.id).public
   end

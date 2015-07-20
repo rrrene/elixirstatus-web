@@ -27,5 +27,10 @@ defmodule ElixirStatus.Auth do
   @doc "Returns true if a user is logged in."
   def logged_in?(conn), do: !is_nil current_user(conn)
 
-  defp admin_user_ids, do: @admin_user_ids || []
+  defp admin_user_ids do
+    case @admin_user_ids do
+      nil -> []
+      ids -> ids
+    end
+  end
 end

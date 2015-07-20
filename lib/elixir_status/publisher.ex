@@ -5,6 +5,8 @@ defmodule ElixirStatus.Publisher do
     He is e.g. tasked with promoting it on Twitter.
   """
 
+  require Logger
+
   alias ElixirStatus.LinkShortener
   alias ElixirStatus.Posting
   alias ElixirStatus.PostingController
@@ -69,7 +71,7 @@ defmodule ElixirStatus.Publisher do
   end
 
   defp update_on_twitter(tweet, _) do
-    IO.inspect {:tweeting, tweet}
+    Logger.debug {:tweeting, tweet}
     nil
   end
 
