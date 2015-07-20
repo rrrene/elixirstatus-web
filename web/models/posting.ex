@@ -8,6 +8,7 @@ defmodule ElixirStatus.Posting do
     field :text, :string
     field :scheduled_at, Timex.Ecto.DateTime
     field :published_at, Timex.Ecto.DateTime
+    field :published_tweet_uid, :string
     field :public, :boolean, default: false
 
     timestamps
@@ -16,7 +17,7 @@ defmodule ElixirStatus.Posting do
   end
 
   @required_fields ~w(user_id uid permalink title text published_at public)
-  @optional_fields ~w(scheduled_at)
+  @optional_fields ~w(published_tweet_uid scheduled_at)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

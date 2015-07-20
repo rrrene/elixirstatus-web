@@ -98,6 +98,12 @@ defmodule ElixirStatus.PostingController do
     end
   end
 
+  def update_published_tweet_uid(posting, tweet_uid) do
+    posting
+      |> Posting.changeset(%{published_tweet_uid: tweet_uid})
+      |> Repo.update!
+  end
+
   def unpublish(conn, %{"id" => id}) do
     posting = Repo.get!(Posting, id)
     changeset = Posting.changeset(posting, %{public: false})

@@ -7,6 +7,7 @@ defmodule ElixirStatus.Publisher do
 
   alias ElixirStatus.LinkShortener
   alias ElixirStatus.Posting
+  alias ElixirStatus.PostingController
 
   @doc """
     Called when a posting is created by PostingController.
@@ -16,7 +17,8 @@ defmodule ElixirStatus.Publisher do
   def after_create(new_posting) do
     new_posting
       |> create_all_short_links
-      |> post_to_twitter
+    tweet_uid = post_to_twitter(new_posting)
+    PostingController.update_published_tweet_uid(new_posting, tweet_uid)
   end
 
   @doc """
@@ -59,16 +61,16 @@ defmodule ElixirStatus.Publisher do
 
     "#{short_title(title)} #{short_url(permalink)} #elixirlang"
       |> update_on_twitter(Mix.env)
-
-    posting
   end
 
   defp update_on_twitter(tweet, :prod) do
-    ExTwitter.update(tweet)
+    %ExTwitter.Model.Tweet{id_str: uid} = ExTwitter.update(tweet)
+    uid
   end
 
   defp update_on_twitter(tweet, _) do
     IO.inspect {:tweeting, tweet}
+    nil
   end
 
   def short_title(title, max \\ 100, truncate_with \\ "...") do
