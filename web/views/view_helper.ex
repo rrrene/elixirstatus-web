@@ -19,6 +19,7 @@ defmodule ViewHelper do
   def logged_in?(conn), do: ElixirStatus.Auth.logged_in?(conn)
   def admin?(conn), do: ElixirStatus.Auth.admin?(conn)
 
+  @doc "Returns a date formatted for humans."
   def human_readable_date(date) do
     {:ok, readable} = if this_year?(date) do
                         if today?(date) do
@@ -32,9 +33,8 @@ defmodule ViewHelper do
     readable
   end
 
+  @doc "Returns a date formatted for RSS clients."
   def xml_readable_date(date) do
-    {:ok, date} = Ecto.DateTime.dump(date)
-    date = Date.from(date)
     {:ok, readable} = DateFormat.format(date, "%e %b %Y %T %z", :strftime)
     readable
   end

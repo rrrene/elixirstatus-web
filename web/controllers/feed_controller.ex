@@ -5,6 +5,6 @@ defmodule ElixirStatus.FeedController do
 
   def rss(conn, _params) do
     postings = PostingController.get_all
-    render(conn, "index.xml",postings: postings.entries)
+    render(conn, "index.xml", postings: postings.entries)
   end
 end

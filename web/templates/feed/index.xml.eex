@@ -5,13 +5,15 @@
     <description>Elixir annoucements service</description>
     <link>http://elixirstatus.com/</link>
     <%= for posting <- @postings do %>
-    <item>
-      <title><%= posting.title %></title>
-      <description><%= posting.text %></description>
-      <pubDate><%= xml_readable_date posting.published_at %></pubDate>
-      <link><%= to_short_url(@conn, posting) %></link>
-      <guid><%= to_short_url(@conn, posting) %></guid>
-    </item>
+      <item>
+        <title><![CDATA[<%= xml_sanitized_inline_markdown posting.title %>]]></title>
+        <description><![CDATA[
+          <%= xml_sanitized_markdown posting.text %>
+        ]]></description>
+        <pubDate><%= xml_readable_date posting.published_at %></pubDate>
+        <link><%= to_permalink(@conn, posting) %></link>
+        <guid><%= to_permalink(@conn, posting) %></guid>
+      </item>
     <% end %>
   </channel>
 </rss>

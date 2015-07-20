@@ -1,12 +1,20 @@
 defmodule ElixirStatus.FeedView do
   use ElixirStatus.Web, :view
-  import ViewHelper
 
-  def to_short_url(conn, posting) do
-    permalink_posting_path(conn, :show, posting.permalink)
-          |> to_url
+  alias ElixirStatus.URL
+
+  def xml_sanitized_inline_markdown(text) do
+    {:safe, text} = ViewHelper.sanitized_inline_markdown(text)
+    text
   end
 
-  defp to_url(path), do: "#{base_url}#{path}"
-  defp base_url, do: Application.get_env(:elixir_status, :base_url)
+  def xml_sanitized_markdown(text) do
+    {:safe, text} = ViewHelper.sanitized_markdown(text)
+    text
+  end
+
+  def to_permalink(conn, posting) do
+    permalink_posting_path(conn, :show, posting.permalink)
+      |> URL.from_path
+  end
 end
