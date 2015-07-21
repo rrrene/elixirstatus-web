@@ -216,6 +216,7 @@ defmodule ElixirStatus.PostingController do
     }
   end
 
+  @doc "Returns the latest postings."
   def get_all(params \\ %{}) do
     query = from p in Posting,
                   where: p.public == ^true,
@@ -232,7 +233,8 @@ defmodule ElixirStatus.PostingController do
     String.split(permalink, "-") |> Enum.at(0) |> get_by_uid
   end
 
-  defp get_by_uid(uid) do
+  @doc "Returns the posting with the given +uid+."
+  def get_by_uid(uid) do
     query = from(p in Posting, where: p.uid == ^uid)
     query |> Ecto.Query.preload(:user) |> Repo.one
   end

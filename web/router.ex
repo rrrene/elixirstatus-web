@@ -19,6 +19,7 @@ defmodule ElixirStatus.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/rss", FeedController, :rss
+    get "/rss/avatar/:user_name", FeedController, :avatar
     get "/", PageController, :index
     get "/about", PageController, :about
 

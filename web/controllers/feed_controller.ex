@@ -3,8 +3,16 @@ defmodule ElixirStatus.FeedController do
 
   alias ElixirStatus.PostingController
 
+  def avatar(conn, %{"user_name" => user_name, "uid" => posting_uid}) do
+    posting = PostingController.get_by_uid(posting_uid)
+
+    conn
+      |> ElixirStatus.Impressionist.record("rss", "postings", posting.uid)
+      |> redirect(to: "/images/github/#{user_name}.jpg")
+  end
+
   def rss(conn, _params) do
     postings = PostingController.get_all
-    render(conn, "index.xml", postings: postings.entries)
+    render(conn, "rss.xml", postings: postings.entries)
   end
 end

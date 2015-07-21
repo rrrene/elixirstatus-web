@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>ElixirStatus</title>
+    <description>Elixir annoucements service</description>
+    <link><%= ElixirStatus.URL.from_path("/") %></link>
+    <%= for posting <- @postings do %>
+      <item>
+        <title><![CDATA[<%= xml_sanitized_inline_markdown posting.title %>]]></title>
+        <description><![CDATA[
+          <table>
+            <tr>
+              <td width=80 valign=top>
+                <img src="<%= ElixirStatus.URL.from_path("/rss/avatar/#{posting.user.user_name}?uid=#{posting.uid}") %>" width="64" height="64" />
+              </td>
+              <td>
+                <h1><%= xml_sanitized_inline_markdown posting.title %></h1>
+
+                <font color="#aaa">
+                  <font color="#aaa"><%= posting.published_at |> human_readable_date %></font>
+                  <font color="#aaa">
+                    by
+                    @<%= posting.user.user_name %>
+                  </font>
+                </font>
+
+                <%= xml_sanitized_markdown posting.text %>
+                <hr>
+                <small><a href="<%= to_permalink(@conn, posting) %>">View this announcement on ElixirStatus</a></small>
+              </td>
+            </tr>
+          </table>
+        ]]></description>
+        <pubDate><%= xml_readable_date posting.published_at %></pubDate>
+        <link><%= to_permalink(@conn, posting) %></link>
+        <guid><%= to_permalink(@conn, posting) %></guid>
+      </item>
+    <% end %>
+  </channel>
+</rss>
