@@ -8,7 +8,7 @@
       <item>
         <title><![CDATA[<%= xml_sanitized_inline_markdown posting.title %>]]></title>
         <description><![CDATA[
-          <table>
+          <table width="100%" border="0">
             <tr>
               <td width=80 valign=top>
                 <img src="<%= ElixirStatus.URL.from_path("/rss/avatar/#{posting.user.user_name}?uid=#{posting.uid}") %>" width="64" height="64" />
@@ -17,16 +17,23 @@
                 <h1><%= xml_sanitized_inline_markdown posting.title %></h1>
 
                 <font color="#aaa">
-                  <font color="#aaa"><%= posting.published_at |> human_readable_date %></font>
+                  <font color="#aaa">
+                    <%= posting.published_at |> human_readable_date %>
+                  </font>
                   <font color="#aaa">
                     by
                     @<%= posting.user.user_name %>
+                  </font>
+                  <font color="#aaa">
+                    <%= if posting.published_tweet_uid do %>
+                      | <a href="https://twitter.com/intent/retweet?tweet_id=<%= posting.published_tweet_uid %>" target="_blank">Retweet this announcement</a>
+                    <% end %>
                   </font>
                 </font>
 
                 <%= xml_sanitized_markdown posting.text %>
                 <hr>
-                <small><a href="<%= to_permalink(@conn, posting) %>">View this announcement on ElixirStatus</a></small>
+                <small><a href="<%= to_permalink(@conn, posting) %>">View on ElixirStatus</a></small>
               </td>
             </tr>
           </table>
