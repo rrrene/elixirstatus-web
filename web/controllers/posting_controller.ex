@@ -6,11 +6,14 @@ defmodule ElixirStatus.PostingController do
   alias ElixirStatus.Posting
 
   @just_created_timeout 60 # seconds
+  @current_posting_assign_key :posting
 
-  plug :authenticate, :logged_in when action in [:new, :create, :edit, :update, :delete]
   plug :load_posting when action in [:edit, :update, :delete, :show]
-  plug :authenticate, :same_user_or_admin when action in [:edit, :update, :delete]
-  plug :authenticate, :admin when action in [:unpublish]
+
+  plug ElixirStatus.Plugs.LoggedIn when action in [:new, :create, :edit, :update, :delete]
+  plug ElixirStatus.Plugs.Admin when action in [:unpublish]
+  plug ElixirStatus.Plugs.SameUserOrAdmin, @current_posting_assign_key when action in [:edit, :update, :delete]
+
   plug :scrub_params, "posting" when action in [:create, :update]
 
   def index(conn, params) do
@@ -136,7 +139,7 @@ defmodule ElixirStatus.PostingController do
         |> halt
     else
       conn
-        |> assign(:posting, posting)
+        |> assign(@current_posting_assign_key, posting)
     end
   end
 
@@ -163,31 +166,8 @@ defmodule ElixirStatus.PostingController do
     end
   end
 
-  defp authenticate(conn, :logged_in) do
-    case Auth.current_user(conn) do
-      nil -> redirect(conn, to: "/") |> halt
-      _   -> conn
-    end
-  end
-
-  defp authenticate(conn, :same_user_or_admin) do
-    if Auth.admin?(conn) || Auth.belongs_to_current_user?(conn, current_posting(conn)) do
-      conn
-    else
-      redirect(conn, to: "/") |> halt
-    end
-  end
-
-  defp authenticate(conn, :admin) do
-    if Auth.admin?(conn) do
-      conn
-    else
-      redirect(conn, to: "/") |> halt
-    end
-  end
-
   defp current_posting(conn) do
-    conn.assigns[:posting]
+    conn.assigns[@current_posting_assign_key]
   end
 
   defp extract_valid_params(%{"title" => title, "text" => text}) do

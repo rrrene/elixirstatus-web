@@ -39,6 +39,12 @@ defmodule ElixirStatus.Router do
     get "/callback", GitHubAuthController, :callback
   end
 
+  scope "/admin", alias: ElixirStatus.Admin do
+    pipe_through :browser
+
+    get "/", OverviewController, :index
+  end
+
   scope "/users", ElixirStatus do
     pipe_through :browser # Use the default browser stack
 
