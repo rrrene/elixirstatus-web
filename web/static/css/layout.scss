@@ -219,6 +219,15 @@ input.post-title {
 /* Elixir */
 body .content .post-body a,
 body .related-posts li a:hover {
-  color: #8D29BE;
+  color: #5E49BA;
+  text-decoration: underline;
+}
+
+body .content .post-meta a {
+  color: #9a9a9a;
+  text-decoration: none;
+}
+body .content .post-meta a:hover {
+  color: #9a9a9a;
   text-decoration: underline;
 }
