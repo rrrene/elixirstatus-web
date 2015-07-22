@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="Elixir news and status updates from the community for Elixir and Phoenix">
     <meta name="author" content="">
     <%= if logged_in?(@conn) do %>
       <meta name="logged_in_as" content="<%= @current_user.user_name %>">
     <% end %>
     <meta property="og:image" content="<%= og_image_url(assigns) %>" />
 
-    <title>elixirstatus</title>
+    <title>ElixirStatus - news and status updates from the community for Elixir and Phoenix</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
   </head>
