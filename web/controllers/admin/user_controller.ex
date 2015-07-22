@@ -1,4 +1,4 @@
-defmodule ElixirStatus.UserController do
+defmodule ElixirStatus.Admin.UserController do
   use ElixirStatus.Web, :controller
 
   alias ElixirStatus.User

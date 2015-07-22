@@ -1,6 +1,6 @@
 defmodule ElixirStatus.GitHubAuthController do
   use ElixirStatus.Web, :controller
-  alias ElixirStatus.UserController
+  alias ElixirStatus.Admin.UserController
 
   @doc """
   This action is reached via `/auth` and redirects to the OAuth2 provider
