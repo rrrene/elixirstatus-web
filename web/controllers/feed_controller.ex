@@ -8,7 +8,7 @@ defmodule ElixirStatus.FeedController do
 
     conn
       |> ElixirStatus.Impressionist.record("rss", "postings", posting.uid)
-      |> redirect(to: "/images/github/#{user_name}.jpg")
+      |> send_file(200, "priv/static/images/github/#{user_name}.jpg")
   end
 
   def rss(conn, _params) do

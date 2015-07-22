@@ -1,6 +1,6 @@
 <div class="post" data-posting-uid="<%= raw @posting.uid %>">
   <div class="post-avatar">
-    <div class="image" style="background-image: url(<%= raw "/images/github/#{@posting.user.user_name}.jpg" %>)"></div>
+    <div class="image" style="background-image: url(<%= raw "/avatar/github/#{@posting.user.user_name}" %>)"></div>
   </div>
 
   <h1 class="post-title"><%= link sanitized_inline_markdown(@posting.title), to: permalink_posting_path(@conn, :show, @posting.permalink) %></h1>
