@@ -2,7 +2,7 @@
 <rss version="2.0">
   <channel>
     <title>ElixirStatus</title>
-    <description>Elixir annoucements service</description>
+    <description><%= ElixirStatus.Meta.rss_title %></description>
     <link><%= ElixirStatus.URL.from_path("/") %></link>
     <%= for posting <- @postings do %>
       <item>
