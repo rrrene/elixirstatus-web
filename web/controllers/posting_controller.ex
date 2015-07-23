@@ -73,7 +73,7 @@ defmodule ElixirStatus.PostingController do
     posting = current_posting(conn)
 
     conn
-      |> ElixirStatus.Impressionist.record("detail", "postings", posting.uid)
+      |> ElixirStatus.Impressionist.record("detail", "posting", posting.uid)
       |> render("show.html",  posting: posting,
                               created_posting: load_created_posting(conn))
   end

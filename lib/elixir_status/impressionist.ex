@@ -5,8 +5,20 @@ defmodule ElixirStatus.Impressionist do
   """
 
   import Plug.Conn
+  import Ecto.Query, only: [from: 2]
+
   alias ElixirStatus.Impression
   alias ElixirStatus.Repo
+
+  def count(context, subject_type, subject_uid) do
+    query = from r in Impression,
+                  where: r.context == ^context and
+                          r.subject_type == ^subject_type and
+                          r.subject_uid == ^subject_uid,
+                  select: count(r.id)
+    query |> Repo.one
+  end
+
 
   @doc """
     Directly records an impression. This is supposed to be called from inside

@@ -7,7 +7,7 @@ defmodule ElixirStatus.FeedController do
     posting = PostingController.get_by_uid(posting_uid)
 
     conn
-      |> ElixirStatus.Impressionist.record("rss", "postings", posting.uid)
+      |> ElixirStatus.Impressionist.record("rss", "posting", posting.uid)
       |> send_file(200, "priv/static/images/github/#{user_name}.jpg")
   end
 

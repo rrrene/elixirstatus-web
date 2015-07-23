@@ -2,7 +2,7 @@ defmodule ElixirStatus.ImpressionControllerTest do
   use ElixirStatus.ConnCase
 
   alias ElixirStatus.Impression
-  @valid_attrs %{context: "frontpage", subject_type: "postings", subject_uid: "acds"}
+  @valid_attrs %{context: "frontpage", subject_type: "posting", subject_uid: "acds"}
   @invalid_attrs %{context: ""}
 
   setup do
@@ -11,7 +11,7 @@ defmodule ElixirStatus.ImpressionControllerTest do
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
-    post_attrs = %{"context" => "frontpage", "subject_type" => "postings", "subject_uid" => "acds"}
+    post_attrs = %{"context" => "frontpage", "subject_type" => "posting", "subject_uid" => "acds"}
     conn = post conn, impression_path(conn, :create), post_attrs
     assert json_response(conn, 200)["ok"]
     :timer.sleep(300)

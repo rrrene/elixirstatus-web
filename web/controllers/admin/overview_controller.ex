@@ -3,7 +3,10 @@ defmodule ElixirStatus.Admin.OverviewController do
 
   plug ElixirStatus.Plugs.Admin
 
-  def index(conn, _params) do
-    render conn, "index.html"
+  def index(conn, params) do
+    page = ElixirStatus.PostingController.get_all(params)
+    render(conn, "index.html", postings: page.entries,
+                               page_number: page.page_number,
+                               total_pages: page.total_pages)
   end
 end
