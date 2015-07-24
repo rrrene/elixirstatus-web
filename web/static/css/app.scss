@@ -83,3 +83,14 @@ strong > em {
     background: transparent;
   }
 }
+
+#beta-hint {
+  background: #ffe;
+  border-bottom: 1px solid #fa0;
+  padding: 4px;
+}
+@include tablet_landscape_and_bigger {
+  #beta-hint {
+    padding-left: 17rem;
+  }
+}

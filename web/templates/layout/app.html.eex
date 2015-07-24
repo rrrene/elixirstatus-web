@@ -18,6 +18,9 @@
 
   <body>
     <%= render ElixirStatus.SharedView, "sidebar.html", conn: @conn %>
+    <div id="beta-hint">
+      ElixirStatus is a <a href="https://github.com/rrrene/elixirstatus-web" target="_blank">community project</a> currently in beta. Please <a href="https://github.com/rrrene/elixirstatus-web/issues/25" target="_blank">post a comment</a> if you can think of any improvement to the site!
+    </div>
 
     <div class="content">
       <div class="container">
