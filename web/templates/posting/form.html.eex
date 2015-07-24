@@ -9,7 +9,7 @@
       <span class="post-date">Today</span>
       <span class="post-author">
         by
-        <a href="https://github.com/<%= raw @current_user_name %>" target="_blank">@<%= raw @current_user_name %></a>
+        <a href="https://github.com/<%= raw @current_user_name %>" target="_blank"><i class="icon-git_circle"></i> <%= raw @current_user_name %></a>
       </span>
     </span>
 

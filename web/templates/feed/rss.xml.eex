@@ -22,7 +22,7 @@
                   </font>
                   <font color="#aaa">
                     by
-                    @<%= posting.user.user_name %>
+                    <i class="icon-git_circle"></i> <%= posting.user.user_name %>
                   </font>
                   <font color="#aaa">
                     <%= if posting.published_tweet_uid do %>

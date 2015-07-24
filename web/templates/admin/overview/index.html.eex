@@ -12,7 +12,7 @@
   </thead>
   <%= for posting <- @postings do %>
     <tr>
-      <td>@<%= posting.user.user_name %></td>
+      <td><i class="icon-git_circle"></i> <%= posting.user.user_name %></td>
       <td><%= sanitized_inline_markdown posting.title %></td>
       <td><%= ElixirStatus.Impressionist.count "frontpage", "posting", posting.uid %></td>
       <td><%= ElixirStatus.Impressionist.count "detail", "posting", posting.uid %></td>
