@@ -3,7 +3,7 @@
     <div class="image" style="background-image: url(<%= raw "/avatar/github/#{@current_user_name}" %>)"></div>
   </div>
   <%= form_for @changeset, @action, fn f -> %>
-    <%= text_input f, :title, id: "posting_title", class: class_with_error(f, :title, "post-title"), placeholder: "Title goes here (will be tweeted by @elixirstatus)" %>
+    <%= text_input f, :title, id: "posting_title", class: class_with_error(f, :title, "post-title"), placeholder: "Title goes here (will be tweeted)" %>
 
     <span class="post-meta">
       <span class="post-date">Today</span>
