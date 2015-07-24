@@ -13,7 +13,7 @@ defmodule ElixirStatus.ImpressionController do
   def external(conn, %{"uid" => posting_uid, "url" => url}) do
     link_uid = LinkShortener.to_uid(url)
     conn
-      |> Impressionist.record("postings:#{posting_uid}", "short_links", link_uid)
+      |> Impressionist.record("postings:#{posting_uid}", "short_link", link_uid)
       |> json(%{"ok" => true})
   end
 

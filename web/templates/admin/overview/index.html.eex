@@ -16,7 +16,7 @@
       <td><%= sanitized_inline_markdown posting.title %></td>
       <td><%= ElixirStatus.Impressionist.count "frontpage", "posting", posting.uid %></td>
       <td><%= ElixirStatus.Impressionist.count "detail", "posting", posting.uid %></td>
-      <td><%= ElixirStatus.Impressionist.count "detail", "short_links", to_short_uid(posting.permalink) %></td>
+      <td><%= ElixirStatus.Impressionist.count "detail", "short_link", to_short_uid(posting.permalink) %></td>
     </tr>
   <% end %>
 </table>
