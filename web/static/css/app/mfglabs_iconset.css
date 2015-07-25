@@ -20,11 +20,11 @@
     */
 @font-face {
     font-family: 'mfg_labs_iconsetregular';
-    src: url('/font/mfglabsiconset-webfont.eot');
-    src: url('/font/mfglabsiconset-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/font/mfglabsiconset-webfont.woff') format('woff'),
-         url('/font/mfglabsiconset-webfont.ttf') format('truetype'),
-         url('/font/mfglabsiconset-webfont.svg#mfg_labs_iconsetregular') format('svg');
+    src: url('/fonts/mfglabsiconset-webfont.eot');
+    src: url('/fonts/mfglabsiconset-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/mfglabsiconset-webfont.woff') format('woff'),
+         url('/fonts/mfglabsiconset-webfont.ttf') format('truetype'),
+         url('/fonts/mfglabsiconset-webfont.svg#mfg_labs_iconsetregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }

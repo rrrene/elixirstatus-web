@@ -14,11 +14,14 @@ exports.config = {
       // https://github.com/brunch/brunch/tree/stable/docs#concatenation
     },
     stylesheets: {
-      joinTo: 'css/app.css',
+      joinTo: {
+        'css/app.css': /^(web\/static\/css\/app)/,
+        'css/admin.css': /^(web\/static\/css\/admin)/
+      },
       order: {
         before: [
-          'web/static/css/layout.scss',
-          'web/static/css/typo.scss'
+          'web/static/css/app/layout.scss',
+          'web/static/css/app/typo.scss'
         ]
       }
     },

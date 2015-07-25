@@ -1,26 +1,40 @@
-<h2>Listing <%= Enum.count(@users) %> users</h2>
+<div class="col-md-12">
+  <h1>Listing <%= Enum.count(@users) %> users</h1>
+</div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>FullName</th>
-      <th>Email</th>
-      <th>Provider</th>
-      <th>UserName</th>
-      <th>Date</th>
-    </tr>
-  </thead>
-  <tbody>
-  <%= for user <- @users do %>
-      <tr>
-        <td><%= user.id %></td>
-        <td><%= user.full_name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.provider %></td>
-        <td><%= user.user_name %></td>
-        <td><%= human_readable_date user.inserted_at %></td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
+<div class="col-md-8">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Latest users</h3>
+    </div>
+    <div class="panel-body">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>FullName</th>
+            <th>Email</th>
+            <th>Provider</th>
+            <th>UserName</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+        <%= for user <- @users do %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.full_name %></td>
+              <td><%= user.email %></td>
+              <td><%= user.provider %></td>
+              <td><%= user.user_name %></td>
+              <td><%= human_readable_date user.inserted_at %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

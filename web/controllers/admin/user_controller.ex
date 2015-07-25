@@ -3,6 +3,8 @@ defmodule ElixirStatus.Admin.UserController do
 
   alias ElixirStatus.User
 
+  @layout {ElixirStatus.LayoutView, "admin.html"}
+
   def create_from_auth_params(user_auth_params) do
     %User{
       full_name: user_auth_params["name"],
@@ -28,6 +30,6 @@ defmodule ElixirStatus.Admin.UserController do
 
   def index(conn, _params) do
     users = Repo.all(User)
-    render(conn, "index.html", users: users)
+    render(conn, "index.html", layout: @layout, users: users)
   end
 end
