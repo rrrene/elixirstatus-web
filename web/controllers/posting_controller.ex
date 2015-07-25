@@ -75,7 +75,9 @@ defmodule ElixirStatus.PostingController do
     conn
       |> ElixirStatus.Impressionist.record("detail", "posting", posting.uid)
       |> render("show.html",  posting: posting,
-                              created_posting: load_created_posting(conn))
+                              created_posting: load_created_posting(conn),
+                              prev_posting: load_prev_posting(posting),
+                              next_posting: load_next_posting(posting))
   end
 
   def edit(conn, %{"id" => id}) do
@@ -141,6 +143,24 @@ defmodule ElixirStatus.PostingController do
       conn
         |> assign(@current_posting_assign_key, posting)
     end
+  end
+
+  defp load_prev_posting(posting) do
+    query = from p in Posting,
+                  where: p.public == ^true and
+                          p.published_at < ^posting.published_at,
+                  order_by: [desc: :published_at],
+                  limit: 1
+    query |> Ecto.Query.preload(:user) |> Repo.one
+  end
+
+  defp load_next_posting(posting) do
+    query = from p in Posting,
+                  where: p.public == ^true and
+                          p.published_at > ^posting.published_at,
+                  order_by: [asc: :published_at],
+                  limit: 1
+    query |> Ecto.Query.preload(:user) |> Repo.one
   end
 
   defp load_created_posting(conn) do
