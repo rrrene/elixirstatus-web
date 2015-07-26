@@ -1,17 +1,29 @@
 
 <div class="posts">
   <%= if logged_in?(@conn) do %>
-    <%= if @page_number == 1 && is_nil(@created_posting) do %>
-      <a class="btn btn-sign-in" id="new-post-btn" data-toggle="#new-post, #new-post-btn" href="#"><i class="icon-pen"></i> Submit a post</a>
-      <div id="new-post" style="display: none">
-        <%= render "form.html", current_user_name: current_user(@conn).user_name,
-                                changeset: @changeset,
-                                action: posting_path(@conn, :create),
-                                conn: @conn,
-                                posting: nil,
-                                css_class: "new-post",
-                                editing?: false %>
-      </div>
+    <%= if @page_number == 1 do %>
+      <%= if @just_signed_in do %>
+        <div id="new-post">
+          <%= render "form.html", current_user_name: current_user(@conn).user_name,
+                                  changeset: @changeset,
+                                  action: posting_path(@conn, :create),
+                                  conn: @conn,
+                                  posting: nil,
+                                  css_class: "new-post",
+                                  editing?: false %>
+        </div>
+      <% else %>
+        <a class="btn btn-sign-in" id="new-post-btn" data-toggle="#new-post, #new-post-btn" href="#"><i class="icon-pen"></i> Submit a post</a>
+        <div id="new-post" style="display: none">
+          <%= render "form.html", current_user_name: current_user(@conn).user_name,
+                                  changeset: @changeset,
+                                  action: posting_path(@conn, :create),
+                                  conn: @conn,
+                                  posting: nil,
+                                  css_class: "new-post",
+                                  editing?: false %>
+        </div>
+      <% end %>
     <% else %>
       <a class="btn btn-sign-in" href="/postings/new"><i class="icon-pen"></i> Submit another post</a>
     <% end %>

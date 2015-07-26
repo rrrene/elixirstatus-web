@@ -24,6 +24,7 @@ defmodule ElixirStatus.PostingController do
                               page_number: page.page_number,
                               total_pages: page.total_pages,
                               created_posting: load_created_posting(conn),
+                              just_signed_in: params["just_signed_in"] == "true",
                               changeset: Posting.changeset(%Posting{}))
   end
 
