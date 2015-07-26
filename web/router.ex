@@ -18,11 +18,12 @@ defmodule ElixirStatus.Router do
   scope "/", ElixirStatus do
     pipe_through :browser # Use the default browser stack
 
+    get "/", PostingController, :index
     get "/rss", FeedController, :rss
+    get "/about", PageController, :about
+
     get "/rss/avatar/:user_name", FeedController, :avatar
     get "/avatar/github/:user_name", PageController, :avatar
-    get "/", PageController, :index
-    get "/about", PageController, :about
 
     get "/postings/preview", PostingController, :preview, as: :preview_posting
     post "/postings/unpublish/:id", PostingController, :unpublish
