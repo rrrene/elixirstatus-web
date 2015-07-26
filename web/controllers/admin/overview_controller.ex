@@ -3,13 +3,15 @@ defmodule ElixirStatus.Admin.OverviewController do
 
   plug ElixirStatus.Plugs.Admin
 
+  @iframe_url Application.get_env(:elixir_status, :admin_overview_iframe_url)
   @layout {ElixirStatus.LayoutView, "admin.html"}
 
   def index(conn, params) do
     page = ElixirStatus.PostingController.get_all(params)
-    render(conn, "index.html", layout: @layout,
+    render conn, "index.html", layout: @layout,
                                 postings: page.entries,
                                 page_number: page.page_number,
-                                total_pages: page.total_pages)
+                                total_pages: page.total_pages,
+                                iframe_url: @iframe_url
   end
 end

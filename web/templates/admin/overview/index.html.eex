@@ -39,9 +39,6 @@
     <div class="panel-heading">
       <h3 class="panel-title">Social Media Research</h3>
     </div>
-    <div class="panel-body">
-
-
-    </div>
+    <iframe src="<%= @iframe_url %>" frameborder="0" height="800" width="100%"></iframe>
   </div>
 </div>

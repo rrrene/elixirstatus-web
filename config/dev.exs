@@ -36,3 +36,4 @@ config :elixir_status, ElixirStatus.Repo,
 
 config :elixir_status, :base_url, "http://localhost:4000"
 config :elixir_status, :admin_user_ids, [1]
+config :elixir_status, :admin_overview_iframe_url, "http://elixirstatus.com/"
