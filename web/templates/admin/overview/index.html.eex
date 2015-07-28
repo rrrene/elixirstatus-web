@@ -2,7 +2,7 @@
   <h1>ADMIN OVERVIEW</h1>
 </div>
 
-<div class="col-md-8">
+<div class="col-md-6">
 
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -34,11 +34,21 @@
     </div>
   </div>
 </div>
-<div class="col-md-4">
+
+<div class="col-md-3">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Social Media Research</h3>
+      <h3 class="panel-title">Homepage <a href="<%= @base_url %>" target="_blank"><i class="fa fa-arrows-alt" style="float: right"></i></a></h3>
     </div>
-    <iframe src="<%= @iframe_url %>" frameborder="0" height="800" width="100%"></iframe>
+    <iframe src="<%= @base_url %>" frameborder="0" height="780" width="100%"></iframe>
+  </div>
+</div>
+
+<div class="col-md-3">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-twitter-square"></i> Social Media Research</h3>
+    </div>
+    <iframe src="<%= @iframe_url %>" frameborder="0" height="780" width="100%"></iframe>
   </div>
 </div>
