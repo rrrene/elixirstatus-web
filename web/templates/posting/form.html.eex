@@ -16,8 +16,12 @@
     <%= textarea f, :text, id: "posting_text", class: class_with_error(f, :text, "post-body"), placeholder: "Text should describe what you made in prose. Don't forget to link to your project/blog post!" %>
 
     <div class="functions">
-      <div class="buttons">
-        <small>Use Markdown (<a href="#" data-toggle="#formatting-help">formatting help</a>).</small>
+      <div>
+        <small>
+          Your post might be edited (typos, wording, etc.)<br>
+          You can use Markdown (<a href="#" data-toggle="#formatting-help">formatting help</a>).
+        </small>
+
         <span>
           <a href="#" class="btn btn-preview" data-preview-url="<%= preview_posting_path(@conn, :preview) %>">Preview</a>
           <%= submit "Post this", class: "btn btn-primary" %>
