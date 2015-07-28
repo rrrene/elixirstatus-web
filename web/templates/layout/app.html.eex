@@ -11,7 +11,7 @@
     <% end %>
     <meta property="og:image" content="<%= og_image_url(assigns) %>" />
 
-    <title><%= ElixirStatus.Meta.html_title %></title>
+    <title><%= html_title(assigns) %></title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
