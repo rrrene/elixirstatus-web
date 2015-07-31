@@ -23,7 +23,7 @@ defmodule ElixirStatus.LayoutView do
     case assigns[:posting] do
       nil -> "/images/logo.png"
       %Posting{user: %Ecto.Association.NotLoaded{}} -> "/images/logo.png"
-      %Posting{user: user} -> "/avatar/github/#{user.user_name}"
+      %Posting{user: user} -> avatar_path(user)
     end
   end
 end
