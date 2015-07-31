@@ -35,5 +35,10 @@ config :elixir_status, ElixirStatus.Repo,
   size: 10 # The amount of database connections in the pool
 
 config :elixir_status, :base_url, "http://localhost:4000"
+
+config :elixir_status, :twitter_screen_name, "elixirstatus"
+config :elixir_status, :twitter_dm_recipient, "elixirstatus"
+
 config :elixir_status, :admin_user_ids, [1]
-config :elixir_status, :admin_overview_iframe_url, "http://elixirstatus.com/"
+config :elixir_status, :admin_overview_iframe_url, "http://twitter.com/"
+config :elixir_status, :admin_site_switcher_html, ""

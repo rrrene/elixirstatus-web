@@ -10,11 +10,38 @@ defmodule ElixirStatus.Impressionist do
   alias ElixirStatus.Impression
   alias ElixirStatus.Repo
 
+  def count(context, subject_type) do
+    query = from r in Impression,
+                  where: r.context == ^context and
+                          r.subject_type == ^subject_type,
+                  select: count(r.id)
+    query |> Repo.one
+  end
+
+  def count_sessions(context, subject_type) do
+    query = from r in Impression,
+                  where: r.context == ^context and
+                          r.subject_type == ^subject_type and
+                          not is_nil(r.session_hash),
+                  select: count(r.id)
+    query |> Repo.one
+  end
+
   def count(context, subject_type, subject_uid) do
     query = from r in Impression,
                   where: r.context == ^context and
                           r.subject_type == ^subject_type and
                           r.subject_uid == ^subject_uid,
+                  select: count(r.id)
+    query |> Repo.one
+  end
+
+  def count_sessions(context, subject_type, subject_uid) do
+    query = from r in Impression,
+                  where: r.context == ^context and
+                          r.subject_type == ^subject_type and
+                          r.subject_uid == ^subject_uid and
+                          not is_nil(r.session_hash),
                   select: count(r.id)
     query |> Repo.one
   end

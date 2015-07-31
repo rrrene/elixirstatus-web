@@ -1,7 +1,35 @@
 body {
-  padding-top: 40px;
+  background: #f3f3f3;
+  color: #333333 !important;
 }
+
 .navbar {
   background-color: #432C50;
+  border: none;
+  border-radius: 0;
   border-bottom: 2px solid #8F58B9;
+}
+.navbar .container-fluid {
+  padding: 0;
+}
+.navbar-brand {
+  font-size: 20px;
+}
+
+.site-switcher img {
+  width: 32px;
+  height: 32px;
+}
+
+h1 {
+  display: none;
+}
+
+.panel {
+  border-radius: 0;
+  border-top-width: 3px;
+}
+.panel-default > .panel-heading {
+  color: #666;
+  font-weight: bold;
 }

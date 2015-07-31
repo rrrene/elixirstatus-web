@@ -4,6 +4,10 @@ defmodule ElixirStatus.LayoutView do
   alias ElixirStatus.Posting
   alias ElixirStatus.URL
 
+  def admin_site_switcher do
+    Application.get_env(:elixir_status, :admin_site_switcher_html) || ""
+  end
+
   def html_title(assigns) do
     case assigns[:posting] do
       nil -> ElixirStatus.Meta.html_title

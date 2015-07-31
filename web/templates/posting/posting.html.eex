@@ -42,7 +42,7 @@
     <div class="post-options">
       <div class="twitter-integration">
         <hr>
-        <a href="https://twitter.com/elixirstatus" target="_blank">@elixirstatus</a> just tweeted your post using the #elixirlang hashtag.
+        <a href="https://twitter.com/<%= twitter_screen_name %>" target="_blank">@<%= twitter_screen_name %></a> just tweeted your post using the #elixirlang hashtag.
 
         <br><strong>Tweet it yourself using #myelixirstatus to maximize its circulation:</strong>
         <div class="tweet">

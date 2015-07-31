@@ -1,5 +1,6 @@
 defmodule ViewHelper do
   use Timex
+  use Phoenix.HTML.Sanitizer, :basic_html
 
   def class_with_error(form, field, base_class) do
     if error_on_field?(form, field) do
@@ -46,17 +47,12 @@ defmodule ViewHelper do
     date.day == now.day && date.month == now.month && date.year == now.year
   end
 
-  def sanitize(text) do
-    HtmlSanitizeEx.basic_html(text)
-  end
-
   def sanitized_markdown(nil), do: ""
 
   def sanitized_markdown(text) do
     text
       |> Earmark.to_html
-      |> HtmlSanitizeEx.basic_html
-      |> Phoenix.HTML.raw
+      |> sanitize
   end
 
   def sanitized_inline_markdown(text) do
@@ -65,4 +61,7 @@ defmodule ViewHelper do
       |> String.replace(~r/(<\/?p>)/, "")
       |> Phoenix.HTML.raw
   end
+
+  @twitter_screen_name Application.get_env(:elixir_status, :twitter_screen_name)
+  def twitter_screen_name, do: @twitter_screen_name
 end

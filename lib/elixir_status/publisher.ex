@@ -2,7 +2,7 @@ defmodule ElixirStatus.Publisher do
   @moduledoc """
     The Publisher comes into play whenever a Posting is made or updated.
 
-    He is e.g. tasked with promoting it on Twitter.
+    The Publisher is e.g. tasked with promoting postings on Twitter.
   """
 
   require Logger
@@ -10,6 +10,8 @@ defmodule ElixirStatus.Publisher do
   alias ElixirStatus.LinkShortener
   alias ElixirStatus.Posting
   alias ElixirStatus.PostingController
+
+  @direct_message_recipient Application.get_env(:elixir_status, :twitter_dm_recipient)
 
   @doc """
     Called when a posting is created by PostingController.
@@ -19,6 +21,7 @@ defmodule ElixirStatus.Publisher do
   def after_create(new_posting) do
     new_posting
       |> create_all_short_links
+      |> send_direct_message
     tweet_uid = post_to_twitter(new_posting)
     PostingController.update_published_tweet_uid(new_posting, tweet_uid)
   end
@@ -58,6 +61,22 @@ defmodule ElixirStatus.Publisher do
     posting
   end
 
+  @doc """
+    Sends a direct message via Twitter.
+  """
+  defp send_direct_message(%Posting{title: title, permalink: permalink}) do
+    "#{short_title(title)} #{short_url(permalink)}"
+      |> send_on_twitter(Mix.env)
+  end
+
+  defp send_on_twitter(text, :prod) do
+    ExTwitter.send_direct_message(@direct_message_recipient, text)
+  end
+
+  defp send_on_twitter(tweet, _) do
+    Logger.debug {:send_direct_message, tweet}
+  end
+
   defp post_to_twitter(posting) do
     %Posting{title: title, permalink: permalink} = posting
 
@@ -71,10 +90,13 @@ defmodule ElixirStatus.Publisher do
   end
 
   defp update_on_twitter(tweet, _) do
-    Logger.debug {:tweeting, tweet}
+    Logger.debug {:update_twitter_status, tweet}
     nil
   end
 
+  @doc """
+    Shortens a given +title+ to +max+ length.
+  """
   def short_title(title, max \\ 100, truncate_with \\ "...") do
     if String.length(title) <= max do
       title

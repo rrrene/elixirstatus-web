@@ -10,7 +10,7 @@ defmodule ElixirStatus.PageControllerTest do
   test "GET / (logged in)" do
     conn = logged_in_conn()
             |> get "/"
-    assert html_response(conn, 302)
+    assert html_response(conn, 200)
   end
 
   @tag logged_in: true
