@@ -1,6 +1,6 @@
 <div class="post <%= @css_class %>">
   <div class="post-avatar">
-    <div class="image" style="background-image: url(<%= avatar_path(@current_user_name) %>)"></div>
+    <div class="image" style="background-image: url(<%= raw avatar_path(@current_user_name) %>)"></div>
   </div>
   <%= form_for @changeset, @action, fn f -> %>
     <%= text_input f, :title, id: "posting_title", class: class_with_error(f, :title, "post-title"), placeholder: "Title goes here (will be tweeted)" %>

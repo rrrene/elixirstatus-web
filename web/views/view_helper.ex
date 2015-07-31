@@ -7,7 +7,7 @@ defmodule ViewHelper do
   def avatar_path(%User{user_name: user_name}), do: avatar_path(user_name)
 
   def avatar_path(user_name) when is_binary(user_name) do
-    Phoenix.HTML.raw "/images/github/#{user_name}.jpg"
+    "/images/github/#{user_name}.jpg"
   end
 
   def class_with_error(form, field, base_class) do

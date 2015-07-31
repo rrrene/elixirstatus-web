@@ -1,6 +1,6 @@
 <div class="post preview-post">
   <div class="post-avatar">
-    <div class="image" style="background-image: url(<%= avatar_path(current_user(@conn)) %>)"></div>
+    <div class="image" style="background-image: url(<%= raw avatar_path(current_user(@conn)) %>)"></div>
   </div>
 
   <h1 class="post-title"><%= sanitized_inline_markdown(@posting.title) %></h1>
