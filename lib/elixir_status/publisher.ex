@@ -74,7 +74,8 @@ defmodule ElixirStatus.Publisher do
   end
 
   defp send_on_twitter(tweet, _) do
-    Logger.debug {:send_direct_message, tweet}
+    Logger.debug "send_direct_message: #{tweet}"
+    nil
   end
 
   defp post_to_twitter(posting) do
@@ -90,7 +91,7 @@ defmodule ElixirStatus.Publisher do
   end
 
   defp update_on_twitter(tweet, _) do
-    Logger.debug {:update_twitter_status, tweet}
+    Logger.debug "update_twitter_status: #{tweet}"
     nil
   end
 

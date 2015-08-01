@@ -29,8 +29,8 @@ defmodule ViewHelper do
   def admin?(conn), do: ElixirStatus.Auth.admin?(conn)
 
   @doc "Returns a date formatted for humans."
-  def human_readable_date(date) do
-    {:ok, readable} = if this_year?(date) do
+  def human_readable_date(date, use_abbrevs \\ true) do
+    {:ok, readable} = if use_abbrevs && this_year?(date) do
                         if today?(date) do
                           {:ok, "Today"}
                         else

@@ -18,7 +18,7 @@
 
                 <font color="#aaa">
                   <font color="#aaa">
-                    <%= posting.published_at |> human_readable_date %>
+                    <%= posting.published_at |> human_readable_date(false) %>
                   </font>
                   <font color="#aaa">
                     by
