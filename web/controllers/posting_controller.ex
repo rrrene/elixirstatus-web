@@ -135,7 +135,7 @@ defmodule ElixirStatus.PostingController do
       %{params: %{"permalink" => permalink}} -> get_by_permalink(permalink)
       _ -> nil
     end
-    if is_nil(posting) do
+    if is_nil(posting) || posting.public == false do
       conn
         |> put_status(:not_found)
         |> render(ElixirStatus.ErrorView, "404.html")

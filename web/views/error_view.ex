@@ -2,7 +2,7 @@ defmodule ElixirStatus.ErrorView do
   use ElixirStatus.Web, :view
 
   def render("404.html", _assigns) do
-    "Page not found"
+    "404 - Page not found"
   end
 
   def render("500.html", _assigns) do
