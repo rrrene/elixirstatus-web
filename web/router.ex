@@ -29,6 +29,7 @@ defmodule ElixirStatus.Router do
     post "/postings/unpublish/:id", PostingController, :unpublish
     resources "/postings", PostingController
     get "/p/:permalink", PostingController, :show, as: :permalink_posting
+    get "/p/edit/:permalink", PostingController, :edit
 
     get "/=:uid", ShortLinkController, :show
   end

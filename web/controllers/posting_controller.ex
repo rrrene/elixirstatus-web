@@ -81,8 +81,12 @@ defmodule ElixirStatus.PostingController do
                               next_posting: load_next_posting(posting))
   end
 
-  def edit(conn, %{"id" => id}) do
-    posting = Repo.get!(Posting, id)
+  def edit(conn, %{"permalink" => _}) do
+    edit(conn, %{"id" => current_posting(conn)})
+  end
+
+  def edit(conn, %{"id" => _}) do
+    posting = current_posting(conn)
     changeset = Posting.changeset(posting)
     render(conn, "edit.html", posting: posting, changeset: changeset)
   end
