@@ -55,6 +55,23 @@ body .content .post-body .btn-tweet,
   background-color: #286090;
   border-color: #204d74;
 }
+body .content .post-body .btn-retweet,
+.btn-retweet {
+  color: #fff;
+  text-decoration: none;
+  background-color: #5c913b;
+  border-color: #426B28;
+  &:visited,
+  &:link,
+  &:active {
+    color: #fff;
+  }
+}
+.btn-retweet:hover {
+  color: #fff;
+  background-color: #64864F;
+  border-color: #426B28;
+}
 .btn-primary {
   color: #fff;
   background-color: #127429;

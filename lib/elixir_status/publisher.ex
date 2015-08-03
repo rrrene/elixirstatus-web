@@ -79,9 +79,8 @@ defmodule ElixirStatus.Publisher do
   end
 
   defp post_to_twitter(posting) do
-    %Posting{title: title, permalink: permalink} = posting
-
-    "#{short_title(title)} #{short_url(permalink)} #elixirlang"
+    posting
+      |> tweet_text
       |> update_on_twitter(Mix.env)
   end
 
@@ -93,6 +92,13 @@ defmodule ElixirStatus.Publisher do
   defp update_on_twitter(tweet, _) do
     Logger.debug "update_twitter_status: #{tweet}"
     nil
+  end
+
+  @doc """
+    Returns the text for the tweet announcing the given posting.
+  """
+  def tweet_text(%Posting{title: title, permalink: permalink}) do
+    "#{short_title(title)} #{short_url(permalink)} #elixirlang"
   end
 
   @doc """

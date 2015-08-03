@@ -38,21 +38,22 @@
     <%= sanitized_markdown @posting.text %>
   </div>
 
-  <%= if @just_created_by_me? do %>
+  <%= if @just_created_by_me? && @posting.published_tweet_uid do %>
     <div class="post-options">
       <div class="twitter-integration">
         <hr>
-        <a href="https://twitter.com/<%= twitter_screen_name %>" target="_blank">@<%= twitter_screen_name %></a> just tweeted your post using the #elixirlang hashtag.
 
-        <br><strong>Tweet it yourself using #myelixirstatus to maximize its circulation:</strong>
+        <br>
+        <strong>
+          <a href="https://twitter.com/<%= twitter_screen_name %>" target="_blank">@<%= twitter_screen_name %></a> just tweeted your post:
+        </strong>
         <div class="tweet">
-          <a class="btn btn-tweet" style="display: inline-block; float: right;" href="https://twitter.com/intent/tweet?hashtags=myelixirstatus&text=<%= URI.encode tweet_text(@conn, @posting) %>" target="_blank"><i class="icon-twitter"></i> Tweet!</a>
-          <%= tweet_text(@conn, @posting) %>
-          #myelixirstatus
+          <a class="btn btn-retweet" style="display: inline-block; float: right;" href="https://twitter.com/intent/retweet?tweet_id=<%= @posting.published_tweet_uid %>" target="_blank"><i class="icon-retweet"></i> Retweet this!</a>
+          <%= ElixirStatus.Publisher.tweet_text(@posting) %>
           <div style="clear:both"></div>
         </div>
         <small class="tweet-hint">
-          Simple logic: If more people know about this site, more people will read your posts.
+          Spread the word: If more people know about this site, more people will read your posts.
         </small>
         <hr>
       </div>
