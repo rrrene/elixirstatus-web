@@ -6,7 +6,7 @@ defmodule ElixirStatus.ErrorViewTest do
 
   test "renders 404.html" do
     assert render_to_string(ElixirStatus.ErrorView, "404.html", []) ==
-           "Page not found"
+           "404 - Page not found"
   end
 
   test "render 500.html" do

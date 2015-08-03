@@ -61,9 +61,7 @@ defmodule ElixirStatus.Publisher do
     posting
   end
 
-  @doc """
-    Sends a direct message via Twitter.
-  """
+  # Sends a direct message via Twitter.
   defp send_direct_message(%Posting{title: title, permalink: permalink}) do
     "#{short_title(title)} #{short_url(permalink)}"
       |> send_on_twitter(Mix.env)
