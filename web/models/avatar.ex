@@ -14,7 +14,15 @@ defmodule ElixirStatus.Avatar do
 
     %HTTPoison.Response{body: body} = HTTPoison.get!(url)
     File.write!(filename, body)
+
+    after_image_load(Mix.env)
   end
+
+  defp after_image_load(:prod) do
+    spawn fn -> Mix.Tasks.Phoenix.Digest.run([]) end
+  end
+
+  defp after_image_load(_), do: nil
 
   defp avatar_path(user_name, :test) do
     Path.expand("../../tmp/test/#{static_path(user_name)}", __DIR__)
