@@ -59,4 +59,4 @@ autoSavingContent("#posting_text", 500);
 autoSavingContent("#posting_title", 502);
 $("input[type='submit']").click(function () { localStorage.clear() });
 
-require("web/static/js/postings");
+require("web/static/js/app/postings");

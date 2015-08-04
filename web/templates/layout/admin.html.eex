@@ -45,6 +45,6 @@
 
 
     <script src="<%= static_path(@conn, "/js/admin.js") %>"></script>
-    <script>require("web/static/js/admin")</script>
+    <script>require("web/static/js/admin/admin")</script>
   </body>
 </html>

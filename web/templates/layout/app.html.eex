@@ -30,7 +30,7 @@
     <%= render ElixirStatus.SharedView, "footer.html", conn: @conn %>
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-    <script>require("web/static/js/app")</script>
+    <script>require("web/static/js/app/app")</script>
 
     <%= render ElixirStatus.SharedView, "tracking.html" %>
   </body>
