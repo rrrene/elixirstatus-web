@@ -9,7 +9,9 @@ defmodule ElixirStatus.Admin.PostingController do
 
   def index(conn, params) do
     page = ElixirStatus.PostingController.get_all(params)
-    count = Repo.one(from r in Posting, select: count(r.id))
+    count = Repo.one(from r in Posting,
+                      where: r.public == ^true,
+                      select: count(r.id))
     render conn, "index.html", layout: @layout,
                                 count: count,
                                 postings: page.entries,
