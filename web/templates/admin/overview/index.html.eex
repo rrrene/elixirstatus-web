@@ -9,57 +9,9 @@
       <h3 class="panel-title">Latest postings</h3>
     </div>
     <div class="panel-body">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>frontpage</th>
-            <th>rss</th>
-            <th>detail</th>
-            <th>via shortlink</th>
-            <th>clicks in post</th>
-          </tr>
-        </thead>
-        <%= for posting <- @postings do %>
-          <tr>
-            <td><%= posting.id %></td>
-            <td><%= link ElixirStatus.Publisher.short_title(posting.title, 30), to: permalink_posting_path(@conn, :show, posting.permalink), title: sanitized_inline_markdown(posting.title) %></td>
-            <td>
-              <%= ElixirStatus.Impressionist.count_sessions "frontpage", "posting", posting.uid %>
-              <small class="text-muted">
-                /
-                <%= ElixirStatus.Impressionist.count "frontpage", "posting", posting.uid %>
-              </small>
-            </td>
-            <td>
-              <%= ElixirStatus.Impressionist.count_sessions "rss", "posting", posting.uid %>
-            </td>
-            <td>
-              <%= ElixirStatus.Impressionist.count_sessions "detail", "posting", posting.uid %>
-              <small class="text-muted">
-                /
-                <%= ElixirStatus.Impressionist.count "detail", "posting", posting.uid %>
-              </small>
-            </td>
-            <td>
-              <%= ElixirStatus.Impressionist.count_sessions "detail", "short_link", to_short_uid(posting.permalink) %>
-              <small class="text-muted">
-                /
-                <%= ElixirStatus.Impressionist.count "detail", "short_link", to_short_uid(posting.permalink) %>
-              </small>
-              </td>
-            <td>
-              <%= ElixirStatus.Impressionist.count_sessions "postings:#{posting.uid}", "short_link" %>
-              <small class="text-muted">
-                /
-                <%= ElixirStatus.Impressionist.count "postings:#{posting.uid}", "short_link" %>
-              </small>
-            </td>
-          </tr>
-        <% end %>
-      </table>
-
+      <%= render ElixirStatus.Admin.PostingView, "table.html",
+                                                  conn: @conn,
+                                                  postings: @postings %>
     </div>
   </div>
 </div>

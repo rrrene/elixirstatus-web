@@ -1,0 +1,17 @@
+<div class="col-md-12">
+  <h1>ADMIN OVERVIEW</h1>
+</div>
+
+<div class="col-md-6">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Latest postings (<%= @count %> total)</h3>
+    </div>
+    <div class="panel-body">
+      <%= render ElixirStatus.Admin.PostingView, "table.html",
+                                                  conn: @conn,
+                                                  postings: @postings %>
+    </div>
+  </div>
+</div>
