@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th>#</th>
+      <th>Date</th>
       <th>Title</th>
       <th>frontpage</th>
       <th>rss</th>
