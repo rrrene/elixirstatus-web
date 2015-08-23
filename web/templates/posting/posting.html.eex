@@ -13,7 +13,7 @@
     </span>
 
       <span class="functions">
-        <%= if assigns[:context] == "detail" && @posting.published_tweet_uid do %>
+        <%= if @posting.published_tweet_uid do %>
           |
           <a href="https://twitter.com/intent/retweet?tweet_id=<%= @posting.published_tweet_uid %>" target="_blank"><i class="icon-retweet"></i> Retweet this</a>
         <% end %>
