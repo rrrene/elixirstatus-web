@@ -16,8 +16,6 @@ defmodule ElixirStatus.Admin.PostingController do
                                 count: count,
                                 postings: page.entries,
                                 page_number: page.page_number,
-                                total_pages: page.total_pages,
-                                base_url: @base_url,
-                                iframe_url: @iframe_url
+                                total_pages: page.total_pages
   end
 end

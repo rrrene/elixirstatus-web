@@ -1,0 +1,48 @@
+<div class="col-md-12">
+  <h1>Listing <%= Enum.count(@impressions) %> impressions</h1>
+</div>
+
+<div class="col-md-10">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Latest impressions</h3>
+    </div>
+    <div class="panel-body">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <td>id</td>
+            <td>user_id</td>
+            <td>path</td>
+            <td>context</td>
+            <td>subject_type</td>
+            <td>subject_uid</td>
+            <td>accept_language</td>
+            <td>user_agent</td>
+            <td>remote_ip</td>
+            <td>session_hash</td>
+          </tr>
+        </thead>
+        <tbody>
+        <%= for impression <- @impressions do %>
+            <tr>
+              <td><%= impression.id %></td>
+              <td><%= impression.current_user_id %></td>
+              <td><%= impression.path %></td>
+              <td><%= impression.context %></td>
+              <td><%= impression.subject_type %></td>
+              <td><%= impression.subject_uid %></td>
+              <td><%= impression.accept_language %></td>
+              <td><%= impression.user_agent %></td>
+              <td><%= impression.remote_ip %></td>
+              <td><%= if impression.session_hash, do: "Yes" %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

@@ -20,7 +20,9 @@
         <%= ElixirStatus.Impressionist.count_sessions "frontpage", "posting", posting.uid %>
         <small class="text-muted">
           /
-          <%= ElixirStatus.Impressionist.count "frontpage", "posting", posting.uid %>
+          <a href="/admin/impressions?context=frontpage&subject_type=posting&subject_uid=<%= posting.uid %>">
+            <%= ElixirStatus.Impressionist.count "frontpage", "posting", posting.uid %>
+          </a>
         </small>
       </td>
       <td>
@@ -30,21 +32,27 @@
         <%= ElixirStatus.Impressionist.count_sessions "detail", "posting", posting.uid %>
         <small class="text-muted">
           /
-          <%= ElixirStatus.Impressionist.count "detail", "posting", posting.uid %>
+          <a href="/admin/impressions?context=detail&subject_type=posting&subject_uid=<%= posting.uid %>">
+            <%= ElixirStatus.Impressionist.count "detail", "posting", posting.uid %>
+          </a>
         </small>
       </td>
       <td>
         <%= ElixirStatus.Impressionist.count_sessions "detail", "short_link", to_short_uid(posting.permalink) %>
         <small class="text-muted">
           /
-          <%= ElixirStatus.Impressionist.count "detail", "short_link", to_short_uid(posting.permalink) %>
+          <a href="/admin/impressions?subject_type=short_link&subject_uid=<%= to_short_uid(posting.permalink) %>">
+            <%= ElixirStatus.Impressionist.count "detail", "short_link", to_short_uid(posting.permalink) %>
+          </a>
         </small>
         </td>
       <td>
         <%= ElixirStatus.Impressionist.count_sessions "postings:#{posting.uid}", "short_link" %>
         <small class="text-muted">
           /
-          <%= ElixirStatus.Impressionist.count "postings:#{posting.uid}", "short_link" %>
+          <a href="/admin/impressions?context=<%= "postings:#{posting.uid}" %>&subject_type=short_link">
+            <%= ElixirStatus.Impressionist.count "postings:#{posting.uid}", "short_link" %>
+          </a>
         </small>
       </td>
     </tr>

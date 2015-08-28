@@ -46,6 +46,7 @@ defmodule ElixirStatus.Router do
     pipe_through :browser
 
     get "/", OverviewController, :index
+    get "/impressions", ImpressionController, :index
     get "/users", UserController, :index
     get "/postings", PostingController, :index, as: :admin_posting
   end

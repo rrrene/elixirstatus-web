@@ -5,7 +5,8 @@ defmodule ElixirStatus.PostingController do
   alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
 
-  @just_created_timeout 60 # seconds
+  @postings_per_page          20
+  @just_created_timeout       60 # seconds
   @current_posting_assign_key :posting
 
   plug :load_posting when action in [:edit, :update, :delete, :show]
@@ -223,6 +224,7 @@ defmodule ElixirStatus.PostingController do
 
   @doc "Returns the latest postings."
   def get_all(params \\ %{}) do
+    params = Map.put(params, :page_size, @postings_per_page)
     query = from p in Posting,
                   where: p.public == ^true,
                   order_by: [desc: :published_at]

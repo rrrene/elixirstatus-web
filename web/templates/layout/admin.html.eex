@@ -26,9 +26,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-left">
-            <li><a href="/admin">Dashboard</a></li>
             <li><a href="/admin/postings">Postings</a></li>
             <li><a href="/admin/users">Users</a></li>
+            <li><a href="/admin/impressions">Impressions</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
