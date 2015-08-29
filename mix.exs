@@ -39,7 +39,7 @@ defmodule ElixirStatus.Mixfile do
       {:phoenix_html, "~> 2.1.2"},
       {:phoenix_html_sanitizer, "~> 0.2.0"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:timex, "~> 0.16.0"},
+      {:timex, github: "rrrene/timex"},
       {:timex_ecto, github: "rrrene/timex_ecto"},
       {:oauth2, "~> 0.3.0"},
       {:oauth, github: "tim/erlang-oauth"},
