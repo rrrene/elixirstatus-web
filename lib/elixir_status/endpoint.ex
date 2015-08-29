@@ -31,5 +31,5 @@ defmodule ElixirStatus.Endpoint do
     key: "_elixir_status_key",
     signing_salt: "XPXyl9lg"
 
-  plug :router, ElixirStatus.Router
+  plug ElixirStatus.Router
 end
