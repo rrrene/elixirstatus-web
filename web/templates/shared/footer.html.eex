@@ -19,6 +19,12 @@
       <% else %>
         <a href="/auth">Sign in with GitHub</a>
       <% end %>
+      |
+      <a href="http://trivelop.de/imprint/">Contact</a>
+      |
+      <a href="http://trivelop.de/imprint/">Imprint</a>
+      |
+      <a href="http://trivelop.de/">Blog</a>
     </p>
   </div>
 </div>
