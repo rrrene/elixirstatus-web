@@ -1,0 +1,14 @@
+<div class="post">
+  <div class="post-avatar">
+  </div>
+
+  <div class="post-body">
+    <p>
+      <span style="background: #ffa;">Shameless plug:</span> Checkout <a href="https://twitter.com/elixirstatus">@elixirstatus</a>' other community project:
+    </p>
+    <p>
+      <a href="http://inch-ci.org" target="_blank">Inch CI</a>, a service to show you care about inline docs:
+      <a href="http://inch-ci.org/github/elixir-lang/ecto"><img src="http://inch-ci.org/github/elixir-lang/ecto.svg?branch=master" style="display: inline; margin: 0"></a>
+    </p>
+  </div>
+</div>
