@@ -7,6 +7,8 @@
  * out above content in mobile and later moves to the side with wider viewports.
  */
 .sidebar {
+  height: 100%;
+  overflow-y: auto;
   text-align: center;
   color: rgba(255,255,255,.5);
   background-color: #432C50;
@@ -159,10 +161,9 @@ a.sidebar-nav-item:focus {
   }
 
   .sidebar-nav-container {
-    position: absolute;
-    right:  1rem;
-    bottom: 1rem;
-    left:   1rem;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #63407D;
   }
   .sidebar-nav-item.active {
     background: transparent;
