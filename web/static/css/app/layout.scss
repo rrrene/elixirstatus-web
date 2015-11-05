@@ -259,6 +259,10 @@ input.post-title {
 }
 
 /* Elixir */
+body .content .post-body a {
+  word-break: break-word;
+}
+
 body .content .post-body a,
 body .related-posts li a:hover {
   color: #5E49BA;
