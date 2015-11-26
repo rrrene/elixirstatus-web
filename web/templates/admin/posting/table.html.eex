@@ -45,15 +45,11 @@
             <%= ElixirStatus.Impressionist.count "detail", "short_link", to_short_uid(posting.permalink) %>
           </a>
         </small>
-        </td>
+      </td>
       <td>
-        <%= ElixirStatus.Impressionist.count_sessions "postings:#{posting.uid}", "short_link" %>
-        <small class="text-muted">
-          /
-          <a href="/admin/impressions?context=<%= "postings:#{posting.uid}" %>&subject_type=short_link">
-            <%= ElixirStatus.Impressionist.count "postings:#{posting.uid}", "short_link" %>
-          </a>
-        </small>
+        <a href="/admin/impressions?context=<%= "postings:#{posting.uid}" %>&subject_type=short_link">
+          <%= ElixirStatus.Impressionist.count "postings:#{posting.uid}", "short_link" %>
+        </a>
       </td>
     </tr>
   <% end %>

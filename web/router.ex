@@ -50,6 +50,7 @@ defmodule ElixirStatus.Router do
     get "/impressions", ImpressionController, :index
     get "/users", UserController, :index
     get "/postings", PostingController, :index, as: :admin_posting
+    get "/postings/recent", PostingController, :recent
   end
 
   # Other scopes may use custom stacks.
