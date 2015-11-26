@@ -22,7 +22,7 @@ defmodule ElixirStatus.LinkShortener do
 
   defp create_from_url(url) do
     %ShortLink{uid: ElixirStatus.UID.generate(ShortLink), url: url}
-      |> Repo.insert!
+    |> Repo.insert!
   end
 
   defp find_by_url(url) do

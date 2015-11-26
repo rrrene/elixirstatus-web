@@ -24,8 +24,8 @@ defmodule ElixirStatus.GitHubAuthController do
   """
   def sign_out(conn, _params) do
     conn
-      |> clear_session
-      |> redirect(to: "/?just_signed_out=true")
+    |> clear_session
+    |> redirect(to: "/?just_signed_out=true")
   end
 
   @doc """
@@ -46,9 +46,9 @@ defmodule ElixirStatus.GitHubAuthController do
     current_user = find_or_create_user(user_auth_params)
 
     conn
-      |> put_session(:current_user_id, current_user.id)
-      |> assign(:current_user, current_user)
-      |> redirect(to: "/?just_signed_in=true")
+    |> put_session(:current_user_id, current_user.id)
+    |> assign(:current_user, current_user)
+    |> redirect(to: "/?just_signed_in=true")
   end
 
   def find_or_create_user(user_auth_params) do

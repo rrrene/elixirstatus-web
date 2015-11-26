@@ -20,8 +20,9 @@ defmodule ElixirStatus.Publisher do
   """
   def after_create(new_posting) do
     new_posting
-      |> create_all_short_links
-      |> send_direct_message
+    |> create_all_short_links
+    |> send_direct_message
+
     tweet_uid = post_to_twitter(new_posting)
     PostingController.update_published_tweet_uid(new_posting, tweet_uid)
   end
@@ -31,7 +32,7 @@ defmodule ElixirStatus.Publisher do
   """
   def after_update(updated_posting) do
     updated_posting
-      |> create_all_short_links
+    |> create_all_short_links
   end
 
   @doc """
@@ -45,18 +46,22 @@ defmodule ElixirStatus.Publisher do
   end
 
   def permalink(uid, title) do
-    permatitle = Regex.split(~r/\s|\%20/, title)
-                  |> Enum.join("-")
-                  |> String.downcase
-                  |> String.replace(~r/[^a-z0-9\-]/, "")
+    permatitle =
+      ~r/\s|\%20/
+      |> Regex.split(title)
+      |> Enum.join("-")
+      |> String.downcase
+      |> String.replace(~r/[^a-z0-9\-]/, "")
     "#{uid}-#{permatitle}"
   end
 
 
   defp create_all_short_links(posting) do
     text = Earmark.to_html(posting.text)
-    Regex.scan(~r/href=\"([^\"]+?)\"/, text)
-      |> Enum.map(fn([_, x]) -> LinkShortener.to_uid(x) end)
+
+    ~r/href=\"([^\"]+?)\"/
+    |> Regex.scan(text)
+    |> Enum.map(fn([_, x]) -> LinkShortener.to_uid(x) end)
 
     posting
   end
@@ -64,7 +69,7 @@ defmodule ElixirStatus.Publisher do
   # Sends a direct message via Twitter.
   defp send_direct_message(%Posting{title: title, permalink: permalink}) do
     "#{short_title(title)} #{short_url(permalink)}"
-      |> send_on_twitter(Mix.env)
+    |> send_on_twitter(Mix.env)
   end
 
   defp send_on_twitter(text, :prod) do
@@ -78,8 +83,8 @@ defmodule ElixirStatus.Publisher do
 
   defp post_to_twitter(posting) do
     posting
-      |> tweet_text
-      |> update_on_twitter(Mix.env)
+    |> tweet_text
+    |> update_on_twitter(Mix.env)
   end
 
   defp update_on_twitter(tweet, :prod) do
@@ -111,10 +116,11 @@ defmodule ElixirStatus.Publisher do
   end
 
   defp short_url(permalink) do
-    uid = "/p/#{permalink}"
-            |> ElixirStatus.URL.from_path
-            |> LinkShortener.to_uid
-    "/=#{uid}"
+    uid =
+      "/p/#{permalink}"
       |> ElixirStatus.URL.from_path
+      |> LinkShortener.to_uid
+    "/=#{uid}"
+    |> ElixirStatus.URL.from_path
   end
 end

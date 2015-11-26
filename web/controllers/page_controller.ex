@@ -7,7 +7,7 @@ defmodule ElixirStatus.PageController do
 
   def avatar(conn, %{"user_name" => user_name}) do
     conn
-      |> send_file(200, "priv/static/images/github/#{user_name}.jpg")
+    |> send_file(200, "priv/static/images/github/#{user_name}.jpg")
   end
 
   def index(conn, _params) do

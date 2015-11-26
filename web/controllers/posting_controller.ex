@@ -20,13 +20,13 @@ defmodule ElixirStatus.PostingController do
   def index(conn, params) do
     page = get_all(params)
     conn
-      |> ElixirStatus.Impressionist.record("frontpage")
-      |> render("index.html", postings: page.entries,
-                              page_number: page.page_number,
-                              total_pages: page.total_pages,
-                              created_posting: load_created_posting(conn),
-                              just_signed_in: params["just_signed_in"] == "true",
-                              changeset: Posting.changeset(%Posting{}))
+    |> ElixirStatus.Impressionist.record("frontpage")
+    |> render("index.html", postings: page.entries,
+                            page_number: page.page_number,
+                            total_pages: page.total_pages,
+                            created_posting: load_created_posting(conn),
+                            just_signed_in: params["just_signed_in"] == "true",
+                            changeset: Posting.changeset(%Posting{}))
   end
 
   def new(conn, _params) do
@@ -34,9 +34,10 @@ defmodule ElixirStatus.PostingController do
   end
 
   def create(conn, %{"posting" => posting_params}) do
-    posting_params = posting_params
-                      |> extract_valid_params
-                      |> to_create_params(conn)
+    posting_params =
+      posting_params
+      |> extract_valid_params
+      |> to_create_params(conn)
     changeset = Posting.changeset(%Posting{}, posting_params)
 
     if changeset.valid? do
@@ -44,8 +45,8 @@ defmodule ElixirStatus.PostingController do
       posting |> Publisher.after_create
 
       conn
-        |> put_session(:created_posting_uid, posting.uid)
-        |> redirect(to: posting_path(conn, :index))
+      |> put_session(:created_posting_uid, posting.uid)
+      |> redirect(to: posting_path(conn, :index))
     else
       render(conn, "new.html", changeset: changeset)
     end
@@ -75,11 +76,11 @@ defmodule ElixirStatus.PostingController do
     posting = current_posting(conn)
 
     conn
-      |> ElixirStatus.Impressionist.record("detail", "posting", posting.uid)
-      |> render("show.html",  posting: posting,
-                              created_posting: load_created_posting(conn),
-                              prev_posting: load_prev_posting(posting),
-                              next_posting: load_next_posting(posting))
+    |> ElixirStatus.Impressionist.record("detail", "posting", posting.uid)
+    |> render("show.html",  posting: posting,
+                            created_posting: load_created_posting(conn),
+                            prev_posting: load_prev_posting(posting),
+                            next_posting: load_next_posting(posting))
   end
 
   def edit(conn, %{"permalink" => _}) do
@@ -99,11 +100,11 @@ defmodule ElixirStatus.PostingController do
 
     if changeset.valid? do
       Repo.update!(changeset)
-        |> Publisher.after_update
+      |> Publisher.after_update
 
       conn
-        |> put_flash(:info, "Posting updated successfully.")
-        |> redirect(to: posting_path(conn, :index))
+      |> put_flash(:info, "Posting updated successfully.")
+      |> redirect(to: posting_path(conn, :index))
     else
       render(conn, "edit.html", posting: posting, changeset: changeset)
     end
@@ -111,8 +112,8 @@ defmodule ElixirStatus.PostingController do
 
   def update_published_tweet_uid(posting, tweet_uid) do
     posting
-      |> Posting.changeset(%{published_tweet_uid: tweet_uid})
-      |> Repo.update!
+    |> Posting.changeset(%{published_tweet_uid: tweet_uid})
+    |> Repo.update!
   end
 
   def unpublish(conn, %{"id" => id}) do
@@ -122,7 +123,7 @@ defmodule ElixirStatus.PostingController do
     if changeset.valid?, do: Repo.update!(changeset)
 
     conn
-      |> redirect(to: posting_path(conn, :index))
+    |> redirect(to: posting_path(conn, :index))
   end
 
   def delete(conn, %{"id" => id}) do
@@ -130,8 +131,8 @@ defmodule ElixirStatus.PostingController do
     Repo.delete!(posting)
 
     conn
-      |> put_flash(:info, "Posting deleted successfully.")
-      |> redirect(to: posting_path(conn, :index))
+    |> put_flash(:info, "Posting deleted successfully.")
+    |> redirect(to: posting_path(conn, :index))
   end
 
   defp load_posting(conn, _) do
@@ -142,12 +143,12 @@ defmodule ElixirStatus.PostingController do
     end
     if is_nil(posting) || posting.public == false do
       conn
-        |> put_status(:not_found)
-        |> render(ElixirStatus.ErrorView, "404.html")
-        |> halt
+      |> put_status(:not_found)
+      |> render(ElixirStatus.ErrorView, "404.html")
+      |> halt
     else
       conn
-        |> assign(@current_posting_assign_key, posting)
+      |> assign(@current_posting_assign_key, posting)
     end
   end
 
@@ -174,7 +175,7 @@ defmodule ElixirStatus.PostingController do
     case load_created_posting_by_uid(uid)  do
       nil ->
         conn
-          |> put_session(:created_posting_uid, nil)
+        |> put_session(:created_posting_uid, nil)
         nil
       posting -> posting
     end

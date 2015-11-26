@@ -27,10 +27,10 @@ defmodule ElixirStatus.Posting do
   """
   def changeset(model, params \\ :empty) do
     model
-      |> cast(params, @required_fields, @optional_fields)
-      |> update_change(:title, &String.strip/1)
-      |> validate_length(:title, min: 1)
-      |> update_change(:text, &String.strip/1)
-      |> validate_length(:text, min: 1)
+    |> cast(params, @required_fields, @optional_fields)
+    |> update_change(:title, &String.strip/1)
+    |> validate_length(:title, min: 1)
+    |> update_change(:text, &String.strip/1)
+    |> validate_length(:text, min: 1)
   end
 end

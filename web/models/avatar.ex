@@ -1,8 +1,8 @@
 defmodule ElixirStatus.Avatar do
   def load!(user_name, avatar_url) do
     avatar_url
-      |> String.replace("?v=3", "?v=3&s=64")
-      |> load_image!("#{avatar_path(user_name, Mix.env)}")
+    |> String.replace("?v=3", "?v=3&s=64")
+    |> load_image!("#{avatar_path(user_name, Mix.env)}")
   end
 
   defp static_path(user_name) do

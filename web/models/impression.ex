@@ -26,8 +26,8 @@ defmodule ElixirStatus.Impression do
   """
   def changeset(model, params \\ :empty) do
     model
-      |> cast(params, @required_fields, @optional_fields)
-      |> validate_length(:context, min: 1)
-      |> validate_length(:remote_ip, min: 1)
+    |> cast(params, @required_fields, @optional_fields)
+    |> validate_length(:context, min: 1)
+    |> validate_length(:remote_ip, min: 1)
   end
 end

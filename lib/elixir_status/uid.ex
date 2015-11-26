@@ -10,11 +10,12 @@ defmodule ElixirStatus.UID do
   end
 
   defp new_uid(size) do
-    :crypto.strong_rand_bytes(size*2)
-      |> :base64.encode_to_string
-      |> to_string
-      |> String.replace(~r/[\/\-\+\=]/, "")
-      |> String.slice(0, size)
+    size*2
+    |> :crypto.strong_rand_bytes
+    |> :base64.encode_to_string
+    |> to_string
+    |> String.replace(~r/[\/\-\+\=]/, "")
+    |> String.slice(0, size)
   end
 
   defp new_uid(model, size, uid) do

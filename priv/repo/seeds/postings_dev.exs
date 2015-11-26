@@ -13,7 +13,7 @@ Goto [elixirstatus.com](http://elixirstatus.com) to pre-register your GitHub acc
 """
 uid = ElixirStatus.UID.generate(Posting)
 %Posting{user_id: 1, uid: uid, permalink: Publisher.permalink(uid, title), text: text, title: title, scheduled_at: nil, published_at: Date.now, public: true}
-  |> Repo.insert!
+|> Repo.insert!
 
 # ---------------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ Check out our new design: http://jobs.elixirdose.com/
 """
 uid = ElixirStatus.UID.generate(Posting)
 %Posting{user_id: 2, uid: uid, permalink: Publisher.permalink(uid, title), text: text, title: title, scheduled_at: nil, published_at: Date.now, public: true}
-  |> Repo.insert!
+|> Repo.insert!
 
 # ---------------------------------------------------------------------------
 
@@ -37,7 +37,7 @@ It takes both Ecto.DateTime and Erlang tuples as input and converts them to the 
 """
 uid = ElixirStatus.UID.generate(Posting)
 %Posting{user_id: 7, uid: uid, permalink: Publisher.permalink(uid, title), text: text, title: title, scheduled_at: nil, published_at: Date.now, public: true}
-  |> Repo.insert!
+|> Repo.insert!
 
 # ---------------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ I thought I would take this opportunity to look back over the last year and refl
 """
 uid = ElixirStatus.UID.generate(Posting)
 %Posting{user_id: 3, uid: uid, permalink: Publisher.permalink(uid, title), text: text, title: title, scheduled_at: nil, published_at: Date.now, public: true}
-  |> Repo.insert!
+|> Repo.insert!
 
 # ---------------------------------------------------------------------------
 
@@ -61,7 +61,7 @@ For detailed information for the Mongo.Ecto module check out the Github repo: ht
 """
 uid = ElixirStatus.UID.generate(Posting)
 %Posting{user_id: 4, uid: uid, permalink: Publisher.permalink(uid, title), text: text, title: title, scheduled_at: nil, published_at: Date.now, public: true}
-  |> Repo.insert!
+|> Repo.insert!
 
 # ---------------------------------------------------------------------------
 
@@ -75,7 +75,7 @@ This is a fake announcement by ^ this person.
 """
 uid = ElixirStatus.UID.generate(Posting)
 %Posting{user_id: 5, uid: uid, permalink: Publisher.permalink(uid, title), text: text, title: title, scheduled_at: nil, published_at: Date.now, public: true}
-  |> Repo.insert!
+|> Repo.insert!
 
 # ---------------------------------------------------------------------------
 
@@ -89,7 +89,7 @@ This is a fake announcement by ^ this person.
 """
 uid = ElixirStatus.UID.generate(Posting)
 %Posting{user_id: 6, uid: uid, permalink: Publisher.permalink(uid, title), text: text, title: title, scheduled_at: nil, published_at: Date.now, public: true}
-  |> Repo.insert!
+|> Repo.insert!
 
 # ---------------------------------------------------------------------------
 
@@ -103,6 +103,6 @@ This is a fake announcement by ^ this person.
 """
 uid = ElixirStatus.UID.generate(Posting)
 %Posting{user_id: 8, uid: uid, permalink: Publisher.permalink(uid, title), text: text, title: title, scheduled_at: nil, published_at: Date.now, public: true}
-  |> Repo.insert!
+|> Repo.insert!
 
 # ---------------------------------------------------------------------------

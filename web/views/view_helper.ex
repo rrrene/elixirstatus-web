@@ -20,7 +20,7 @@ defmodule ViewHelper do
 
   def error_on_field?(form, field) do
     Enum.map(form.errors, fn({attr, _message}) -> attr end)
-      |> Enum.member?(field)
+    |> Enum.member?(field)
   end
 
   # why does `import ElixirStatus.Auth` not work here?
@@ -30,15 +30,16 @@ defmodule ViewHelper do
 
   @doc "Returns a date formatted for humans."
   def human_readable_date(date, use_abbrevs \\ true) do
-    {:ok, readable} = if use_abbrevs && this_year?(date) do
-                        if today?(date) do
-                          {:ok, "Today"}
-                        else
-                          DateFormat.format(date, "%e %b", :strftime)
-                        end
-                      else
-                        DateFormat.format(date, "%e %b %Y", :strftime)
-                      end
+    {:ok, readable} =
+      if use_abbrevs && this_year?(date) do
+        if today?(date) do
+          {:ok, "Today"}
+        else
+          DateFormat.format(date, "%e %b", :strftime)
+        end
+      else
+        DateFormat.format(date, "%e %b %Y", :strftime)
+      end
     readable
   end
 
@@ -59,15 +60,15 @@ defmodule ViewHelper do
 
   def sanitized_markdown(text) do
     text
-      |> Earmark.to_html
-      |> sanitize
+    |> Earmark.to_html
+    |> sanitize
   end
 
   def sanitized_inline_markdown(text) do
     {:safe, text} = sanitized_markdown(text)
     text
-      |> String.replace(~r/(<\/?p>)/, "")
-      |> Phoenix.HTML.raw
+    |> String.replace(~r/(<\/?p>)/, "")
+    |> Phoenix.HTML.raw
   end
 
   @twitter_screen_name Application.get_env(:elixir_status, :twitter_screen_name)

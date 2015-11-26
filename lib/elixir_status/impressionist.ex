@@ -66,13 +66,14 @@ defmodule ElixirStatus.Impressionist do
 
 
   defp create_impression(conn, impression_params) do
-    impression_params = impression_params
-                      |> extract_valid_params
-                      |> to_create_params(conn)
+    impression_params =
+      impression_params
+      |> extract_valid_params
+      |> to_create_params(conn)
 
     changeset = Impression.changeset(%Impression{}, impression_params)
-
     if changeset.valid?, do: Repo.insert!(changeset)
+
     conn
   end
 
