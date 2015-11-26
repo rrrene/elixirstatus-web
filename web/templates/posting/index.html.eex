@@ -53,7 +53,7 @@
                 just_created_by_me?: @created_posting == posting
                 %>
     <%= if index == 2 do %>
-      <%= render ElixirStatus.SharedView, "inch_ci_promo.html", conn: @conn %>
+      <%= render ElixirStatus.SharedView, "promo_credo.html", conn: @conn %>
     <% end %>
   <% end %>
 </div>

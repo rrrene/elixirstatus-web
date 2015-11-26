@@ -1,0 +1,14 @@
+<div class="post">
+  <div class="post-avatar">
+  </div>
+
+  <div class="post-body">
+    <p>
+      <span style="background: #ffa;">Shameless plug:</span> Checkout <a href="https://twitter.com/elixirstatus">@elixirstatus</a>' other community project:
+    </p>
+    <p>
+      <a href="https://github.com/rrrene/credo" target="_blank"><img align=left src="<%= static_path(@conn, "/images/credo-thumb.png") %>" style="margin-right: 10px"/></a>
+      <a href="https://github.com/rrrene/credo" target="_blank" style="color: #0a0; font-weight: bold;">Credo</a>, a new static code analysis tool that acts as a code linter, but also focusses on teaching coding practices and code consistency.
+    </p>
+  </div>
+</div>
