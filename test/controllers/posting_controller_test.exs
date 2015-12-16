@@ -243,6 +243,11 @@ defmodule ElixirStatus.PostingControllerTest do
     assert html_response(conn, 200)
   end
 
+  test "lists all entries on index matching a given query", %{conn: conn} do
+    conn = get conn, posting_path(conn, :index, %{"q" => "asdf"})
+    assert html_response(conn, 200)
+  end
+
   #
   # NEW
   #

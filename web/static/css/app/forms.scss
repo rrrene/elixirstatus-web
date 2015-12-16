@@ -11,6 +11,15 @@ textarea.post-body {
     background: transparent;
   }
 }
+.search {
+  text-align: center;
+}
+.search input[type="text"] {
+  display: block;
+  padding: 1rem;
+  border: 1px solid #eee;
+  margin: 0 auto;
+}
 
 textarea.post-body {
   font-family: inherit;

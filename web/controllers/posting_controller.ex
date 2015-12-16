@@ -26,6 +26,8 @@ defmodule ElixirStatus.PostingController do
                             total_pages: page.total_pages,
                             created_posting: load_created_posting(conn),
                             just_signed_in: params["just_signed_in"] == "true",
+                            searching?: !is_nil(params["q"]),
+                            search_query: params["q"],
                             changeset: Posting.changeset(%Posting{}))
   end
 
@@ -226,10 +228,17 @@ defmodule ElixirStatus.PostingController do
   @doc "Returns the latest postings."
   def get_all(params \\ %{}) do
     params = Map.put(params, :page_size, @postings_per_page)
-    query = from p in Posting,
-                  where: p.public == ^true,
-                  order_by: [desc: :published_at]
-    query |> Ecto.Query.preload(:user) |> Repo.paginate(params)
+    query_for(params) |> Ecto.Query.preload(:user) |> Repo.paginate(params)
+  end
+
+  defp query_for(%{"q" => q}) do
+    term = "%" <> String.replace(q, " ", "%") <> "%"
+    from p in Posting, where: p.public == ^true and (like(p.title, ^term) or like(p.text, ^term)),
+                        order_by: [desc: :published_at]
+  end
+  defp query_for(_) do
+    from p in Posting, where: p.public == ^true,
+                        order_by: [desc: :published_at]
   end
 
   defp get_by_id(id) do
