@@ -1,5 +1,6 @@
 @import "_config";
 
+input#user_twitter_handle,
 input.post-title,
 textarea.post-body {
   border: none;
@@ -10,6 +11,14 @@ textarea.post-body {
   &:focus {
     background: transparent;
   }
+}
+label[for=user_twitter_handle] {
+  display: block;
+  margin-top: 1em;
+}
+input#user_twitter_handle {
+  font-size: 1.15em;
+  margin-bottom: 1em;
 }
 .search {
   text-align: center;

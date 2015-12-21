@@ -2,7 +2,7 @@
 
 <h2>New posting</h2>
 
-<%= render "form.html", current_user_name: current_user(@conn).user_name,
+<%= render "form.html", current_user: current_user(@conn),
                         changeset: @changeset,
                         action: posting_path(@conn, :create),
                         conn: @conn,

@@ -6,6 +6,7 @@ defmodule ElixirStatus.User do
     field :email, :string
     field :provider, :string
     field :user_name, :string
+    field :twitter_handle, :string
 
     timestamps
 
@@ -13,7 +14,7 @@ defmodule ElixirStatus.User do
   end
 
   @required_fields ~w(full_name provider user_name)
-  @optional_fields ~w()
+  @optional_fields ~w(twitter_handle)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

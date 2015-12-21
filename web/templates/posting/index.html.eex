@@ -3,7 +3,7 @@
     <%= if @page_number == 1 do %>
       <%= if @just_signed_in do %>
         <div id="new-post">
-          <%= render "form.html", current_user_name: current_user(@conn).user_name,
+          <%= render "form.html", current_user: current_user(@conn),
                                   changeset: @changeset,
                                   action: posting_path(@conn, :create),
                                   conn: @conn,
@@ -19,7 +19,7 @@
           <a class="btn btn-sign-in" data-toggle="#new-post, #new-post-btn" href="#"><i class="icon-pen"></i> Submit a post</a>
         </div>
         <div id="new-post" style="display: none">
-          <%= render "form.html", current_user_name: current_user(@conn).user_name,
+          <%= render "form.html", current_user: current_user(@conn),
                                   changeset: @changeset,
                                   action: posting_path(@conn, :create),
                                   conn: @conn,

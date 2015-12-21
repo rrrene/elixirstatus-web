@@ -32,6 +32,9 @@ defmodule ElixirStatus.Router do
     get "/p/:permalink", PostingController, :show, as: :permalink_posting
     get "/p/edit/:permalink", PostingController, :edit
 
+    get "/edit_profile", UserController, :edit, as: :edit_user
+    put "/update_profile", UserController, :update, as: :update_user
+
     get "/=:uid", ShortLinkController, :show
   end
 

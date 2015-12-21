@@ -18,12 +18,12 @@ defmodule ElixirStatus.Publisher do
 
     Promotes the posting on Twitter, among other things.
   """
-  def after_create(new_posting) do
+  def after_create(new_posting, author_twitter_handle) do
     new_posting
     |> create_all_short_links
     |> send_direct_message
 
-    tweet_uid = post_to_twitter(new_posting)
+    tweet_uid = post_to_twitter(new_posting, author_twitter_handle)
     PostingController.update_published_tweet_uid(new_posting, tweet_uid)
   end
 
@@ -81,18 +81,18 @@ defmodule ElixirStatus.Publisher do
     nil
   end
 
-  defp post_to_twitter(posting) do
+  defp post_to_twitter(posting, author_twitter_handle) do
     posting
-    |> tweet_text
-    |> update_on_twitter(Mix.env)
+    |> tweet_text(author_twitter_handle)
+    |> post_to_twitter(Mix.env)
   end
 
-  defp update_on_twitter(tweet, :prod) do
+  defp post_to_twitter(tweet, :prod) do
     %ExTwitter.Model.Tweet{id_str: uid} = ExTwitter.update(tweet)
     uid
   end
 
-  defp update_on_twitter(tweet, _) do
+  defp post_to_twitter(tweet, _) do
     Logger.debug "update_twitter_status: #{tweet}"
     nil
   end
@@ -100,8 +100,15 @@ defmodule ElixirStatus.Publisher do
   @doc """
     Returns the text for the tweet announcing the given posting.
   """
-  def tweet_text(%Posting{title: title, permalink: permalink}) do
-    "#{short_title(title)} #{short_url(permalink)} #elixirlang"
+  def tweet_text(%Posting{title: title, permalink: permalink}, author_twitter_handle) do
+    suffix =
+      if author_twitter_handle do
+        "... @#{author_twitter_handle}"
+      else
+        "..."
+      end
+
+    "#{short_title(title, 100, suffix)} #{short_url(permalink)} #elixirlang"
   end
 
   @doc """

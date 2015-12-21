@@ -1,0 +1,8 @@
+<%= link "Back", to: posting_path(@conn, :index), class: "btn btn-back" %>
+
+<h2>Your profile</h2>
+
+<%= render "form.html", current_user: current_user(@conn),
+                        changeset: @changeset,
+                        action: update_user_path(@conn, :update),
+                        conn: @conn %>

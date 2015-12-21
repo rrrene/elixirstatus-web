@@ -1,0 +1,23 @@
+<div class="user">
+  <div class="user-avatar">
+    <div class="image" style="background-image: url(<%= raw avatar_path(@current_user.user_name) %>)"></div>
+  </div>
+  <%= form_for @changeset, @action, fn f -> %>
+    <label for="user_twitter_handle">Twitter handle:</label>
+    <%= text_input f, :twitter_handle, id: "user_twitter_handle", class: class_with_error(f, :title, "user-title"), placeholder: "Your Twitter handle goes here (skip the '@')" %>
+
+    <div class="functions">
+      <div>
+        <small>
+          If you add your Twitter handle, it will be tweeted alongside your announcement.
+        </small>
+
+        <span>
+          <%= submit "Update profile", class: "btn btn-primary" %>
+        </span>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="preview-user-wrapper"></div>

@@ -44,7 +44,7 @@ defmodule ElixirStatus.PostingController do
 
     if changeset.valid? do
       posting = Repo.insert!(changeset)
-      posting |> Publisher.after_create
+      posting |> Publisher.after_create(Auth.current_user(conn).twitter_handle)
 
       conn
       |> put_session(:created_posting_uid, posting.uid)
@@ -202,11 +202,9 @@ defmodule ElixirStatus.PostingController do
   defp extract_valid_params(%{"title" => title, "text" => text}) do
     %{"title" => title || "", "text" => text || ""}
   end
-
   defp extract_valid_params(%{"title" => title, "text" => text, "scheduled_at" => scheduled_at}) do
     %{"title" => title || "", "text" => text || "", "scheduled_at" => scheduled_at}
   end
-
   defp extract_valid_params(_) do
     %{}
   end
