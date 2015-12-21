@@ -6,7 +6,6 @@
 (function($) {
   $.fn.autoSave = function(element, callback, ms) {
     return this.each(function() {
-      console.log(element);
       var timer = 0, 
       $this = $(this),
       delay = ms || 1000;

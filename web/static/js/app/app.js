@@ -11,10 +11,15 @@ jQuery(function($) {
     $(selector).toggle();
   });
 
+  $("a[data-submit=parent]").click(function(evt) {
+    evt.preventDefault();
+    $(this).closest("form").submit();
+  });
+
   $("a[data-confirm]").click(function(evt) {
     var message = $(this).data("confirm");
     var result = confirm(message);
-    console.log(result);
+
     if( result ) {
       // pass
       return true;
@@ -51,7 +56,7 @@ function autoSavingContent(element, time) {
   }
 
   domElement.autoSave(element, function ( ) {
-    console.log("Autosaving... ", element);
+    //
   }, time);
 }
 
