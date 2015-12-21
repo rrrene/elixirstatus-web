@@ -103,12 +103,12 @@ defmodule ElixirStatus.Publisher do
   def tweet_text(%Posting{title: title, permalink: permalink}, author_twitter_handle) do
     suffix =
       if author_twitter_handle do
-        "... by @#{author_twitter_handle}"
+        " by @#{author_twitter_handle}"
       else
-        "..."
+        ""
       end
 
-    "#{short_title(title, 100, suffix)} #{short_url(permalink)} #elixirlang"
+    "#{short_title(title, 100-String.length(suffix))}#{suffix} #{short_url(permalink)} #elixirlang"
   end
 
   @doc """

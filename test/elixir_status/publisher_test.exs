@@ -45,4 +45,10 @@ defmodule ElixirStatus.PublisherTest do
     result = Publisher.permalink("aB87", "I really like this TiTlE")
     assert expected == result
   end
+
+  test "tweet_text with twitter handle" do
+    posting = %Posting{title: "Title goes here"}
+    expected_start = "Title goes here by @rrrene"
+    assert Publisher.tweet_text(posting, "rrrene") |> String.starts_with?(expected_start)
+  end
 end
