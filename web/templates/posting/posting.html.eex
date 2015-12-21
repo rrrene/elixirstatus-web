@@ -10,8 +10,8 @@
     <span class="post-author">
       by
       <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank"><i class="icon-git_circle"></i> <%= raw @posting.user.user_name %></a>
-      /
       <%= if @posting.user.twitter_handle do %>
+        /
         <a href="https://twitter.com/<%= raw @posting.user.twitter_handle %>" target="_blank"><i class="icon-twitter"></i> <%= raw @posting.user.twitter_handle %></a>
       <% end %>
     </span>
