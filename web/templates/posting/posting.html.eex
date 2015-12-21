@@ -49,7 +49,7 @@
         </strong>
         <div class="tweet">
           <a class="btn btn-retweet" style="display: inline-block; float: right;" href="https://twitter.com/intent/retweet?tweet_id=<%= @posting.published_tweet_uid %>" target="_blank"><i class="icon-retweet"></i> Retweet this!</a>
-          <%= ElixirStatus.Publisher.tweet_text(@posting) %>
+          <%= raw ElixirStatus.Publisher.tweet_text(@posting, @posting.user.twitter_handle) %>
           <div style="clear:both"></div>
         </div>
         <small class="tweet-hint">
