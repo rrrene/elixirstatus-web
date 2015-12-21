@@ -84,15 +84,15 @@ defmodule ElixirStatus.Publisher do
   defp post_to_twitter(posting, author_twitter_handle) do
     posting
     |> tweet_text(author_twitter_handle)
-    |> post_to_twitter(Mix.env)
+    |> update_on_twitter(Mix.env)
   end
 
-  defp post_to_twitter(tweet, :prod) do
+  defp update_on_twitter(tweet, :prod) do
     %ExTwitter.Model.Tweet{id_str: uid} = ExTwitter.update(tweet)
     uid
   end
 
-  defp post_to_twitter(tweet, _) do
+  defp update_on_twitter(tweet, _) do
     Logger.debug "update_twitter_status: #{tweet}"
     nil
   end
@@ -103,7 +103,7 @@ defmodule ElixirStatus.Publisher do
   def tweet_text(%Posting{title: title, permalink: permalink}, author_twitter_handle) do
     suffix =
       if author_twitter_handle do
-        "... @#{author_twitter_handle}"
+        "... by @#{author_twitter_handle}"
       else
         "..."
       end

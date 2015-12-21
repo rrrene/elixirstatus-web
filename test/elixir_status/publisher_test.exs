@@ -8,12 +8,20 @@ defmodule ElixirStatus.PublisherTest do
   @valid_attrs %{title: "some content", text: "some content", permalink: "some-content", public: true, published_at: Date.now, scheduled_at: nil, uid: "some content", user_id: 42}
   @invalid_attrs %{}
 
-  test "changeset with valid attributes" do
+  test "after_create works without twitter_handle" do
     changeset = Posting.changeset(%Posting{}, @valid_attrs)
     assert changeset.valid?
 
     Repo.insert!(changeset)
-      |> Publisher.after_create
+    |> Publisher.after_create(nil)
+  end
+
+  test "after_create works with twitter_handle" do
+    changeset = Posting.changeset(%Posting{}, @valid_attrs)
+    assert changeset.valid?
+
+    Repo.insert!(changeset)
+    |> Publisher.after_create("rrrene")
   end
 
   test "short title for long titles" do
