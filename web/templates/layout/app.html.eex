@@ -22,7 +22,7 @@
 
     <div class="content">
       <div class="container">
-        <%= @inner %>
+        <%= render @view_module, @view_template, assigns %>
       </div>
     </div>
 

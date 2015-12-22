@@ -18,7 +18,7 @@ defmodule ElixirStatus.ModelCase do
     quote do
       # Alias the data repository and import query/model functions
       alias ElixirStatus.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 2]
       import ElixirStatus.ModelCase
     end

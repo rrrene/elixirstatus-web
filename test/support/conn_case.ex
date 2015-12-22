@@ -22,7 +22,7 @@ defmodule ElixirStatus.ConnCase do
 
       # Alias the data repository and import query/model functions
       alias ElixirStatus.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 2]
 
       # Import URL helpers from the router

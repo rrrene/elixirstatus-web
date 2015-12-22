@@ -39,7 +39,7 @@
 
     <div class="container-fluid">
       <div class="row">
-        <%= @inner %>
+        <%= render @view_module, @view_template, assigns %>
       </div>
     </div>
 

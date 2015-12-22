@@ -33,10 +33,10 @@ defmodule ElixirStatus.Mixfile do
       {:cowboy, "~> 1.0"},
       {:earmark, "> 0.1.0" },
       {:httpoison, "~> 0.7"},
-      {:mariaex, "~> 0.4.1"},
-      {:phoenix, "~> 1.0.0"},
-      {:phoenix_ecto, "~> 1.1"},
-      {:phoenix_html, "~> 2.1.2"},
+      {:mariaex, "~> 0.5"},
+      {:phoenix, "~> 1.1"},
+      {:phoenix_ecto, "~> 2.0"},
+      {:phoenix_html, "~> 2.3"},
       {:phoenix_html_sanitizer, "~> 0.2.0"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:timex, github: "rrrene/timex"},
@@ -44,7 +44,7 @@ defmodule ElixirStatus.Mixfile do
       {:oauth2, "~> 0.3.0"},
       {:oauth, github: "tim/erlang-oauth"},
       {:extwitter, github: "rrrene/extwitter"},
-      {:scrivener, "~> 1.0"}
+      {:scrivener, "~> 1.1"}
     ]
   end
 end

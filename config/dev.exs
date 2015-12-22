@@ -29,8 +29,8 @@ config :logger, :console, format: "[$level] $message\n"
 # Configure your database
 config :elixir_status, ElixirStatus.Repo,
   adapter: Ecto.Adapters.MySQL,
-  username: "root",
-  password: System.get_env("MYSQL_ROOT_PASSWORD") || "",
+  username: System.get_env("MYSQL_DEV_DB_USERNAME") || "root",
+  password: System.get_env("MYSQL_DEV_DB_PASSWORD") || "",
   database: "elixir_status_dev",
   size: 10 # The amount of database connections in the pool
 

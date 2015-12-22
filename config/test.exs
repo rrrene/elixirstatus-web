@@ -13,8 +13,8 @@ config :logger, level: :warn
 config :elixir_status, ElixirStatus.Repo,
   adapter: Ecto.Adapters.MySQL,
   pool: Ecto.Adapters.SQL.Sandbox,
-  username: "neopoly",
-  password: "neopoly",
+  username: System.get_env("MYSQL_TEST_DB_USERNAME") || "neopoly",
+  password: System.get_env("MYSQL_TEST_DB_PASSWORD") || "neopoly",
   database: "elixir_status_test",
   size: 1 # Use a single connection for transactional tests
 
