@@ -6,7 +6,7 @@ defmodule ElixirStatus.Mixfile do
      version: "0.0.1",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix] ++ Mix.compilers,
+     compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps]
@@ -18,7 +18,7 @@ defmodule ElixirStatus.Mixfile do
   def application do
     [mod: {ElixirStatus, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :mariaex, :oauth2]]
+                    :phoenix_ecto, :mariaex, :oauth2, :gettext]]
   end
 
   # Specifies which paths to compile per environment
@@ -44,7 +44,8 @@ defmodule ElixirStatus.Mixfile do
       {:oauth2, "~> 0.3.0"},
       {:oauth, github: "tim/erlang-oauth"},
       {:extwitter, github: "rrrene/extwitter"},
-      {:scrivener, "~> 1.1"}
+      {:scrivener, "~> 1.1"},
+      {:gettext, "~> 0.9"}
     ]
   end
 end

@@ -51,6 +51,9 @@ defmodule ElixirStatus.Web do
       # Import URL helpers from the router
       import ElixirStatus.Router.Helpers
 
+      import ElixirStatus.ErrorHelpers
+      import ElixirStatus.Gettext
+
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
