@@ -1,0 +1,28 @@
+## This file is a PO Template file. `msgid`s here are often extracted from
+## source code; add new translations manually only if they're dynamic
+## translations that can't be statically extracted. Run `mix
+## gettext.extract` to bring this file up to date. Leave `msgstr`s empty as
+## changing them here as no effect; edit them in PO (`.po`) files instead.
+#: web/views/shared_view.ex:18
+msgid "About"
+msgstr ""
+
+#: web/views/shared_view.ex:6
+msgid "Announce your new project, blog post or version update."
+msgstr ""
+
+#: web/views/shared_view.ex:17
+msgid "Home"
+msgstr ""
+
+#: web/views/shared_view.ex:23
+msgid "Open Source"
+msgstr ""
+
+#: web/views/shared_view.ex:22
+msgid "Running on Phoenix!"
+msgstr ""
+
+#: web/views/shared_view.ex:19
+msgid "You can follow via"
+msgstr ""

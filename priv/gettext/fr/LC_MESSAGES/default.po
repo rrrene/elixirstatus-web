@@ -1,0 +1,31 @@
+## `msgid`s in this file come from POT (.pot) files. Do not add, change, or
+## remove `msgid`s manually here as they're tied to the ones in the
+## corresponding POT file (with the same domain). Use `mix gettext.extract
+## --merge` or `mix gettext.merge` to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: fr\n"
+
+#: web/views/shared_view.ex:18
+msgid "About"
+msgstr "Concernant"
+
+#: web/views/shared_view.ex:6
+msgid "Announce your new project, blog post or version update."
+msgstr "Annoncer votre nouveau projet, post de blog ou une version mise à jour."
+
+#: web/views/shared_view.ex:17
+msgid "Home"
+msgstr "Maison"
+
+#: web/views/shared_view.ex:23
+msgid "Open Source"
+msgstr "Code Source Libre"
+
+#: web/views/shared_view.ex:22
+msgid "Running on Phoenix!"
+msgstr "Fonctionnant sur Phoenix!"
+
+#: web/views/shared_view.ex:19
+msgid "You can follow via"
+msgstr "Vous pouvez suivre via"
