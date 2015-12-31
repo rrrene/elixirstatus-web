@@ -4,7 +4,7 @@
 
   <div class="post-body">
     <p>
-      <span style="background: #ffa;">Shameless plug:</span> Checkout <a href="https://twitter.com/elixirstatus">@elixirstatus</a>' other community project:
+      <span style="background: #ffa;">Shameless plug:</span> Check out <a href="https://twitter.com/elixirstatus">@elixirstatus</a>' other community project:
     </p>
     <p>
       <a href="https://github.com/rrrene/credo" target="_blank"><img align=left src="<%= static_path(@conn, "/images/credo-thumb.png") %>" style="margin-right: 10px"/></a>
