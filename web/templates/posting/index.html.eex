@@ -46,7 +46,7 @@
   <% end %>
 
   <%= if @searching? do %>
-    <%= sanitized_inline_markdown "Search results for <code>#{@search_query}</code>" %>
+    Search results for <code><%= @search_query %></code>
     <a href="/">clear</a>
   <% end %>
 
