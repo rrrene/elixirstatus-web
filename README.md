@@ -1,4 +1,4 @@
-# ElixirStatus [![Inline docs](http://inch-ci.org/github/rrrene/elixirstatus-web.svg?branch=master)](http://inch-ci.org/github/rrrene/elixirstatus-web) [![Deps Status](http://hexfaktor.org/images/deps.svg)](http://hexfaktor.org/)
+# ElixirStatus [![Inline docs](http://inch-ci.org/github/rrrene/elixirstatus-web.svg?branch=master)](http://inch-ci.org/github/rrrene/elixirstatus-web) [![Deps Status](https://beta.hexfaktor.org/badge/all/github/rrrene/elixirstatus-web.svg)](https://beta.hexfaktor.org/github/rrrene/elixirstatus-web)
 
 I already integrated Phoenix in my project [Inch CI](https://inch-ci.org/), but have not yet build a frontend site with it. I want to do this here.
 
@@ -57,7 +57,7 @@ To start the ElixirStatus application:
 
     ```bash
     $ mix run priv/repo/seeds/seed.exs
-    ``` 
+    ```
 5. [Register a GitHub application](https://github.com/settings/applications/new) for local testing:
 
     Application name: `<your choice>`
