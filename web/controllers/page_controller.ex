@@ -16,4 +16,8 @@ defmodule ElixirStatus.PageController do
       _   -> redirect(conn, to: "/postings")
     end
   end
+
+  def open_source(conn, _params) do
+    render conn, "open_source.html"
+  end
 end

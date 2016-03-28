@@ -1,0 +1,30 @@
+<h2>ElixirStatus is Open Source</h2>
+
+
+<h3>Standing on the shoulders of giants</h3>
+
+<p>
+  ElixirStatus is built using lots of Open Source Software:
+</p>
+
+<ul>
+  <li><a href="http://elixir-lang.org" target="_blank">Elixir</a>,</li>
+  <li><a href="http://phoenixframework.org" target="_blank">Phoenix</a>,</li>
+  <li>scrivener,</li>
+  <li>timex,</li>
+  <li>and <a href="https://mfglabs.github.io/mfglabs-iconset/" target="_blank">MFG Labs icon set</a>.</li>
+</ul>
+
+
+<h3>Living Open Source</h3>
+
+<p>
+  But it is not only built upon a great foundation, ElixirStatus is also released as Open Source itself:
+</p>
+
+<ul>
+  <li><a href="https://github.com/rrrene/elixirstatus-web" target="_blank">rrrene/elixirstatus-web</a></li>
+  <!-- <li><a href="https://github.com/rrrene/html_sanitize_ex" target="_blank">rrrene/html_sanitize_ex</a></li> -->
+</ul>
+
+
