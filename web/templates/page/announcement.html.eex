@@ -1,17 +1,17 @@
 
 <div class="post">
-  <div class="post-avatar">
+  <div class="post__avatar">
     <div class="image " style="background-image: url(/images/avatar_rrrene.jpg)"></div>
   </div>
-  <h1 class="post-title">
+  <h1 class="post__title">
     <a href="/">
       elixirstatus.com
     </a>
   </h1>
 
-  <span class="post-meta">24 Jun 2015 by <a href="https://twitter.com/rrrene" target="_blank">@rrrene</a></span>
+  <span class="post__meta">24 Jun 2015 by <a href="https://twitter.com/rrrene" target="_blank">@rrrene</a></span>
 
-  <div class="post-body">
+  <div class="post__body">
     <p>
       Hi there,
     </p>

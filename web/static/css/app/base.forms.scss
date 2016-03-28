@@ -1,0 +1,23 @@
+@import "_config";
+
+input[type=text],
+textarea {
+  border: none;
+  outline: none;
+  width: 100%;
+  background: #fafafa;
+
+  &:focus {
+    background: transparent;
+  }
+}
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  min-height: 200px;
+}
+
+input.error,
+textarea.error {
+  border: 2px solid #faa;
+}

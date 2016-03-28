@@ -1,4 +1,4 @@
-<%= link "Back", to: posting_path(@conn, :index), class: "btn btn-back" %>
+<%= link "Back", to: posting_path(@conn, :index), class: "btn btn--back" %>
 
 <h2>New posting</h2>
 
@@ -7,5 +7,5 @@
                         action: posting_path(@conn, :create),
                         conn: @conn,
                         posting: nil,
-                        css_class: "new-post",
+                        css_class: "post--new",
                         editing?: false %>

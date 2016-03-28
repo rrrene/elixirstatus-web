@@ -1,3 +1,4 @@
+@import "_config";
 
 .btn {
   display: inline-block;
@@ -28,18 +29,20 @@
 .btn.focus, .btn:focus, .btn:hover {
   text-decoration: none;
 }
-.btn-sign-in {
+
+.btn--sign-in {
   color: #fff;
   background-color: #78669E;
   border-color: #6540B2;
 }
-.btn-sign-in:hover {
+.btn--sign-in:hover {
   color: #fff;
   background-color: #8163C0;
   border-color: #6540B2;
 }
-body .content .post-body .btn-tweet,
-.btn-tweet {
+
+body .content .post__body .btn--tweet,
+.btn--tweet {
   color: #fff;
   text-decoration: none;
   background-color: #428bca;
@@ -50,13 +53,14 @@ body .content .post-body .btn-tweet,
     color: #fff;
   }
 }
-.btn-tweet:hover {
+.btn--tweet:hover {
   color: #fff;
   background-color: #286090;
   border-color: #204d74;
 }
-body .content .post-body .btn-retweet,
-.btn-retweet {
+
+body .content .post__body .btn--retweet,
+.btn--retweet {
   color: #fff;
   text-decoration: none;
   background-color: #5c913b;
@@ -67,37 +71,40 @@ body .content .post-body .btn-retweet,
     color: #fff;
   }
 }
-.btn-retweet:hover {
+.btn--retweet:hover {
   color: #fff;
   background-color: #64864F;
   border-color: #426B28;
 }
-.btn-primary {
+
+.btn--primary {
   color: #fff;
   background-color: #127429;
   border-color: #204d74;
 }
-.btn-primary:hover {
+.btn--primary:hover {
   color: #fff;
   background-color: #356841;
   border-color: #204d74;
 }
-.btn-danger {
+
+.btn--danger {
   color: #fff;
   background-color: #c33;
   border-color: #913939;
 }
-.btn-danger:hover {
+.btn--danger:hover {
   color: #fff;
   background-color: #F01515;
   border-color: #B84040;
 }
-.btn-scheduled {
+
+.btn--scheduled {
   color: #C9F0A9 !important;
   background-color: #86BB92;
   border-color: #61AD71;
 }
-.btn-scheduled:hover {
+.btn--scheduled:hover {
   color: #C9F0A9 !important;
   background-color: #86BB92;
   border-color: #61AD71;

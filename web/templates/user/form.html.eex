@@ -6,14 +6,14 @@
     <label for="user_twitter_handle">Twitter handle:</label>
     <%= text_input f, :twitter_handle, id: "user_twitter_handle", class: class_with_error(f, :title, "user-title"), placeholder: "Your Twitter handle goes here (skip the '@')" %>
 
-    <div class="functions">
+    <div class="post__functions">
       <div>
         <small>
           If you add your Twitter handle, it will be tweeted alongside your announcement.
         </small>
 
         <span>
-          <%= submit "Update profile", class: "btn btn-primary" %>
+          <%= submit "Update profile", class: "btn btn--primary" %>
         </span>
       </div>
     </div>

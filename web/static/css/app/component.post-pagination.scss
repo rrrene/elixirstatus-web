@@ -1,0 +1,41 @@
+@import "_config";
+
+.post-pagination {
+  overflow: hidden; /* clearfix */
+  color: #ccc;
+  margin-bottom: -1rem;
+
+}
+.post-pagination__item {
+  display: block;
+
+  &:hover {
+    background-color: inherit;
+  }
+  &:first-child {
+    text-align: left;
+    &:before {
+      content: "← ";
+    }
+  }
+  &:last-child {
+    text-align: right;
+    &:after {
+      content: " →";
+    }
+  }
+}
+.post-pagination__item--empty {
+  display: none;
+}
+
+@media (min-width: 30em) {
+  .post-pagination__item {
+    &:first-child {
+      float: left;
+    }
+    &:last-child {
+      float: right;
+    }
+  }
+}

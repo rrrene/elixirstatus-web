@@ -1,4 +1,4 @@
-<%= link "Back", to: posting_path(@conn, :index), class: "btn btn-back" %>
+<%= link "Back", to: posting_path(@conn, :index), class: "btn btn--back" %>
 
 <h2>Your profile</h2>
 

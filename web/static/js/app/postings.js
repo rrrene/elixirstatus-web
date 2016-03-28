@@ -11,7 +11,7 @@ function previewPosting() {
 }
 
 function onPreviewPosting(html) {
-  $('.preview-post-wrapper').html(html);
+  $('.js-post-preview-inject').html(html);
 }
 
 function loadPostingFormModule() {
@@ -78,4 +78,4 @@ function loadFrontpagePostingTracker() {
 }
 
 if( $(".posts").length > 0 ) jQuery(loadPostingIndexModule);
-if( $(".new-post, .edit-post").length > 0 ) jQuery(loadPostingFormModule);
+if( $(".post--new, .post--edit").length > 0 ) jQuery(loadPostingFormModule);

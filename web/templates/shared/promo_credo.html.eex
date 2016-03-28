@@ -1,8 +1,8 @@
 <div class="post">
-  <div class="post-avatar">
+  <div class="post__avatar">
   </div>
 
-  <div class="post-body">
+  <div class="post__body">
     <p>
       <span style="background: #ffa;">Shameless plug:</span> Check out <a href="https://twitter.com/elixirstatus">@elixirstatus</a>' other community project:
     </p>

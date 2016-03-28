@@ -1,9 +1,9 @@
-<%= link "Back", to: posting_path(@conn, :index), class: "btn btn-back" %>
+<%= link "Back", to: posting_path(@conn, :index), class: "btn btn--back" %>
 
 <%= render "form.html", current_user: current_user(@conn),
                         changeset: @changeset,
                         action: posting_path(@conn, :update, @posting),
                         posting: @posting,
                         conn: @conn,
-                        css_class: "edit-post",
+                        css_class: "post--edit",
                         editing?: true %>

@@ -1,0 +1,21 @@
+//
+// trumps - This file contains all the selectors that don't fit into the other
+//          well-defined files. This is the place to put the "nasty stuff",
+//          e.g. the overly complex, dirty selectors and !importants.
+//
+
+
+label[for=user_twitter_handle] {
+  display: block;
+  margin-top: 1em;
+}
+input#user_twitter_handle {
+  font-size: 1.15em;
+  margin-bottom: 1em;
+}
+
+// something in Twittery blue
+.twitter-related {
+  color: #62A9E0 !important;
+}
+

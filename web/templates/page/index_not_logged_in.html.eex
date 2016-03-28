@@ -1,5 +1,5 @@
 
-<a class="btn btn-tweet btn-lg" href="<%= git_hub_auth_path @conn, :sign_in %>">
+<a class="btn btn--tweet btn--lg" href="<%= git_hub_auth_path @conn, :sign_in %>">
   <img src="https://twemoji.maxcdn.com/36x36/2764.png" style="height: 18px; vertical-align: middle; display: inline-block;"> Join the private beta
 </a>
 <small>Signs you in via GitHub, pre-registers your GitHub username.</small>

@@ -20,141 +20,6 @@ body {
 
 
 /*
- * Posts and pages
- *
- * Each post is wrapped in `.post` and is used on default and post layouts. Each
- * page is wrapped in `.page` and is only used on the page layout.
- */
-
-.page,
-.post {
-  margin-bottom: 2em;
-}
-
-/* Blog post or page title */
-.page-title,
-.post-title,
-.post-title a {
-  color: #303030;
-}
-.page-title,
-.post-title {
-  margin-top: 0rem !important;
-}
-
-/* Meta data line below post title */
-.post-meta {
-  display: block;
-  margin-top: -.5rem;
-  margin-bottom: 1rem;
-  color: #9a9a9a;
-
-  strong {
-    font-weight: normal;
-    font-style: normal;
-    background-color: #ffa;
-  }
-}
-.twitter-related {
-  color: #62A9E0 !important;
-}
-
-
-/*
- * Pagination
- *
- * Super lightweight (HTML-wise) blog pagination. `span`s are provide for when
- * there are no more previous or next posts to show.
- */
-
-.pagination {
-  overflow: hidden; /* clearfix */
-  margin-left: -1rem;
-  margin-right: -1rem;
-  font-family: Helvetica, Arial, sans-serif;
-  color: #ccc;
-  text-align: center;
-
-  /* Pagination items can be `span`s or `a`s */
-  .pagination-item {
-    display: block;
-    padding: 1rem;
-    border: 1px solid #eee;
-  }
-  .pagination-item:first-child {
-    margin-bottom: -1px;
-  }
-
-  /* Only provide a hover state for linked pagination items */
-  a.pagination-item:hover {
-    background-color: #f5f5f5;
-  }
-}
-
-@media (min-width: 30em) {
-  .pagination {
-    margin: 3rem 0;
-
-    .pagination-item {
-      float: left;
-      width: 50%;
-    }
-    .pagination-item:first-child {
-      margin-bottom: 0;
-      border-top-left-radius:    4px;
-      border-bottom-left-radius: 4px;
-    }
-    .pagination-item:last-child {
-      margin-left: -1px;
-      border-top-right-radius:    4px;
-      border-bottom-right-radius: 4px;
-    }
-  }
-}
-
-.post-pagination {
-  overflow: hidden; /* clearfix */
-  color: #ccc;
-  margin-bottom: -1rem;
-
-  .pagination-item {
-    display: block;
-
-    &:hover {
-      background-color: inherit;
-    }
-    &:first-child {
-      text-align: left;
-      &:before {
-        content: "← ";
-      }
-    }
-    &:last-child {
-      text-align: right;
-      &:after {
-        content: " →";
-      }
-    }
-  }
-  .empty {
-    display: none;
-  }
-}
-@media (min-width: 30em) {
-  .post-pagination {
-    .pagination-item {
-      &:first-child {
-        float: left;
-      }
-      &:last-child {
-        float: right;
-      }
-    }
-  }
-}
-
-
-/*
  *  __                  __
  * /\ \                /\ \
  * \ \ \___   __  __   \_\ \     __
@@ -168,18 +33,6 @@ body {
  * Designed, built, and released under MIT license by @mdo. Learn more at
  * https://github.com/poole/hyde.
  */
-
-
-/*
- * Contents
- *
- * Global resets
- * Sidebar
- * Container
- * Reverse layout
- * Themes
- */
-
 
 /*
  * Global resets
@@ -214,26 +67,6 @@ input.post-title {
 }
 
 
-@include phablet_landscape_and_bigger {
-  .post {
-    padding-left: 80px;
-  }
-
-  .post-avatar {
-    display: block !important;
-    position: absolute;
-    margin-left: -80px;
-
-    .image {
-      background-color: #f0f0f0;
-      background-size: 100% 100%;
-      width: 64px;
-      height: 64px;
-      border-radius: 25%;
-    }
-  }
-}
-
 @include tablet_portrait_and_bigger {
   .content {
     max-width: 740px;
@@ -261,21 +94,7 @@ input.post-title {
   }
 }
 
-/* Elixir */
-body .content .post-body a {
-  word-break: break-word;
-}
-
-body .content .post-body a,
 body .related-posts li a:hover {
   color: #5E49BA;
   text-decoration: underline;
-}
-
-body .content .post-meta a {
-  color: #9a9a9a;
-  text-decoration: none;
-}
-body .content .post-meta a:hover {
-  color: #555;
 }

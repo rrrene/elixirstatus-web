@@ -1,15 +1,15 @@
-<%#= link "Back to frontpage", to: posting_path(@conn, :index), class: "btn btn-back" %>
+<%#= link "Back to frontpage", to: posting_path(@conn, :index), class: "btn btn--back" %>
 
 <div class="post-pagination">
   <%= if @next_posting do %>
-    <%= link sanitized_inline_markdown(@next_posting.title), to: permalink_posting_path(@conn, :show, @next_posting.permalink), class: "pagination-item" %>
+    <%= link sanitized_inline_markdown(@next_posting.title), to: permalink_posting_path(@conn, :show, @next_posting.permalink), class: "post-pagination__item" %>
   <% else %>
-    <span class="pagination-item empty"></span>
+    <span class="post-pagination__item post-pagination__item--empty"></span>
   <% end %>
   <%= if @prev_posting do %>
-    <%= link sanitized_inline_markdown(@prev_posting.title), to: permalink_posting_path(@conn, :show, @prev_posting.permalink), class: "pagination-item" %>
+    <%= link sanitized_inline_markdown(@prev_posting.title), to: permalink_posting_path(@conn, :show, @prev_posting.permalink), class: "post-pagination__item" %>
   <% else %>
-    <span class="pagination-item empty"></span>
+    <span class="post-pagination__item post-pagination__item--empty"></span>
   <% end %>
 </div>
 

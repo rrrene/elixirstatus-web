@@ -2,46 +2,46 @@
   <%= if logged_in?(@conn) do %>
     <%= if @page_number == 1 do %>
       <%= if @just_signed_in do %>
-        <div id="new-post">
+        <div id="post--new">
           <%= render "form.html", current_user: current_user(@conn),
                                   changeset: @changeset,
                                   action: posting_path(@conn, :create),
                                   conn: @conn,
                                   posting: nil,
-                                  css_class: "new-post",
+                                  css_class: "post--new",
                                   editing?: false %>
         </div>
       <% else %>
-        <div class="post sign-in-to-post" id="new-post-btn">
-          <div class="post-avatar">
+        <div class="post post--sign-in-to-post" id="js-post-new-wrapper">
+          <div class="post__avatar">
             <div class="image" style="background-image: url(<%= raw avatar_path(current_user(@conn).user_name) %>)"></div>
           </div>
-          <a class="btn btn-sign-in" data-toggle="#new-post, #new-post-btn" href="#"><i class="icon-pen"></i> Submit a post</a>
+          <a class="btn btn--sign-in" data-toggle="#post--new, #js-post-new-wrapper" href="#"><i class="icon-pen"></i> Submit a post</a>
         </div>
-        <div id="new-post" style="display: none">
+        <div id="post--new" style="display: none">
           <%= render "form.html", current_user: current_user(@conn),
                                   changeset: @changeset,
                                   action: posting_path(@conn, :create),
                                   conn: @conn,
                                   posting: nil,
-                                  css_class: "new-post",
+                                  css_class: "post--new",
                                   editing?: false %>
         </div>
       <% end %>
     <% else %>
-      <div class="post sign-in-to-post" id="new-post-btn">
-        <div class="post-avatar">
+      <div class="post post--sign-in-to-post" id="js-post-new-wrapper">
+        <div class="post__avatar">
           <div class="image" style="background-image: url(<%= raw avatar_path(current_user(@conn).user_name) %>)"></div>
         </div>
-        <a class="btn btn-sign-in" href="/postings/new"><i class="icon-pen"></i> Submit another post</a>
+        <a class="btn btn--sign-in" href="/postings/new"><i class="icon-pen"></i> Submit another post</a>
       </div>
     <% end %>
   <% else %>
-    <div class="post sign-in-to-post">
-      <div class="post-avatar">
+    <div class="post post--sign-in-to-post">
+      <div class="post__avatar">
         <div class="image" style="background-color: #f5f5f5; border: 1px dashed #aaa;"></div>
       </div>
-      <a class="btn btn-sign-in" href="/auth"><i class="icon-git"></i> Sign in and post</a>
+      <a class="btn btn--sign-in" href="/auth"><i class="icon-git"></i> Sign in and post</a>
     </div>
   <% end %>
 
@@ -64,19 +64,19 @@
 
 <div class="pagination">
   <%= if @page_number > 1 do %>
-    <%= link "Previous", to: posting_path(@conn, :index, page: @page_number - 1), class: "pagination-item older" %>
+    <%= link "Previous", to: posting_path(@conn, :index, page: @page_number - 1), class: "pagination__item pagination__item--older" %>
   <% else %>
-    <span class="pagination-item older">Previous</span>
+    <span class="pagination__item pagination__item--older">Previous</span>
   <% end %>
   <%= if @page_number < @total_pages do %>
-    <%= link "Next", to: posting_path(@conn, :index, page: @page_number + 1), class: "pagination-item newer" %>
+    <%= link "Next", to: posting_path(@conn, :index, page: @page_number + 1), class: "pagination__item pagination__item--newer" %>
   <% else %>
-    <span class="pagination-item newer">Next</span>
+    <span class="pagination__item pagination__item--newer">Next</span>
   <% end %>
 </div>
 
 <div class="search">
   <form method="get" action="/">
-    <input type="text" name="q"/ placeholder="Search ...">
+    <input type="text" name="q" class="search__input" placeholder="Search ...">
   </form>
 </div>

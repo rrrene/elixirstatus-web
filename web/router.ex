@@ -45,6 +45,7 @@ defmodule ElixirStatus.Router do
 
     get "/", GitHubAuthController, :sign_in
     get "/sign_out", GitHubAuthController, :sign_out
+    get "/github/callback", GitHubAuthController, :callback
     get "/callback", GitHubAuthController, :callback
   end
 

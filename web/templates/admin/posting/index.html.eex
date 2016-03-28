@@ -14,14 +14,14 @@
                                                   postings: @postings %>
       <div class="pagination">
         <%= if @page_number > 1 do %>
-          <%= link "Previous", to: admin_posting_path(@conn, :index, page: @page_number - 1), class: "pagination-item older" %>
+          <%= link "Previous", to: admin_posting_path(@conn, :index, page: @page_number - 1), class: "pagination__item older" %>
         <% else %>
-          <span class="pagination-item older">Previous</span>
+          <span class="pagination__item older">Previous</span>
         <% end %>
         <%= if @page_number < @total_pages do %>
-          <%= link "Next", to: admin_posting_path(@conn, :index, page: @page_number + 1), class: "pagination-item newer" %>
+          <%= link "Next", to: admin_posting_path(@conn, :index, page: @page_number + 1), class: "pagination__item newer" %>
         <% else %>
-          <span class="pagination-item newer">Next</span>
+          <span class="pagination__item newer">Next</span>
         <% end %>
       </div>
 

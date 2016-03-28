@@ -1,11 +1,11 @@
 <div class="post <%= @css_class %>">
-  <div class="post-avatar">
+  <div class="post__avatar">
     <div class="image" style="background-image: url(<%= raw avatar_path(@current_user.user_name) %>)"></div>
   </div>
   <%= form_for @changeset, @action, fn f -> %>
     <%= text_input f, :title, id: "posting_title", class: class_with_error(f, :title, "post-title"), placeholder: "Title goes here (will be tweeted)" %>
 
-    <span class="post-meta">
+    <span class="post__meta">
       <span class="post-date">Today</span>
       <span class="post-author">
         by
@@ -21,9 +21,9 @@
       </span>
     </span>
 
-    <%= textarea f, :text, id: "posting_text", class: class_with_error(f, :text, "post-body"), placeholder: "Text should describe what you made in prose. Don't forget to link to your project/blog post!" %>
+    <%= textarea f, :text, id: "posting_text", class: class_with_error(f, :text, "post__body"), placeholder: "Text should describe what you made in prose. Don't forget to link to your project/blog post!" %>
 
-    <div class="functions">
+    <div class="post__functions">
       <div>
         <small>
           Your post might be edited (typos, wording, etc.)<br>
@@ -31,8 +31,8 @@
         </small>
 
         <span>
-          <a href="#" class="btn btn-preview" data-preview-url="<%= preview_posting_path(@conn, :preview) %>">Preview</a>
-          <%= submit "Post this", class: "btn btn-primary" %>
+          <a href="#" class="btn btn--preview" data-preview-url="<%= preview_posting_path(@conn, :preview) %>">Preview</a>
+          <%= submit "Post this", class: "btn btn--primary" %>
         </span>
       </div>
     </div>
@@ -55,8 +55,8 @@
 
   <%= if @editing? do %>
     <hr>
-    <%= link "Delete this posting", to: posting_path(@conn, :delete, @posting), method: :delete, class: "btn btn-danger" %>
+    <%= link "Delete this posting", to: posting_path(@conn, :delete, @posting), method: :delete, class: "btn btn--danger" %>
   <% end %>
 </div>
 
-<div class="preview-post-wrapper"></div>
+<div class="js-post-preview-inject"></div>

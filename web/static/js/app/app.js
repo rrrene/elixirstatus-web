@@ -37,7 +37,7 @@ jQuery(function($) {
     $.ajax("/api/external", {"method": "POST", "data": {"uid": posting_uid, "url": url}});
   }
 
-  var SELECTOR = ".post-body a";
+  var SELECTOR = ".post__body a";
   $("body").on("mouseup", SELECTOR, function(event) {
     if( (event.which == 2) ) visited($(this));
   }).on("click", SELECTOR, function(event) {

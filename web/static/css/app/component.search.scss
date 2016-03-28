@@ -1,0 +1,13 @@
+@import "_config";
+
+.search {
+  text-align: center;
+}
+
+input.search__input {
+  display: block;
+  padding: 1rem;
+  border: 1px solid #eee;
+  background: #fff;
+  margin: 0 auto;
+}

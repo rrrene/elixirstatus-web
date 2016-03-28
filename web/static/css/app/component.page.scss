@@ -1,0 +1,23 @@
+@import "_config";
+
+.page {
+  margin-bottom: 2em;
+  margin-top: 2rem;
+}
+
+/* Title */
+.page__title,
+.page__title a {
+  color: #303030;
+}
+.page__title {
+  margin-top: 0rem !important;
+}
+
+.page__body {
+  a {
+    word-break: break-word;
+    color: #5E49BA;
+    text-decoration: underline;
+  }
+}
