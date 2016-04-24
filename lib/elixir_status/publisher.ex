@@ -114,11 +114,29 @@ defmodule ElixirStatus.Publisher do
   @doc """
     Shortens a given +title+ to +max+ length.
   """
-  def short_title(title, max \\ 100, truncate_with \\ "...") do
+  def short_title(title, max \\ 100, delimiter \\ "...") when is_binary(title) do
     if String.length(title) <= max do
       title
     else
-      String.slice(title, 0..max-String.length(truncate_with)-1) <> truncate_with
+      max_wo_delimiter = max - String.length(delimiter)
+      shortened_title =
+        title
+        |> String.split(" ")
+        |> short_title_from_list("", max_wo_delimiter)
+      "#{shortened_title}#{delimiter}"
+    end
+  end
+
+  defp short_title_from_list([head|tail], "", max_length) do
+    short_title_from_list(tail, head, max_length)
+  end
+  defp short_title_from_list([head|tail], memo, max_length) do
+    new_memo = "#{memo} #{head}"
+    if String.length(new_memo) >= max_length do
+      memo
+      |> String.slice(0..max_length-1)
+    else
+      short_title_from_list(tail, new_memo, max_length)
     end
   end
 

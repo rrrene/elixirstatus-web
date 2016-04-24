@@ -28,7 +28,31 @@ defmodule ElixirStatus.PublisherTest do
     input = "Remember this function works with unicode codepoints and consider the slices to represent codepoints offsets. If you want to split on raw bytes, check Kernel.binary_part/3 instead."
     expected = "Remembe..."
     result = Publisher.short_title(input, 10)
+    assert expected == result
     assert 10 == String.length(result)
+  end
+
+  test "short title for long titles, cut complete words" do
+    input = "Remember this function works with unicode codepoints and consider the slices to represent codepoints offsets. If you want to split on raw bytes, check Kernel.binary_part/3 instead."
+    expected = "Remember this..."
+    result = Publisher.short_title(input, 20)
+    assert expected == result
+    assert String.length(result) < 20
+  end
+
+  test "short title for long titles, does not break URLs" do
+    input = "ElixirStatus: http://elixirstatus.com/"
+    expected = "ElixirStatus: http://elixirstatus.com/"
+    result = Publisher.short_title(input, 80)
+    assert String.length(result) <= 80
+    assert expected == result
+  end
+
+  test "short title for long titles, does not break URLs 2" do
+    input = "ElixirStatus v1.0.0 Released! https://github.com/rrrene/elixirstatus-web/releases/tag/v1.0.0"
+    expected = "ElixirStatus v1.0.0 Released!..."
+    result = Publisher.short_title(input, 80)
+    assert String.length(result) <= 80
     assert expected == result
   end
 
@@ -36,8 +60,8 @@ defmodule ElixirStatus.PublisherTest do
     input = "Remember"
     expected = "Remember"
     result = Publisher.short_title(input, 10)
-    assert String.length(input) < 10
     assert expected == result
+    assert String.length(input) < 10
   end
 
   test "permalink" do
