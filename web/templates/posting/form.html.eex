@@ -46,7 +46,7 @@
         <%= for term <- ["[Link](https://github.com/)", "**bold**", "*italics*", "***highlight***", "`inline code`", "Indent with four spaces to render code blocks:\n\n    # This is rendered as a\n    # code block."] do %>
           <tr>
             <td><pre><%= raw term%></pre></td>
-            <td><%= sanitized_inline_markdown(term) %></td>
+            <td><%= strip_tags(term) %></td>
           </tr>
         <% end %>
       </table>

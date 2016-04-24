@@ -2,12 +2,12 @@
 
 <div class="post-pagination">
   <%= if @next_posting do %>
-    <%= link sanitized_inline_markdown(@next_posting.title), to: permalink_posting_path(@conn, :show, @next_posting.permalink), class: "post-pagination__item" %>
+    <%= link strip_tags(@next_posting.title), to: permalink_posting_path(@conn, :show, @next_posting.permalink), class: "post-pagination__item" %>
   <% else %>
     <span class="post-pagination__item post-pagination__item--empty"></span>
   <% end %>
   <%= if @prev_posting do %>
-    <%= link sanitized_inline_markdown(@prev_posting.title), to: permalink_posting_path(@conn, :show, @prev_posting.permalink), class: "post-pagination__item" %>
+    <%= link strip_tags(@prev_posting.title), to: permalink_posting_path(@conn, :show, @prev_posting.permalink), class: "post-pagination__item" %>
   <% else %>
     <span class="post-pagination__item post-pagination__item--empty"></span>
   <% end %>

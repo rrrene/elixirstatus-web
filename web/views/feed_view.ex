@@ -3,8 +3,8 @@ defmodule ElixirStatus.FeedView do
 
   alias ElixirStatus.URL
 
-  def xml_sanitized_inline_markdown(text) do
-    {:safe, text} = ViewHelper.sanitized_inline_markdown(text)
+  def xml_strip_tags(text) do
+    {:safe, text} = ViewHelper.strip_tags(text)
     text
   end
 

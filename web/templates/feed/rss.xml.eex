@@ -6,7 +6,7 @@
     <link><%= ElixirStatus.URL.from_path("/") %></link>
     <%= for posting <- @postings do %>
       <item>
-        <title><![CDATA[<%= xml_sanitized_inline_markdown posting.title %>]]></title>
+        <title><![CDATA[<%= xml_strip_tags posting.title %>]]></title>
         <description><![CDATA[
           <table width="100%" border="0">
             <tr>
@@ -14,7 +14,7 @@
                 <img src="<%= ElixirStatus.URL.from_path("/rss/avatar/#{posting.user.user_name}?uid=#{posting.uid}") %>" width="64" height="64" />
               </td>
               <td>
-                <h1><%= xml_sanitized_inline_markdown posting.title %></h1>
+                <h1><%= xml_strip_tags posting.title %></h1>
 
                 <font color="#aaa">
                   <font color="#aaa">

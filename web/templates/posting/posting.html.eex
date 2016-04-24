@@ -3,7 +3,7 @@
     <div class="image" style="background-image: url(<%= raw avatar_path(@posting.user) %>)"></div>
   </div>
 
-  <h1 class="post__title"><%= link sanitized_inline_markdown(@posting.title), to: permalink_posting_path(@conn, :show, @posting.permalink) %></h1>
+  <h1 class="post__title"><%= link strip_tags(@posting.title), to: permalink_posting_path(@conn, :show, @posting.permalink) %></h1>
 
   <span class="post__meta">
     <span class="post-date"><%= @posting.published_at |> human_readable_date %></span>

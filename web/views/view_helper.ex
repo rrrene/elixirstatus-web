@@ -64,11 +64,8 @@ defmodule ViewHelper do
     |> sanitize
   end
 
-  def sanitized_inline_markdown(text) do
-    {:safe, text} = sanitized_markdown(text)
-    text
-    |> String.replace(~r/(<\/?p>)/, "")
-    |> Phoenix.HTML.raw
+  def strip_tags(text) do
+    sanitize(text, :strip_tags)
   end
 
   @twitter_screen_name Application.get_env(:elixir_status, :twitter_screen_name)

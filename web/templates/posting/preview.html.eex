@@ -3,7 +3,7 @@
     <div class="image" style="background-image: url(<%= raw avatar_path(current_user(@conn)) %>)"></div>
   </div>
 
-  <h1 class="post__title"><%= sanitized_inline_markdown(@posting.title) %></h1>
+  <h1 class="post__title"><%= strip_tags(@posting.title) %></h1>
 
   <span class="post__meta">
     <span class="post-date">PREVIEW</span>
