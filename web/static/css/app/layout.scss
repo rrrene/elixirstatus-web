@@ -57,7 +57,8 @@ input.post-title {
 .content {
   margin-left:  auto;
   margin-right: auto;
-  padding: 2rem 1rem 1rem 1rem;
+  padding: 0.5rem;
+  background: #E5EAED;
 }
 .footer {
   font-size: 14px;
@@ -67,9 +68,10 @@ input.post-title {
 }
 
 
-@include tablet_portrait_and_bigger {
+@include phablet_landscape_and_bigger {
   .content {
     max-width: 740px;
+    background: transparent;
   }
 }
 

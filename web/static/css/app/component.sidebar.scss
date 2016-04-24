@@ -13,7 +13,6 @@
   color: rgba(255,255,255,.5);
   background-color: #432C50;
   border: 2px solid #432C50;
-  border-bottom-color: #8F58B9;
 }
 
 /* Sidebar links */
@@ -24,6 +23,7 @@
 .sidebar-header {
   text-align: center;
   font-size: 0.875rem;
+  line-height: 2rem;
   padding: 0.25rem;
   img {
     width: 32px;
@@ -99,7 +99,6 @@ a.sidebar-nav-item:focus {
   width: 2.2rem;
   padding: .5rem .65rem;
   color: #FFFFFF;
-  background-color: #76449B;
   border-radius: 4px;
   cursor: pointer;
 }

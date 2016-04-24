@@ -3,8 +3,7 @@
 .post-pagination {
   overflow: hidden; /* clearfix */
   color: #ccc;
-  margin-bottom: -1rem;
-
+  @include clearAfter;
 }
 .post-pagination__item {
   display: block;
@@ -29,6 +28,11 @@
   display: none;
 }
 
+@include phablet_landscape_and_bigger {
+  .post-pagination {
+    margin-bottom: -1rem;
+  }
+}
 @media (min-width: 30em) {
   .post-pagination__item {
     &:first-child {

@@ -46,7 +46,7 @@ $phablet_portrait_width: 400px;
 
 @mixin clearAfter {
   &:after {
-    content: ".";
+    content: "";
     display: block;
     clear: both;
     font-size: 0;

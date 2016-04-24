@@ -1,66 +1,68 @@
 <div class="post" data-posting-uid="<%= raw @posting.uid %>">
-  <div class="post__avatar">
-    <div class="image" style="background-image: url(<%= raw avatar_path(@posting.user) %>)"></div>
-  </div>
+  <div class="post__inner">
+    <div class="post__avatar">
+      <div class="image" style="background-image: url(<%= raw avatar_path(@posting.user) %>)"></div>
+    </div>
 
-  <h1 class="post__title"><%= link strip_tags(@posting.title), to: permalink_posting_path(@conn, :show, @posting.permalink) %></h1>
+    <h1 class="post__title"><%= link strip_tags(@posting.title), to: permalink_posting_path(@conn, :show, @posting.permalink) %></h1>
 
-  <span class="post__meta">
-    <span class="post-date"><%= @posting.published_at |> human_readable_date %></span>
-    <span class="post-author">
-      by
-      <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank"><i class="icon-git_circle"></i> <%= raw @posting.user.user_name %></a>
-      <%= if @posting.user.twitter_handle do %>
-        /
-        <a href="https://twitter.com/<%= raw @posting.user.twitter_handle %>" target="_blank"><i class="icon-twitter"></i> <%= raw @posting.user.twitter_handle %></a>
-      <% end %>
-    </span>
-
-      <span class="post__functions">
-        <%= if @posting.published_tweet_uid do %>
-          |
-          <a href="https://twitter.com/intent/retweet?tweet_id=<%= @posting.published_tweet_uid %>" target="_blank"><i class="icon-retweet"></i> Retweet this</a>
-        <% end %>
-
-        <%= if @belongs_to_me? || admin?(@conn) do %>
-          |
-          <a href="<%= posting_path(@conn, :edit, @posting) %>"><i class="icon-pen"></i> Edit</a>
-        <% end %>
-
-        <%= if admin?(@conn) do %>
-          <span class="admin">
-            <a href="#" data-toggle="#unpublish-<%= @posting.uid %>"><i class=icon-cross_mark></i></a>
-            <span id="unpublish-<%= @posting.uid %>" style="display: none">
-              <%= link "Unpublish", to: posting_path(@conn, :unpublish, @posting), method: :post %>
-            </span>
-          </span>
+    <span class="post__meta">
+      <span class="post-date"><%= @posting.published_at |> human_readable_date %></span>
+      <span class="post-author">
+        by
+        <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank"><i class="icon-git_circle"></i> <%= raw @posting.user.user_name %></a>
+        <%= if @posting.user.twitter_handle do %>
+          /
+          <a href="https://twitter.com/<%= raw @posting.user.twitter_handle %>" target="_blank"><i class="icon-twitter"></i> <%= raw @posting.user.twitter_handle %></a>
         <% end %>
       </span>
-  </span>
 
-  <div class="post__body">
-    <%= sanitized_markdown @posting.text %>
-  </div>
+        <span class="post__functions">
+          <%= if @posting.published_tweet_uid do %>
+            |
+            <a href="https://twitter.com/intent/retweet?tweet_id=<%= @posting.published_tweet_uid %>" target="_blank"><i class="icon-retweet"></i> Retweet this</a>
+          <% end %>
 
-  <%= if @just_created_by_me? && @posting.published_tweet_uid do %>
-    <div class="post-options">
-      <div class="twitter-integration">
-        <hr>
+          <%= if @belongs_to_me? || admin?(@conn) do %>
+            |
+            <a href="<%= posting_path(@conn, :edit, @posting) %>"><i class="icon-pen"></i> Edit</a>
+          <% end %>
 
-        <br>
-        <strong>
-          <a href="https://twitter.com/<%= twitter_screen_name %>" target="_blank">@<%= twitter_screen_name %></a> just tweeted your post:
-        </strong>
-        <div class="tweet">
-          <a class="btn btn--retweet" style="display: inline-block; float: right;" href="https://twitter.com/intent/retweet?tweet_id=<%= @posting.published_tweet_uid %>" target="_blank"><i class="icon-retweet"></i> Retweet this!</a>
-          <%= raw ElixirStatus.Publisher.tweet_text(@posting, @posting.user.twitter_handle) %>
-          <div style="clear:both"></div>
-        </div>
-        <small class="tweet-hint">
-          Spread the word: If more people know about this site, more people will read your posts.
-        </small>
-        <hr>
-      </div>
+          <%= if admin?(@conn) do %>
+            <span class="admin">
+              <a href="#" data-toggle="#unpublish-<%= @posting.uid %>"><i class=icon-cross_mark></i></a>
+              <span id="unpublish-<%= @posting.uid %>" style="display: none">
+                <%= link "Unpublish", to: posting_path(@conn, :unpublish, @posting), method: :post %>
+              </span>
+            </span>
+          <% end %>
+        </span>
+    </span>
+
+    <div class="post__body">
+      <%= sanitized_markdown @posting.text %>
     </div>
-  <% end %>
+
+    <%= if @just_created_by_me? && @posting.published_tweet_uid do %>
+      <div class="post-options">
+        <div class="twitter-integration">
+          <hr>
+
+          <br>
+          <strong>
+            <a href="https://twitter.com/<%= twitter_screen_name %>" target="_blank">@<%= twitter_screen_name %></a> just tweeted your post:
+          </strong>
+          <div class="tweet">
+            <a class="btn btn--retweet" style="display: inline-block; float: right;" href="https://twitter.com/intent/retweet?tweet_id=<%= @posting.published_tweet_uid %>" target="_blank"><i class="icon-retweet"></i> Retweet this!</a>
+            <%= raw ElixirStatus.Publisher.tweet_text(@posting, @posting.user.twitter_handle) %>
+            <div style="clear:both"></div>
+          </div>
+          <small class="tweet-hint">
+            Spread the word: If more people know about this site, more people will read your posts.
+          </small>
+          <hr>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

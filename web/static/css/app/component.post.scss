@@ -1,10 +1,11 @@
 @import "_config";
 
 .post {
-  margin-bottom: 2em;
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid #EED7FF;
+  background: #fff;
+  border-bottom: 2px solid #D8DDE1;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+
   .functions {
     a {
       color: #aaa;
@@ -25,7 +26,8 @@
 }
 
 .post--sign-in-to-post {
-  border-top: none;
+  background: transparent;
+  border: none;
   margin-top: 0;
   padding-top: 0;
   a.btn {
@@ -33,6 +35,9 @@
   }
 }
 
+.post__inner {
+  overflow: hidden;
+}
 
 /* Title */
 .post__title,
@@ -106,7 +111,12 @@
 
 @include phablet_landscape_and_bigger {
   .post {
+    margin-bottom: 2em;
+    margin-top: 2rem;
+    padding-top: 2rem;
     padding-left: 80px;
+    border: none;
+    border-top: 1px solid #EED7FF;
   }
 
   .post__avatar {
