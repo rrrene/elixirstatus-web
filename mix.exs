@@ -37,7 +37,7 @@ defmodule ElixirStatus.Mixfile do
       {:phoenix, "~> 1.1"},
       {:phoenix_ecto, "~> 2.0"},
       {:phoenix_html, "~> 2.3"},
-      {:phoenix_html_sanitizer, "~> 0.2.0"},
+      {:phoenix_html_sanitizer, "~> 0.2.1"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:timex, github: "rrrene/timex"},
       {:timex_ecto, github: "rrrene/timex_ecto"},
