@@ -2,8 +2,6 @@
 
 .pagination {
   overflow: hidden; /* clearfix */
-  margin-left: -1rem;
-  margin-right: -1rem;
   font-family: Helvetica, Arial, sans-serif;
   color: #ccc;
   text-align: center;
@@ -14,6 +12,7 @@
 .pagination__item {
   display: block;
   padding: 1rem;
+  background: #fff;
   border: 1px solid #eee;
 }
 .pagination__item:first-child {
