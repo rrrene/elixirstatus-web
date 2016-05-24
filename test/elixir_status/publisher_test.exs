@@ -49,6 +49,14 @@ defmodule ElixirStatus.PublisherTest do
   end
 
   test "short title for long titles, does not break URLs 2" do
+    input = "https://gist.github.com/goofansu/c71f173ee6c8da0b0407b90c5a41c6a9"
+    expected = "https://gist.github.com/goofansu/c71f..."
+    result = Publisher.short_title(input, 40)
+    assert String.length(result) <= 40
+    assert expected == result
+  end
+
+  test "short title for long titles, does not break URLs 2" do
     input = "ElixirStatus v1.0.0 Released! https://github.com/rrrene/elixirstatus-web/releases/tag/v1.0.0"
     expected = "ElixirStatus v1.0.0 Released!..."
     result = Publisher.short_title(input, 80)

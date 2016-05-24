@@ -130,6 +130,14 @@ defmodule ElixirStatus.Publisher do
   defp short_title_from_list([head|tail], "", max_length) do
     short_title_from_list(tail, head, max_length)
   end
+  defp short_title_from_list([], memo, max_length) do
+    if String.length(memo) >= max_length do
+      memo
+      |> String.slice(0..max_length-1)
+    else
+      memo
+    end
+  end
   defp short_title_from_list([head|tail], memo, max_length) do
     new_memo = "#{memo} #{head}"
     if String.length(new_memo) >= max_length do
