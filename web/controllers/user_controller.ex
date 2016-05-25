@@ -2,6 +2,8 @@ defmodule ElixirStatus.UserController do
   use ElixirStatus.Web, :controller
   use Timex
 
+  require Logger
+
   alias ElixirStatus.User
 
   @current_user_assign_key :user
