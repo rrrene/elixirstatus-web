@@ -13,8 +13,8 @@ defmodule ElixirStatus.User do
     has_many :postings, Posting
   end
 
-  @required_fields ~w(full_name provider user_name)
-  @optional_fields ~w(twitter_handle)
+  @required_fields ~w(provider user_name)
+  @optional_fields ~w(full_name twitter_handle)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

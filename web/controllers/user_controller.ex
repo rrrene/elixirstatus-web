@@ -28,6 +28,7 @@ defmodule ElixirStatus.UserController do
       |> put_flash(:info, "User updated successfully.")
       |> redirect(to: "/")
     else
+      Logger.error "POST update_profile: #{inspect(changeset.errors)}"
       render(conn, "edit.html", user: user, changeset: changeset)
     end
   end
