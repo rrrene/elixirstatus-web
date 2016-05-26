@@ -45,26 +45,74 @@
       <%= sanitized_markdown @posting.text %>
     </div>
 
-    <%= if @just_created_by_me? && @posting.published_tweet_uid do %>
-      <div class="post-options">
-        <div class="twitter-integration">
-          <hr>
-
-          <br>
-          <strong>
-            <a href="https://twitter.com/<%= twitter_screen_name %>" target="_blank">@<%= twitter_screen_name %></a> just tweeted your post:
-          </strong>
-          <div class="tweet">
-            <a class="btn btn--retweet" style="display: inline-block; float: right;" href="https://twitter.com/intent/retweet?tweet_id=<%= @posting.published_tweet_uid %>" target="_blank"><i class="icon-retweet"></i> Retweet this!</a>
-            <%= raw ElixirStatus.Publisher.tweet_text(@posting, @posting.user.twitter_handle) %>
-            <div style="clear:both"></div>
+    <%= if @just_created_by_me? do %>
+      <div class="form-section">
+        <div class="form-section__title">Additional information</div>
+        <p>
+          Please select the type of your post below.
+        </p>
+        <div class="post-type-list">
+          <div class="post-type">
+            <label class="post-type__label" for="post-type-1">
+              <input type="radio" name="post-type" id="post-type-1" />
+              Blog Post
+            </label>
           </div>
-          <small class="tweet-hint">
-            Spread the word: If more people know about this site, more people will read your posts.
-          </small>
-          <hr>
+          <div class="post-type post-type--active">
+            <label class="post-type__label" for="post-type-2">
+              <input type="radio" name="post-type" id="post-type-2" checked="checked" />
+              New Project
+            </label>
+          </div>
+          <div class="post-type">
+            <label class="post-type__label" for="post-type-3">
+              <input type="radio" name="post-type" id="post-type-3" />
+              Version Update
+            </label>
+          </div>
         </div>
       </div>
+
+      <div class="form-section">
+        <p>
+          If your post is about any particular Elixir project, please post the GitHub repo url below:
+        </p>
+        <div class="form-section__input">
+          <label><i class="icon-octopus"></i></label>
+          <input type="text" value="https://github.com/rrrene/credo" />
+          <a class="btn" href="#"><i class="icon-plus"></i></a>
+        </div>
+
+      </div>
+
+      <div class="form-section">
+
+        <a class="btn btn--finalize" href="#">Save this information & finalize post</a>
+        or
+        <a href="">skip this step</a>
+      </div>
+
+      <%= if @posting.published_tweet_uid do %>
+        <div class="post-options">
+          <div class="twitter-integration">
+            <hr>
+
+            <br>
+            <strong>
+              <a href="https://twitter.com/<%= twitter_screen_name %>" target="_blank">@<%= twitter_screen_name %></a> just tweeted your post:
+            </strong>
+            <div class="tweet">
+              <a class="btn btn--retweet" style="display: inline-block; float: right;" href="https://twitter.com/intent/retweet?tweet_id=<%= @posting.published_tweet_uid %>" target="_blank"><i class="icon-retweet"></i> Retweet this!</a>
+              <%= raw ElixirStatus.Publisher.tweet_text(@posting, @posting.user.twitter_handle) %>
+              <div style="clear:both"></div>
+            </div>
+            <small class="tweet-hint">
+              Spread the word: If more people know about this site, more people will read your posts.
+            </small>
+            <hr>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

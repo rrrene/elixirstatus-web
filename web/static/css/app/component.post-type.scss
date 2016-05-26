@@ -1,0 +1,20 @@
+@import "_config";
+
+.post-type-list {
+  @include clearAfter;
+}
+
+.post-type {
+  float: left;
+  width: 33.3%;
+}
+.post-type__label {
+  display: block;
+  background: #eee;
+  border-right: 2px solid #fff;
+  padding: 10px;
+}
+
+.post-type--active .post-type__label {
+  background: #A5CADC;
+}

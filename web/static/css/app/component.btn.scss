@@ -77,6 +77,23 @@ body .content .post__body .btn--retweet,
   border-color: #426B28;
 }
 
+.btn--finalize {
+  color: #fff;
+  text-decoration: none;
+  background-color: #5c913b;
+  border-color: #426B28;
+  &:visited,
+  &:link,
+  &:active {
+    color: #fff;
+  }
+}
+.btn--finalize:hover {
+  color: #fff;
+  background-color: #64864F;
+  border-color: #426B28;
+}
+
 .btn--primary {
   color: #fff;
   background-color: #127429;
