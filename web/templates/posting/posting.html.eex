@@ -15,6 +15,8 @@
           /
           <a href="https://twitter.com/<%= raw @posting.user.twitter_handle %>" target="_blank"><i class="icon-twitter"></i> <%= raw @posting.user.twitter_handle %></a>
         <% end %>
+        /
+        <%= link "all posts", to: posting_path(@conn, :user, @posting.user.user_name) %>
       </span>
 
         <span class="post__functions">
@@ -35,9 +37,6 @@
                 <%= link "Unpublish", to: posting_path(@conn, :unpublish, @posting), method: :post %>
               </span>
             </span>
-<pre>
-<%= inspect ElixirStatus.PostingCategorizer.run(@posting) %>
-</pre>
           <% end %>
         </span>
     </span>

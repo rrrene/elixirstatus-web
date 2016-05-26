@@ -1,0 +1,82 @@
+<div class="posts">
+  <%= if logged_in?(@conn) do %>
+    <%= if @page_number == 1 do %>
+      <%= if @just_signed_in do %>
+        <div id="post--new">
+          <%= render "form.html", current_user: current_user(@conn),
+                                  changeset: @changeset,
+                                  action: posting_path(@conn, :create),
+                                  conn: @conn,
+                                  posting: nil,
+                                  css_class: "post--new",
+                                  editing?: false %>
+        </div>
+      <% else %>
+        <div class="post post--sign-in-to-post" id="js-post-new-wrapper">
+          <div class="post__avatar">
+            <div class="image" style="background-image: url(<%= raw avatar_path(current_user(@conn).user_name) %>)"></div>
+          </div>
+          <a class="btn btn--sign-in" data-toggle="#post--new, #js-post-new-wrapper" href="#"><i class="icon-pen"></i> Submit a post</a>
+        </div>
+        <div id="post--new" style="display: none">
+          <%= render "form.html", current_user: current_user(@conn),
+                                  changeset: @changeset,
+                                  action: posting_path(@conn, :create),
+                                  conn: @conn,
+                                  posting: nil,
+                                  css_class: "post--new",
+                                  editing?: false %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="post post--sign-in-to-post" id="js-post-new-wrapper">
+        <div class="post__avatar">
+          <div class="image" style="background-image: url(<%= raw avatar_path(current_user(@conn).user_name) %>)"></div>
+        </div>
+        <a class="btn btn--sign-in" href="/postings/new"><i class="icon-pen"></i> Submit another post</a>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="post post--sign-in-to-post">
+      <div class="post__avatar">
+        <div class="image" style="background-color: #f5f5f5; border: 1px dashed #aaa;"></div>
+      </div>
+      <a class="btn btn--sign-in" href="/auth"><i class="icon-git"></i> Sign in and post</a>
+    </div>
+  <% end %>
+
+  <%= if @searching? do %>
+    Search results for <code><%= @search_query %></code>
+    <a href="/">clear</a>
+  <% end %>
+
+  <%= for {posting, index} <- Enum.with_index(@postings) do %>
+    <%= render ElixirStatus.PostingView, "posting.html", conn: @conn,
+                posting: posting,
+                belongs_to_me?: ElixirStatus.Auth.belongs_to_current_user?(@conn, posting),
+                just_created_by_me?: @created_posting == posting
+                %>
+    <%= if index == 2 do %>
+      <%= render ElixirStatus.SharedView, "promo_credo.html", conn: @conn %>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="pagination">
+  <%= if @page_number > 1 do %>
+    <%= link "Previous", to: posting_path(@conn, :index, page: @page_number - 1), class: "pagination__item pagination__item--older" %>
+  <% else %>
+    <span class="pagination__item pagination__item--older">Previous</span>
+  <% end %>
+  <%= if @page_number < @total_pages do %>
+    <%= link "Next", to: posting_path(@conn, :index, page: @page_number + 1), class: "pagination__item pagination__item--newer" %>
+  <% else %>
+    <span class="pagination__item pagination__item--newer">Next</span>
+  <% end %>
+</div>
+
+<div class="search">
+  <form method="get" action="/">
+    <input type="text" name="q" class="search__input" placeholder="Search ...">
+  </form>
+</div>

@@ -4,6 +4,7 @@ defmodule ElixirStatus.PostingController do
 
   alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
+  alias ElixirStatus.User
 
   @postings_per_page          20
   @just_created_timeout       60 # seconds
@@ -22,6 +23,24 @@ defmodule ElixirStatus.PostingController do
     conn
     |> ElixirStatus.Impressionist.record("frontpage")
     |> render("index.html", postings: page.entries,
+                            page_number: page.page_number,
+                            total_pages: page.total_pages,
+                            created_posting: load_created_posting(conn),
+                            just_signed_in: params["just_signed_in"] == "true",
+                            searching?: !is_nil(params["q"]),
+                            search_query: params["q"],
+                            changeset: Posting.changeset(%Posting{}))
+  end
+
+  def user(conn, %{"user_name" => user_name} = params) do
+    user =
+      (from p in User, where: p.user_name == ^user_name)
+      |> Repo.one
+
+    page = get_all(%{"user_id" => user.id})
+    conn
+    |> ElixirStatus.Impressionist.record("frontpage")
+    |> render("user.html", postings: page.entries,
                             page_number: page.page_number,
                             total_pages: page.total_pages,
                             created_posting: load_created_posting(conn),
@@ -232,6 +251,10 @@ defmodule ElixirStatus.PostingController do
   defp query_for(%{"q" => q}) do
     term = "%" <> String.replace(q, " ", "%") <> "%"
     from p in Posting, where: p.public == ^true and (like(p.title, ^term) or like(p.text, ^term)),
+                        order_by: [desc: :published_at]
+  end
+  defp query_for(%{"user_id" => user_id}) do
+    from p in Posting, where: p.public == ^true and p.user_id == ^user_id,
                         order_by: [desc: :published_at]
   end
   defp query_for(_) do

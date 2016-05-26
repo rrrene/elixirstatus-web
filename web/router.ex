@@ -21,6 +21,8 @@ defmodule ElixirStatus.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PostingController, :index
+    get "/u/:user_name", PostingController, :user
+
     get "/rss", FeedController, :rss
     get "/about", PageController, :about
     get "/open_source", PageController, :open_source

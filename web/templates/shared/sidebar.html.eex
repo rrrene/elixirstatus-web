@@ -15,6 +15,9 @@
 
     <nav class="sidebar-nav">
       <a class="sidebar-nav-item active" href="/"><%= gettext "Home" %></a>
+      <%= if logged_in?(@conn) do %>
+        <a class="sidebar-nav-item" href="<%= posting_path(@conn, :user, current_user(@conn).user_name) %>"><%= gettext "Your posts" %></a>
+      <% end %>
       <a class="sidebar-nav-item" href="<%= page_path(@conn, :about) %>"><%= gettext "About" %></a>
       <span class="sidebar-nav-item"><%= gettext "You can follow via" %></span>
       <a class="sidebar-nav-item" href="https://twitter.com/elixirstatus" target="_blank">Twitter</a>
