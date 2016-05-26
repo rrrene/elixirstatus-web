@@ -225,7 +225,7 @@ defmodule ElixirStatus.PostingController do
 
   @doc "Returns the latest postings."
   def get_all(params \\ %{}) do
-    params = Map.put(params, :page_size, @postings_per_page)
+    params = Map.put(params, :page_size, params["page_size"] || @postings_per_page)
     query_for(params) |> Ecto.Query.preload(:user) |> Repo.paginate(params)
   end
 

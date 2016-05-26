@@ -35,6 +35,9 @@
                 <%= link "Unpublish", to: posting_path(@conn, :unpublish, @posting), method: :post %>
               </span>
             </span>
+<pre>
+<%= inspect ElixirStatus.PostingCategorizer.run(@posting) %>
+</pre>
           <% end %>
         </span>
     </span>

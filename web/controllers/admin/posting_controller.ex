@@ -9,6 +9,7 @@ defmodule ElixirStatus.Admin.PostingController do
   @layout {ElixirStatus.LayoutView, "admin.html"}
 
   def index(conn, params) do
+    params = Map.put(params, "page_size", 200)
     page = ElixirStatus.PostingController.get_all(params)
     count = Repo.one(from r in Posting,
                       where: r.public == ^true,
