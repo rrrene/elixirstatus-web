@@ -1,4 +1,4 @@
-defmodule ElixirStatus.PostingCategorizer do
+defmodule ElixirStatus.PostingTypifier do
   alias ElixirStatus.Posting
 
   @categorizers [
@@ -20,16 +20,16 @@ defmodule ElixirStatus.PostingCategorizer do
     @features_or_improvements_mentioned ~r/\W(improved?|improvements?|featured?|features)(\W|\E)/i
 
     @title_regex [
-      {:version_number, @version_number, 0.4},
-      {:release_mentioned, @release_mentioned, 0.1},
+      {:version_number, 0.4, @version_number},
+      {:release_mentioned, 0.1, @release_mentioned},
     ]
     @text_regex [
-      {:version_number, @version_number, 0.1},
-      {:link_to_github, @link_to_github, 0.1},
-      {:link_to_github_release, @link_to_github_release, 0.4},
-      {:link_to_package, @link_to_package, 0.4},
-      {:release_mentioned, @release_mentioned, 0.1},
-      {:features_or_improvements_mentioned, @features_or_improvements_mentioned, 0.1},
+      {:version_number, 0.1, @version_number},
+      {:link_to_github, 0.1, @link_to_github},
+      {:link_to_github_release, 0.4, @link_to_github_release},
+      {:link_to_package, 0.4, @link_to_package},
+      {:release_mentioned, 0.1, @release_mentioned},
+      {:features_or_improvements_mentioned, 0.1, @features_or_improvements_mentioned},
     ]
 
 
@@ -43,7 +43,7 @@ defmodule ElixirStatus.PostingCategorizer do
 
     def increment_if_matching(list, string \\ "", sum \\ 0, roles \\ [])
 
-    def increment_if_matching([{role, regex, val} | tail], string, sum, roles) do
+    def increment_if_matching([{role, val, regex} | tail], string, sum, roles) do
       if String.match?(string, regex) do
         increment_if_matching(tail, string, sum + val, roles ++ [role])
       else
@@ -56,16 +56,19 @@ defmodule ElixirStatus.PostingCategorizer do
 
   defmodule IsBlogPost do
     @title_regex [
+      {:typical_title_elements, 0.1, ~r{^(why|how)}i},
     ]
     @text_regex [
-      {:typical_subdomain_or_dir, ~r/\/(blog|posts?|articles?)(\.|\/)+/, 0.1},
-      {:year_month_day_slug,      ~r/\/\d{4}\/\d{2}\/\d{2}\/\D+/, 0.1},
-      {:year_month_slug,          ~r/\/\d{4}\/\d{2}\/\D+/, 0.1},
+      {:typical_domain, 0.3, ~r{https://medium.com/(p/|\@)}},
+      {:typical_subdomain_or_dir, 0.2, ~r/\/(blog|posts?|articles?)(\.|\/)+/},
+      {:year_month_day_slug, 0.2, ~r/\/\d{4}\/\d{2}\/\d{2}\/\D+/},
+      {:year_month_slug, 0.2, ~r/\/\d{4}\/\d{2}\/\D+/},
+      {:blog_post_mentioned, 0.1, ~r/blog[\s-]post/},
     ]
 
     def type, do: :blog_post
 
-    import ElixirStatus.PostingCategorizer.IsProjectUpdate
+    import ElixirStatus.PostingTypifier.IsProjectUpdate
 
     def run(%Posting{title: title, text: text}) do
       {t_sum, t_roles} = increment_if_matching(@title_regex, title)
