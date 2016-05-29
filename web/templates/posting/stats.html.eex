@@ -1,0 +1,3 @@
+<div class="posting-stats">
+  There have been <b><%= @clicks %></b> click-throughs to links in your post.
+</div>

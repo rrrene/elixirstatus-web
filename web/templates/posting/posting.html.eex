@@ -25,6 +25,8 @@
 
           <%= if @belongs_to_me? || admin?(@conn) do %>
             |
+            <a href="#" data-stats-url="<%= posting_path(@conn, :stats, @posting.permalink) %>" data-stats-inject=".js-post-stats-inject--<%= @posting.uid %>"><i class="icon-chart"></i> Stats</a>
+            |
             <a href="<%= posting_path(@conn, :edit, @posting) %>"><i class="icon-pen"></i> Edit</a>
           <% end %>
 
@@ -38,6 +40,8 @@
           <% end %>
         </span>
     </span>
+
+    <div class="js-post-stats-inject--<%= @posting.uid %>"></div>
 
     <div class="post__body">
       <%= sanitized_markdown @posting.text %>

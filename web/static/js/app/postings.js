@@ -18,6 +18,26 @@ function loadPostingFormModule() {
   $("a[data-preview-url]").click(previewPosting);
 }
 
+
+function statsPosting(event) {
+  event.preventDefault();
+  event.stopImmediatePropagation();
+
+  var url = $(this).data("stats-url");
+  var selector = $(this).data("stats-inject");
+  $.ajax(url, {
+                "method": "GET",
+                "data": {},
+                "success": function(data) { $(selector).html(data); }
+              });
+}
+
+function loadPostingFormModule() {
+  $("a[data-stats-url]").click(statsPosting);
+}
+
+
+
 function loadPostingIndexModule() {
   loadFrontpagePostingTracker();
 }

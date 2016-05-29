@@ -9,7 +9,7 @@ defmodule ElixirStatus.PostingController do
   @just_created_timeout       60 # seconds
   @current_posting_assign_key :posting
 
-  plug :load_posting when action in [:edit, :update, :delete, :show]
+  plug :load_posting when action in [:edit, :update, :delete, :show, :stats]
 
   plug ElixirStatus.Plugs.LoggedIn when action in [:new, :create, :edit, :update, :delete]
   plug ElixirStatus.Plugs.Admin when action in [:unpublish]
@@ -83,6 +83,18 @@ defmodule ElixirStatus.PostingController do
                             created_posting: load_created_posting(conn),
                             prev_posting: load_prev_posting(posting),
                             next_posting: load_next_posting(posting))
+  end
+
+  def stats(conn, %{"permalink" => _}) do
+    stats(conn, %{"id" => current_posting(conn)})
+  end
+
+  def stats(conn, %{"id" => _}) do
+    posting = current_posting(conn)
+    clicks = ElixirStatus.Impressionist.count "postings:#{posting.uid}", "short_link"
+    render(conn, "stats.html",
+            layout: {ElixirStatus.LayoutView, "blank.html"},
+            clicks: clicks)
   end
 
   def edit(conn, %{"permalink" => _}) do

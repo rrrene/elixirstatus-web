@@ -9,6 +9,7 @@
   .functions {
     a {
       color: #aaa;
+      white-space: nowrap;
     }
   }
 }
@@ -69,6 +70,7 @@
   a {
     color: #9a9a9a;
     text-decoration: none;
+    white-space: nowrap;
     &:hover {
       color: #555;
     }
@@ -100,6 +102,13 @@
   @include clearAfter
 }
 
+.posting-stats {
+  background-color: #FFF9DE;
+  border-left: 3px solid #FFDE47;
+  font-size: 0.875rem;
+  padding: 0.25rem;
+  margin: 0.5rem 0;
+}
 
 .post__body {
   a {
