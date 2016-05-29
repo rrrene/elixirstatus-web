@@ -43,7 +43,9 @@
 
     <div class="post__body">
       <%= sanitized_markdown @posting.text %>
+      <pre><%= inspect ElixirStatus.PostingTypifier.run(@posting)["choice"] %></pre>
       <pre><%= inspect ElixirStatus.PostingTypifier.run(@posting) %></pre>
+      <pre><%= inspect ElixirStatus.PostingUrlFinder.run(@posting) %></pre>
     </div>
 
     <%= if @just_created_by_me? do %>

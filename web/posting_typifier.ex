@@ -6,10 +6,36 @@ defmodule ElixirStatus.PostingTypifier do
       __MODULE__.IsBlogPost
     ]
 
+  def run(posting) do
+    all =
+      @categorizers
+      |> Enum.map(&(&1.run(posting)))
+      |> Enum.sort
+      |> Enum.reverse
 
-  def run(hash) do
-    Enum.map(@categorizers, fn module -> {module.type, module.run(hash)} end)
+    sum_all =
+      Enum.reduce(all, 0, fn({points, _type, _}, acc) -> points + acc end)
+
+    %{
+      "all" => all,
+      "choice" => choose(all, sum_all)
+    }
   end
+
+  defp choose(_, 0), do: nil
+  defp choose([], _sum_all) do
+    nil
+  end
+  defp choose([{sum_all, type, _}|tail], sum_all) do
+    type
+  end
+  defp choose([{points, type, _}|tail], sum_all) when points > 0.5 do
+    type
+  end
+  defp choose([{points, type, _}|tail], sum_all) do
+    choose(tail, sum_all)
+  end
+
 
   defmodule IsProjectUpdate do
     @link_to_github ~r/https\:\/\/github.com\/[^\/]+\/[^\/]+/
@@ -32,13 +58,10 @@ defmodule ElixirStatus.PostingTypifier do
       {:features_or_improvements_mentioned, 0.1, @features_or_improvements_mentioned},
     ]
 
-
-    def type, do: :project_update
-
     def run(%Posting{title: title, text: text}) do
       {t_sum, t_roles} = increment_if_matching(@title_regex, title)
       {b_sum, b_roles} = increment_if_matching(@text_regex, text)
-      {t_sum + b_sum, t_roles ++ b_roles}
+      {t_sum + b_sum, :project_update, t_roles ++ b_roles}
     end
 
     def increment_if_matching(list, string \\ "", sum \\ 0, roles \\ [])
@@ -66,14 +89,12 @@ defmodule ElixirStatus.PostingTypifier do
       {:blog_post_mentioned, 0.1, ~r/blog[\s-]post/},
     ]
 
-    def type, do: :blog_post
-
     import ElixirStatus.PostingTypifier.IsProjectUpdate
 
     def run(%Posting{title: title, text: text}) do
       {t_sum, t_roles} = increment_if_matching(@title_regex, title)
       {b_sum, b_roles} = increment_if_matching(@text_regex, text)
-      {t_sum + b_sum, t_roles ++ b_roles}
+      {t_sum + b_sum, :blog_post, t_roles ++ b_roles}
     end
   end
 end
