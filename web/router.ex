@@ -11,10 +11,26 @@ defmodule ElixirStatus.Router do
     plug ElixirStatus.Locale
   end
 
+  pipeline :embedded do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug :assign_current_user
+    plug ElixirStatus.RemoveReponseHeadersForEmbedded
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
     plug :fetch_session
     plug :assign_current_user
+  end
+
+  scope "/embed", ElixirStatus do
+    pipe_through :embedded
+
+    get "/", PostingController, :index
   end
 
   scope "/", ElixirStatus do
