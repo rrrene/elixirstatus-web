@@ -43,12 +43,28 @@
 
     <div class="post__body">
       <%= sanitized_markdown @posting.text %>
+      <!--
       <pre><%= inspect ElixirStatus.PostingTypifier.run(@posting)["choice"] %></pre>
       <pre><%= inspect ElixirStatus.PostingTypifier.run(@posting) %></pre>
       <pre><%= inspect ElixirStatus.PostingUrlFinder.run(@posting) %></pre>
+      -->
     </div>
 
+    <div class="post__meta-information">
+      <span class="posting-type-selector"><i class="icon-file_close_alt"></i> <%= ElixirStatus.PostingTypifier.run(@posting)["choice"] %></span>
+       <span class="posting-url-selector"><i class="icon-octopus"></i> edib-tool/docker-edib-tool</span>
+      <span class="posting-stats"><i class="icon-chart_alt"></i> Stats</span>
+    </div>
+<!--
+    <div class="post__meta-information">
+      This status is about a <span class="posting-type-selector"><%= ElixirStatus.PostingTypifier.run(@posting)["choice"] %></span>
+      It references <span class="posting-url-selector"><i class="icon-octopus"></i> edib-tool/docker-edib-tool</span>
+      <a class="btn" href="#">Next</a>
+    </div>
+-->
+
     <%= if @just_created_by_me? do %>
+    <!--
       <div class="form-section">
         <div class="form-section__title">Additional information</div>
         <p>
@@ -94,6 +110,7 @@
         or
         <a href="">skip this step</a>
       </div>
+      -->
 
       <%= if @posting.published_tweet_uid do %>
         <div class="post-options">

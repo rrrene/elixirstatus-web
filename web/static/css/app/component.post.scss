@@ -76,6 +76,43 @@
   }
 }
 
+.post__meta-information {
+  color: #9a9a9a;
+  .posting-type-selector,
+  .posting-url-selector,
+  .posting-stats {
+    color: #ccc;
+    border: 1px dashed #ccc;
+  }
+}
+
+.post__meta-information {
+  color: #9a9a9a;
+  .posting-type-selector {
+    color: #8c3;
+    border: 1px dashed #8c3;
+    display: inline-block;
+    padding: 0 5px;
+    border-radius: 3px;
+  }
+  .posting-url-selector {
+    color: #A5CADC;
+    border: 1px dashed #A5CADC;
+    display: inline-block;
+    padding: 0 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .posting-stats {
+    color: #E0C225;
+    border: 1px dashed #E0C225;
+    display: inline-block;
+    padding: 0 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+}
+
 .post__functions {
   small,span {
     display: block;
