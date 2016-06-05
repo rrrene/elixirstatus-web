@@ -4,6 +4,8 @@ defmodule ElixirStatus.PostingController do
 
   alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
+  alias ElixirStatus.PostingTypifier
+  alias ElixirStatus.PostingUrlFinder
   alias ElixirStatus.User
 
   @postings_per_page          20
@@ -59,6 +61,7 @@ defmodule ElixirStatus.PostingController do
       posting_params
       |> extract_valid_params
       |> to_create_params(conn)
+
     changeset = Posting.changeset(%Posting{}, posting_params)
 
     if changeset.valid? do
@@ -230,6 +233,7 @@ defmodule ElixirStatus.PostingController do
 
   defp to_create_params(params, conn) do
     uid = ElixirStatus.UID.generate(Posting)
+    tmp_post = %Posting{title: params["title"], text: params["text"]}
     %{
       user_id: Auth.current_user(conn).id,
       uid: uid,
@@ -238,7 +242,9 @@ defmodule ElixirStatus.PostingController do
       title: params["title"],
       scheduled_at: params["scheduled_at"],
       published_at: Date.now,
-      public: true
+      public: true,
+      type: PostingTypifier.run(tmp_post)["choice"] |> to_string,
+      referenced_urls: PostingUrlFinder.run(tmp_post) |> Poison.encode!
     }
   end
 

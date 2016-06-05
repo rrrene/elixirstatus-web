@@ -88,29 +88,32 @@
 
 .post__meta-information {
   color: #9a9a9a;
-  .posting-type-selector {
-    color: #8c3;
-    border: 1px dashed #8c3;
-    display: inline-block;
-    padding: 0 5px;
-    border-radius: 3px;
+}
+.posting-type-selector {
+  color: #555;
+  border: 1px dashed #fff;
+  display: inline-block;
+  padding: 0 5px;
+  border-radius: 3px;
+  &:hover {
+  //  border: 1px dashed #9a9a9a;
   }
-  .posting-url-selector {
-    color: #A5CADC;
-    border: 1px dashed #A5CADC;
-    display: inline-block;
-    padding: 0 5px;
-    border-radius: 3px;
-    white-space: nowrap;
-  }
-  .posting-stats {
-    color: #E0C225;
-    border: 1px dashed #E0C225;
-    display: inline-block;
-    padding: 0 5px;
-    border-radius: 3px;
-    white-space: nowrap;
-  }
+}
+.posting-url-selector {
+  color: #A5CADC;
+  border: 1px dashed #A5CADC;
+  display: inline-block;
+  padding: 0 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.posting-stats {
+  color: #E0C225;
+  border: 1px dashed #E0C225;
+  display: inline-block;
+  padding: 0 5px;
+  border-radius: 3px;
+  white-space: nowrap;
 }
 
 .post__functions {

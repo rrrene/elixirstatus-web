@@ -8,15 +8,17 @@
 
     <span class="post__meta">
       <span class="post-date"><%= @posting.published_at |> human_readable_date %></span>
-      <span class="post-author">
-        by
+
+      &ndash;<span class="posting-type-selector"><%= humanize_type @posting.type %></span><span class="post-author">by
         <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank"><i class="icon-git_circle"></i> <%= raw @posting.user.user_name %></a>
         <%= if @posting.user.twitter_handle do %>
           /
           <a href="https://twitter.com/<%= raw @posting.user.twitter_handle %>" target="_blank"><i class="icon-twitter"></i> <%= raw @posting.user.twitter_handle %></a>
         <% end %>
+        <!--
         /
         <%= link "all posts", to: posting_path(@conn, :user, @posting.user.user_name) %>
+        -->
       </span>
 
         <span class="post__functions">
@@ -43,25 +45,19 @@
 
     <div class="post__body">
       <%= sanitized_markdown @posting.text %>
-      <!--
-      <pre><%= inspect ElixirStatus.PostingTypifier.run(@posting)["choice"] %></pre>
-      <pre><%= inspect ElixirStatus.PostingTypifier.run(@posting) %></pre>
-      <pre><%= inspect ElixirStatus.PostingUrlFinder.run(@posting) %></pre>
-      -->
     </div>
 
-    <div class="post__meta-information">
-      <span class="posting-type-selector"><i class="icon-file_close_alt"></i> <%= ElixirStatus.PostingTypifier.run(@posting)["choice"] %></span>
-       <span class="posting-url-selector"><i class="icon-octopus"></i> edib-tool/docker-edib-tool</span>
-      <span class="posting-stats"><i class="icon-chart_alt"></i> Stats</span>
-    </div>
-<!--
-    <div class="post__meta-information">
-      This status is about a <span class="posting-type-selector"><%= ElixirStatus.PostingTypifier.run(@posting)["choice"] %></span>
-      It references <span class="posting-url-selector"><i class="icon-octopus"></i> edib-tool/docker-edib-tool</span>
-      <a class="btn" href="#">Next</a>
-    </div>
--->
+    <%= if Mix.env == :dev && admin?(@conn) do %>
+      <div class="post__meta-information">
+        <%= for url <- decode_urls(@posting.referenced_urls) do %>
+          <%= url %>
+        <% end %>
+        <span class="posting-url-selector"><i class="icon-octopus"></i> edib-tool/docker-edib-tool</span>
+        <span class="posting-url-selector"><i class="icon-coverflow"></i> docker-edib-tool</span>
+        <!-- <span class="posting-stats"><i class="icon-chart_alt"></i> Stats</span> -->
+        <a href="<%= posting_path(@conn, :edit, @posting) %>"><i class="icon-pen"></i> Edit</a>
+      </div>
+    <% end %>
 
     <%= if @just_created_by_me? do %>
     <!--
