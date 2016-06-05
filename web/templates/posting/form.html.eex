@@ -6,7 +6,10 @@
     <%= text_input f, :title, id: "posting_title", class: class_with_error(f, :title, "post-title"), placeholder: "Title goes here (will be tweeted)" %>
 
     <span class="post__meta">
-      <span class="post-date">Today</span>
+      <span class="post-date">Today</span> &ndash;
+      <%= if @editing? do %>
+        <%= select(f, :type, ["Blog post": "blog_post", "Project update": "project_update", "Other": ""], class: "posting-type-selector") %>
+      <% end %>
       <span class="post-author">
         by
         <a href="https://github.com/<%= raw @current_user.user_name %>" target="_blank"><i class="icon-git_circle"></i> <%= raw @current_user.user_name %></a>
@@ -24,6 +27,7 @@
     <%= textarea f, :text, id: "posting_text", class: class_with_error(f, :text, "post__body"), placeholder: "Text should describe what you made in prose. Don't forget to link to your project/blog post!" %>
 
     <div class="post__functions">
+
       <div>
         <small>
           Your post might be edited (typos, wording, etc.)<br>
@@ -55,7 +59,11 @@
 
   <%= if @editing? do %>
     <hr>
-    <%= link "Delete this posting", to: posting_path(@conn, :delete, @posting), method: :delete, class: "btn btn--danger" %>
+    <h2 class="danger">Danger zone</h2>
+    <p>
+      Deleting posts is irreversible.
+    </p>
+    <%= link raw("<i class=icon-trash_can></i> Delete this posting"), to: posting_path(@conn, :delete, @posting), method: :delete, class: "btn btn--danger" %>
   <% end %>
 </div>
 

@@ -117,9 +117,9 @@ defmodule ElixirStatus.PostingController do
     render(conn, "edit.html", posting: posting, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "posting" => posting_params}) do
+  def update(conn, %{"id" => id, "posting" => original_params}) do
     posting = Repo.get!(Posting, id)
-    posting_params = posting_params |> extract_valid_params
+    posting_params = original_params |> extract_valid_params
     changeset = Posting.changeset(posting, posting_params)
 
     if changeset.valid? do
@@ -221,11 +221,11 @@ defmodule ElixirStatus.PostingController do
     conn.assigns[@current_posting_assign_key]
   end
 
+  defp extract_valid_params(%{"title" => title, "text" => text, "type" => type}) do
+    %{"title" => title || "", "text" => text || "", "type" => type}
+  end
   defp extract_valid_params(%{"title" => title, "text" => text}) do
     %{"title" => title || "", "text" => text || ""}
-  end
-  defp extract_valid_params(%{"title" => title, "text" => text, "scheduled_at" => scheduled_at}) do
-    %{"title" => title || "", "text" => text || "", "scheduled_at" => scheduled_at}
   end
   defp extract_valid_params(_) do
     %{}
