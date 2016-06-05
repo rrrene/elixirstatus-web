@@ -7,7 +7,7 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
 config :elixir_status, ElixirStatus.Endpoint,
-  http: [port: 3000],
+  http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
   cache_static_lookup: false,
