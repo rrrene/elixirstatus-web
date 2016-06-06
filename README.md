@@ -48,17 +48,19 @@ To start the ElixirStatus application:
     $ npm install
     ```
 
-3. Create and migrate the database with:
+3. Make sure you have MySQL installed and then configure the database accordingly in config/dev.exs and config/test.exs.
+
+4. Create and migrate the database with:
     ```bash
     $ mix ecto.create
     $ mix ecto.migrate
     ```
-4. Seed database with:
+5. Seed database with:
 
     ```bash
     $ mix run priv/repo/seeds/seed.exs
     ```
-5. [Register a GitHub application](https://github.com/settings/applications/new) for local testing:
+6. [Register a GitHub application](https://github.com/settings/applications/new) for local testing:
 
     Application name: `<your choice>`
 
@@ -68,7 +70,7 @@ To start the ElixirStatus application:
 
     Authorization callback URL: `http://localhost:4000/auth/callback`
 
-6. Start Phoenix endpoint with
+7. Start Phoenix endpoint with
     ```bash
     CLIENT_ID=<your_github_app_client_id> CLIENT_SECRET=<your_github_app_client_secret> mix phoenix.server
     ```
