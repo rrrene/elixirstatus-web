@@ -228,7 +228,7 @@ defmodule ElixirStatus.PostingController do
     %{"title" => title || "", "text" => text || ""}
   end
   defp extract_valid_params(_) do
-    %{}
+    %{"title" => "", "text" => ""}
   end
 
   defp to_create_params(params, conn) do
