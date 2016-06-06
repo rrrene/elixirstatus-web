@@ -64,7 +64,7 @@ To start the ElixirStatus application:
 
     Application name: `<your choice>`
 
-    Homepage-URL: `localhost:4000`
+    Homepage-URL: `http://localhost:4000`
 
     Application description: `<your choice>`
 
