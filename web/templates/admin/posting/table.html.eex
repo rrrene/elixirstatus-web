@@ -18,41 +18,14 @@
       <td><%= posting.id %></td>
       <td><%= human_readable_date posting.published_at %></td>
       <td><%= link ElixirStatus.Publisher.short_title(posting.title, 30), to: permalink_posting_path(@conn, :show, posting.permalink), title: strip_tags(posting.title) %></td>
-      <%= if false do %>
-        <td>
-          <%= ElixirStatus.Impressionist.count_sessions "frontpage", "posting", posting.uid %>
-          <small class="text-muted">
-            /
-            <a href="/admin/impressions?context=frontpage&subject_type=posting&subject_uid=<%= posting.uid %>">
-              <%= ElixirStatus.Impressionist.count "frontpage", "posting", posting.uid %>
-            </a>
-          </small>
-        </td>
-        <td>
-          <%= ElixirStatus.Impressionist.count_sessions "rss", "posting", posting.uid %>
-        </td>
-        <td>
-          <%= ElixirStatus.Impressionist.count_sessions "detail", "short_link", to_short_uid(posting.permalink) %>
-          <small class="text-muted">
-            /
-            <a href="/admin/impressions?subject_type=short_link&subject_uid=<%= to_short_uid(posting.permalink) %>">
-              <%= ElixirStatus.Impressionist.count "detail", "short_link", to_short_uid(posting.permalink) %>
-            </a>
-          </small>
-        </td>
-      <% end %>
       <td>
-        <%= ElixirStatus.Impressionist.count_sessions "detail", "posting", posting.uid %>
-        <small class="text-muted">
-          /
-          <a href="/admin/impressions?context=detail&subject_type=posting&subject_uid=<%= posting.uid %>">
-            <%= ElixirStatus.Impressionist.count "detail", "posting", posting.uid %>
-          </a>
-        </small>
+        <a href="/admin/impressions?context=detail&subject_type=posting&subject_uid=<%= posting.uid %>">
+          <%= ElixirStatus.Impressionist.count_views @stats_views, posting.uid %>
+        </a>
       </td>
       <td>
         <a href="/admin/impressions?context=<%= "postings:#{posting.uid}" %>&subject_type=short_link">
-          <%= ElixirStatus.Impressionist.count "postings:#{posting.uid}", "short_link" %>
+          <%= ElixirStatus.Impressionist.count_clicks @stats_clicks, posting.uid %>
         </a>
       </td>
     </tr>

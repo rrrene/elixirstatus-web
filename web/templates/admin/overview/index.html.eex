@@ -4,9 +4,7 @@
       <h3 class="panel-title">Latest postings</h3>
     </div>
     <div class="panel-body">
-      <%= render ElixirStatus.Admin.PostingView, "table.html",
-                                                  conn: @conn,
-                                                  postings: @postings %>
+      <%= render ElixirStatus.Admin.PostingView, "table.html", assigns %>
     </div>
   </div>
 </div>

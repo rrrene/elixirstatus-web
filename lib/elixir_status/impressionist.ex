@@ -47,6 +47,53 @@ defmodule ElixirStatus.Impressionist do
   end
 
 
+
+  def all(contexts, subject_type) when is_list(contexts) do
+    query = from r in Impression,
+                  where: r.context in ^contexts and
+                          r.subject_type == ^subject_type,
+                  select: r
+    Repo.all(query)
+  end
+
+  def all(context, subject_type, subject_uids) when is_list(subject_uids) do
+    query = from r in Impression,
+                  where: r.context == ^context and
+                          r.subject_type == ^subject_type and
+                          r.subject_uid in ^subject_uids,
+                  select: r
+    Repo.all(query)
+  end
+
+  # These functions load stats in bulk
+  #
+  def stats_clicks(postings) do
+    contexts = postings |> Enum.map(&("postings:#{&1.uid}"))
+    all(contexts, "short_link")
+  end
+
+  def stats_views(postings) do
+    posting_uids = postings |> Enum.map(&(&1.uid))
+    all("detail", "posting", posting_uids)
+  end
+
+  # These functions count the lists given with `all`
+  #
+  def count_clicks(stats_clicks, uid) do
+    stats_clicks
+    |> List.wrap
+    |> Enum.filter(&(&1.context == "postings:#{uid}" && &1.subject_type == "short_link"))
+    |> Enum.count
+  end
+
+  def count_views(stats_views, uid) do
+    stats_views
+    |> List.wrap
+    |> Enum.filter(&(&1.context == "detail" && &1.subject_type == "posting" && &1.subject_uid == uid))
+    |> Enum.count
+  end
+
+
   @doc """
     Directly records an impression. This is supposed to be called from inside
     Phoenix.

@@ -74,7 +74,6 @@ defmodule ElixirStatus.Router do
     get "/impressions", ImpressionController, :index
     get "/users", UserController, :index
     get "/postings", PostingController, :index, as: :admin_posting
-    get "/postings/recent", PostingController, :recent
   end
 
   # Other scopes may use custom stacks.
@@ -90,6 +89,11 @@ defmodule ElixirStatus.Router do
 
     post "/external", ImpressionController, :external, as: :external
     post "/postings", ImpressionController, :postings, as: :postings
+  end
+  scope "/admin/api", ElixirStatus.Admin do
+    pipe_through :api
+
+    get "/postings/recent", ApiController, :recent
   end
 
   # Fetch the current user from the session and add it to `conn.assigns`. This
