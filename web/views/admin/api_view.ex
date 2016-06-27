@@ -11,15 +11,26 @@ defmodule ElixirStatus.Admin.ApiView do
     }
   end
 
+  def to_json(%ElixirStatus.User{} = user) do
+    %{
+      full_name: user.full_name,
+      email: user.email,
+      provider: user.provider,
+      user_name: user.user_name,
+      twitter_handle: user.twitter_handle,
+    }
+  end
   def to_json(posting, conn, stats_clicks, stats_views) do
     {:safe, html} = posting.text |> sanitized_markdown
     %{
       id: posting.id,
-      published_at: posting.published_at |> xml_readable_date,
+      published_at: posting.published_at |> xml_readable_date(),
+      type: posting.type,
+      author: posting.user |> to_json(),
       title: posting.title,
       text: posting.text,
       html: html,
-      referenced_urls: posting.referenced_urls |> Poison.decode!,
+      urls: Impressionist.urls_sorted_by_most_clicks(stats_clicks, posting.uid),
       permalink: permalink_posting_path(conn, :show, posting.permalink),
       link_clicks: Impressionist.count_clicks(stats_clicks, posting.uid),
       detail_views: Impressionist.count_views(stats_views, posting.uid)

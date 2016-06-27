@@ -85,6 +85,25 @@ defmodule ElixirStatus.Impressionist do
     |> Enum.filter(&(&1.context == "postings:#{uid}" && &1.subject_type == "short_link"))
     |> Enum.count
   end
+  def urls_sorted_by_most_clicks(stats_clicks, uid) do
+    stats_clicks
+    |> List.wrap
+    |> Enum.filter(&(&1.context == "postings:#{uid}" && &1.subject_type == "short_link"))
+    |> Enum.group_by(&(&1.subject_uid))
+    |> Map.values
+    |> Enum.sort_by(fn(list) -> Enum.count(list) end)
+    |> Enum.map(&list_to_url/1)
+    |> Enum.reverse
+    |> IO.inspect
+  end
+
+  defp list_to_url(nil), do: nil
+  defp list_to_url([]), do: nil
+  defp list_to_url(list) do
+    impression = list |> List.last
+    impression.subject_uid
+    |> ElixirStatus.LinkShortener.to_url
+  end
 
   def count_views(stats_views, uid) do
     stats_views
