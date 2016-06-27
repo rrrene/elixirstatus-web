@@ -11,6 +11,8 @@
       -->
       <th>detail</th>
       <th>clicks in post</th>
+      <th>Type</th>
+      <th>URLs</th>
     </tr>
   </thead>
   <%= for posting <- @postings do %>
@@ -27,6 +29,12 @@
         <a href="/admin/impressions?context=<%= "postings:#{posting.uid}" %>&subject_type=short_link">
           <%= ElixirStatus.Impressionist.count_clicks @stats_clicks, posting.uid %>
         </a>
+      </td>
+      <td><%= posting.type %></td>
+      <td>
+        <%= for url <- posting.referenced_urls |> Poison.decode! do %>
+          <a href="<%= url %>"><%= url |> String.replace("https://github.com/", "") %></a>
+        <% end %>
       </td>
     </tr>
   <% end %>

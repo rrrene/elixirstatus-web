@@ -6,7 +6,7 @@ defmodule ElixirStatus.Admin.ApiController do
 
   def recent(conn, params) do
     from_date = Date.now
-    until_date = days_earlier(15)
+    until_date = days_earlier(30)
     query = from p in Posting,
                   where: p.public == ^true and
                   p.published_at <= ^from_date and p.published_at > ^until_date,
