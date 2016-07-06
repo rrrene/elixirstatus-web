@@ -206,14 +206,17 @@ defmodule ElixirStatus.PostingController do
   end
 
   defp load_created_posting_by_uid(nil), do: nil
-
   defp load_created_posting_by_uid(uid) do
-    posting = get_by_uid(uid)
-    seconds_since_posting = Date.diff(posting.published_at, Date.now, :secs)
-    if seconds_since_posting < @just_created_timeout do
-      posting
-    else
-      nil
+    case get_by_uid(uid) do
+      nil ->
+        nil
+      posting ->
+        seconds_since_posting = Date.diff(posting.published_at, Date.now, :secs)
+        if seconds_since_posting < @just_created_timeout do
+          posting
+        else
+          nil
+        end
     end
   end
 
