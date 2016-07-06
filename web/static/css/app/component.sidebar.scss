@@ -183,3 +183,15 @@ a.sidebar-nav-item:focus {
     border: none;
   }
 }
+
+.badge {
+  font-size: 0.675rem;
+  padding: 3px;
+  border-radius: 3px;
+  vertical-align: text-top;
+}
+
+.badge--new {
+  background: #e2d20b;
+  color: #6d561b;
+}

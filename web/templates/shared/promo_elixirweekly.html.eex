@@ -1,0 +1,12 @@
+<div class="post" style="margin-bottom:0">
+  <div class="post__avatar">
+  </div>
+
+  <div class="post__body">
+    <p>
+      <a href="http://elixirweekly.net" target="_blank" style=""><img src="<%= static_path(@conn, "/images/elixirweekly-thumb.png") %>" style="display: inline-block; width: 64px; margin-right: 10px;vertical-align: middle;"/></a>
+      Get your <span style="background: #ffa;">Elixir news once a week</span> by email:
+      <a href="http://elixirweekly.net" target="_blank" style="font-weight: bold;">ElixirWeekly</a>
+    </p>
+  </div>
+</div>

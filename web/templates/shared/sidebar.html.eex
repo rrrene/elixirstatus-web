@@ -20,6 +20,7 @@
       <% end %>
       <a class="sidebar-nav-item" href="<%= page_path(@conn, :about) %>"><%= gettext "About" %></a>
       <span class="sidebar-nav-item"><%= gettext "You can follow via" %></span>
+      <a class="sidebar-nav-item" href="http://elixirweekly.net/" target="_blank"><span class="badge badge--new">NEW!</span> ElixirWeekly</a>
       <a class="sidebar-nav-item" href="https://twitter.com/elixirstatus" target="_blank">Twitter</a>
       <a class="sidebar-nav-item" href="/rss">RSS</a>
       <span class="sidebar-nav-item"><%= gettext "Running on Phoenix!" %></span>
