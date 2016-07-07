@@ -56,7 +56,7 @@
                 belongs_to_me?: ElixirStatus.Auth.belongs_to_current_user?(@conn, posting),
                 just_created_by_me?: @created_posting == posting
                 %>
-    <%= if index == 2 do %>
+    <%= if index == 2 || index == 8 do %>
       <%= render ElixirStatus.SharedView, "promo_elixirweekly.html", conn: @conn %>
     <% end %>
   <% end %>

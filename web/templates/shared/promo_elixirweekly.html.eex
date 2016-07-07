@@ -4,9 +4,10 @@
 
   <div class="post__body">
     <p>
-      <a href="http://elixirweekly.net" target="_blank" style=""><img src="<%= static_path(@conn, "/images/elixirweekly-thumb.png") %>" style="display: inline-block; width: 64px; margin-right: 10px;vertical-align: middle;"/></a>
-      Get your <span style="background: #ffa;">Elixir news once a week</span> by email:
-      <a href="http://elixirweekly.net" target="_blank" style="font-weight: bold;">ElixirWeekly</a>
+      <a href="http://elixirweekly.net" target="_blank" style=""><img src="<%= static_path(@conn, "/images/elixirweekly-thumb.png") %>" style="display: inline-block; width: 64px; float: left; margin-right: 10px; margin-top: -10px;"/></a>
+
+      <a href="http://elixirweekly.net" target="_blank" style="font-weight: bold;">ElixirWeekly</a>: The Elixir Community Newsletter, covering community news you easily miss, shared on ElixirStatus and the web, in <span style="background: #ff6;">one email every Thursday</span>.
     </p>
+    <div style="clear:both"></div>
   </div>
 </div>
