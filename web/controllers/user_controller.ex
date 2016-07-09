@@ -1,6 +1,5 @@
 defmodule ElixirStatus.UserController do
   use ElixirStatus.Web, :controller
-  use Timex
 
   require Logger
 

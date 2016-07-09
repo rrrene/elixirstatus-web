@@ -1,11 +1,10 @@
 defmodule ElixirStatus.Admin.ApiController do
   use ElixirStatus.Web, :controller
-  use Timex
 
   alias  ElixirStatus.Posting
 
   def recent(conn, params) do
-    from_date = Date.now
+    from_date = Ecto.DateTime.utc
     until_date = days_earlier(30)
     query = from p in Posting,
                   where: p.public == ^true and
@@ -21,7 +20,7 @@ defmodule ElixirStatus.Admin.ApiController do
   end
 
   defp days_earlier(count) do
-    Date.now
+    Ecto.DateTime.utc
     |> Date.subtract(Time.to_timestamp(count, :days))
   end
 end

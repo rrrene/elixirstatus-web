@@ -1,14 +1,13 @@
 defmodule ElixirStatus.PostingControllerTest do
   use ElixirStatus.ConnCase
   use ElixirStatus.ConnLoginHelper
-  use Timex
 
   alias ElixirStatus.Posting
   @valid_attrs %{text: "some [content](http://github.com/) on the [web](http://google.com/)", title: "some content"}
   @invalid_attrs %{permalink: "haxxor-perma-link", public: true, published_at: %{day: 17, hour: 14, min: 0, month: 4, year: 2010}, scheduled_at: %{day: 17, hour: 14, min: 0, month: 4, year: 2010}, uid: "some content", user_id: 42}
 
   setup do
-    conn = conn()
+    conn = build_conn()
     {:ok, conn: conn}
   end
 
@@ -19,7 +18,7 @@ defmodule ElixirStatus.PostingControllerTest do
   defp valid_posting() do
     %Posting{user_id: 1234, text: "gibberish", title: "some more gibberish",
             uid: "abcd", permalink: "abcd-some-more-gibberish",
-            public: true, published_at: Date.now}
+            public: true, published_at: Ecto.DateTime.utc}
   end
 
   #

@@ -2,7 +2,7 @@ defmodule ElixirStatus.UserControllerTest do
   use ElixirStatus.ConnCase
 
   setup do
-    conn = conn()
+    conn = build_conn()
     {:ok, conn: conn}
   end
 

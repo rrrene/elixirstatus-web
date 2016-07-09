@@ -6,8 +6,8 @@ defmodule ElixirStatus.Posting do
     field :permalink, :string
     field :title, :string
     field :text, :string
-    field :scheduled_at, Timex.Ecto.DateTime
-    field :published_at, Timex.Ecto.DateTime
+    field :scheduled_at, Ecto.DateTime
+    field :published_at, Ecto.DateTime
     field :published_tweet_uid, :string
     field :public, :boolean, default: false
 

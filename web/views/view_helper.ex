@@ -1,6 +1,5 @@
 defmodule ViewHelper do
-  use Timex
-  use Phoenix.HTML.Sanitizer, :basic_html
+  use PhoenixHtmlSanitizer, :basic_html
 
   alias ElixirStatus.User
 

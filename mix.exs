@@ -4,7 +4,7 @@ defmodule ElixirStatus.Mixfile do
   def project do
     [app: :elixir_status,
      version: "0.0.1",
-     elixir: "~> 1.0",
+     elixir: "~> 1.3",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -37,15 +37,14 @@ defmodule ElixirStatus.Mixfile do
       {:phoenix, "~> 1.1"},
       {:phoenix_ecto, "~> 2.0"},
       {:phoenix_html, "~> 2.3"},
-      {:phoenix_html_sanitizer, "~> 0.2.1"},
+      {:phoenix_html_sanitizer, "~> 1.0.0"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:timex, github: "rrrene/timex"},
-      {:timex_ecto, github: "rrrene/timex_ecto"},
       {:oauth2, "~> 0.3.0"},
       {:oauth, github: "tim/erlang-oauth"},
-      {:extwitter, github: "rrrene/extwitter"},
+      {:extwitter, "~> 0.7"},
       {:scrivener, "~> 1.1"},
-      {:gettext, "~> 0.9"}
+      {:gettext, "~> 0.9"},
+      {:calendar, "~> 0.14"},
     ]
   end
 end

@@ -1,6 +1,5 @@
 defmodule ElixirStatus.PostingController do
   use ElixirStatus.Web, :controller
-  use Timex
 
   alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
@@ -211,7 +210,7 @@ defmodule ElixirStatus.PostingController do
       nil ->
         nil
       posting ->
-        seconds_since_posting = Date.diff(posting.published_at, Date.now, :secs)
+        seconds_since_posting = Date.diff(posting.published_at, Ecto.DateTime.utc, :secs)
         if seconds_since_posting < @just_created_timeout do
           posting
         else
@@ -244,7 +243,7 @@ defmodule ElixirStatus.PostingController do
       text: params["text"],
       title: params["title"],
       scheduled_at: params["scheduled_at"],
-      published_at: Date.now,
+      published_at: Ecto.DateTime.utc,
       public: true,
       type: PostingTypifier.run(tmp_post)["choice"] |> to_string,
       referenced_urls: PostingUrlFinder.run(tmp_post) |> Poison.encode!
