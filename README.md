@@ -1,4 +1,4 @@
-# ElixirStatus [![Inline docs](http://inch-ci.org/github/rrrene/elixirstatus-web.svg?branch=master)](http://inch-ci.org/github/rrrene/elixirstatus-web) [![Deps Status](https://beta.hexfaktor.org/badge/all/github/rrrene/elixirstatus-web.svg)](https://beta.hexfaktor.org/github/rrrene/elixirstatus-web)
+# ElixirStatus [![Inline docs](http://inch-ci.org/github/rrrene/elixirstatus-web.svg?branch=master)](http://inch-ci.org/github/rrrene/elixirstatus-web) [![Deps Status](https://beta.hexfaktor.org/badge/all/github/rrrene/elixirstatus-web.svg)](https://beta.hexfaktor.org/github/rrrene/elixirstatus-web) [![ElixirWeekly](https://img.shields.io/badge/featured-ElixirWeekly-a054ff.svg)](https://elixirweekly.net)
 
 I already integrated Phoenix in my project [Inch CI](https://inch-ci.org/), but have not yet build a frontend site with it. I want to do this here.
 
