@@ -29,6 +29,7 @@ defmodule ElixirStatus.PostingController do
                             total_pages: page.total_pages,
                             created_posting: load_created_posting(conn),
                             just_signed_in: params["just_signed_in"] == "true",
+                            referred_via_elixirweekly: params["ref"] == "elixirweekly",
                             searching?: !is_nil(params["q"]),
                             search_query: params["q"],
                             changeset: Posting.changeset(%Posting{}))

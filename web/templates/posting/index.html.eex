@@ -1,3 +1,17 @@
+
+<%= if @referred_via_elixirweekly do %>
+  <div class="post post--referred-via-elixirweekly">
+    <div class="post__avatar">
+      <div class="image" style="background: none">
+        <img src="<%= static_path(@conn, "/images/elixirweekly-thumb.png") %>"/>
+      </div>
+    </div>
+    <strong>Welcome!</strong>
+    Submit your posts for the next ElixirWeekly!
+  </div>
+<% end %>
+
+
 <div class="posts">
   <%= if logged_in?(@conn) do %>
     <%= if @page_number == 1 do %>
