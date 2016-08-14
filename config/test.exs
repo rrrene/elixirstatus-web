@@ -19,5 +19,5 @@ config :elixir_status, ElixirStatus.Repo,
   size: 1 # Use a single connection for transactional tests
 
 
-config :elixir_status, :base_url, "http://test.host"
+config :elixir_status, :base_url, "http://test.local"
 config :elixir_status, :admin_user_ids, [1234]

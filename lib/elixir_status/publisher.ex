@@ -107,8 +107,11 @@ defmodule ElixirStatus.Publisher do
       else
         ""
       end
+    #hashtag = "#elixirlang"
+    hashtag = "/cc @elixirweekly"
 
-    "#{short_title(title, 100-String.length(suffix))}#{suffix} #{short_url(permalink)} #elixirlang"
+    # 23 = magic number for "all urls on twitter are this long"
+    "#{short_title(title, 140-String.length(suffix)-1-23-1-String.length(hashtag))}#{suffix} #{short_url(permalink)} #{hashtag}"
   end
 
   @doc """
