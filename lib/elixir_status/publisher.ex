@@ -111,7 +111,13 @@ defmodule ElixirStatus.Publisher do
     hashtag = "/cc @elixirweekly"
 
     # 23 = magic number for "all urls on twitter are this long"
-    "#{short_title(title, 140-String.length(suffix)-1-23-1-String.length(hashtag))}#{suffix} #{short_url(permalink)} #{hashtag}"
+    text = "#{short_title(title, 140-String.length(suffix)-1-23-1-String.length(hashtag))}#{suffix} #{short_url(permalink)} #{hashtag}"
+
+    if String.length(text) < 128 do
+      "#{text} #elixirlang"
+    else
+      text
+    end
   end
 
   @doc """
