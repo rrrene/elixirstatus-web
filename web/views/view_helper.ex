@@ -2,6 +2,7 @@ defmodule ViewHelper do
   use PhoenixHtmlSanitizer, :basic_html
 
   alias ElixirStatus.User
+  alias ElixirStatus.Date
 
   def avatar_path(%User{user_name: user_name}), do: avatar_path(user_name)
 
@@ -18,7 +19,8 @@ defmodule ViewHelper do
   end
 
   def error_on_field?(form, field) do
-    Enum.map(form.errors, fn({attr, _message}) -> attr end)
+    form.errors
+    |> Enum.map(fn({attr, _message}) -> attr end)
     |> Enum.member?(field)
   end
 
@@ -28,24 +30,21 @@ defmodule ViewHelper do
   def admin?(conn), do: ElixirStatus.Auth.admin?(conn)
 
   @doc "Returns a date formatted for humans."
-  def human_readable_date(date, use_abbrevs \\ true) do
-    {:ok, readable} =
-      if use_abbrevs && this_year?(date) do
-        if today?(date) do
-          {:ok, "Today"}
-        else
-          DateFormat.format(date, "%e %b", :strftime)
-        end
+  def human_readable_date(date, use_abbrevs? \\ true) do
+    if use_abbrevs? && this_year?(date) do
+      if today?(date) do
+        "Today"
       else
-        DateFormat.format(date, "%e %b %Y", :strftime)
+        date |> Date.strftime("%e %b")
       end
-    readable
+    else
+      date |> Date.strftime("%e %b %Y")
+    end
   end
 
   @doc "Returns a date formatted for RSS clients."
   def xml_readable_date(date) do
-    {:ok, readable} = DateFormat.format(date, "%e %b %Y %T %z", :strftime)
-    readable
+    Date.strftime(date, "%e %b %Y %T %z")
   end
 
   defp this_year?(date), do: date.year == Ecto.DateTime.utc.year

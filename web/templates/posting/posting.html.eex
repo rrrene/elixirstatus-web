@@ -7,7 +7,7 @@
     <h1 class="post__title"><%= link strip_tags(@posting.title), to: permalink_posting_path(@conn, :show, @posting.permalink) %></h1>
 
     <span class="post__meta">
-      <span class="post-date"><%= @posting.published_at |> human_readable_date %></span>
+      <span class="post-date"><%= @posting.published_at |> human_readable_date() %></span>
 
       &ndash;<span class="posting-type-selector"><%= humanize_type @posting.type %></span><span class="post-author">by
         <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank"><i class="icon-git_circle"></i> <%= raw @posting.user.user_name %></a>
@@ -21,26 +21,26 @@
         -->
       </span>
 
-        <span class="post__functions">
-          <%= if @posting.published_tweet_uid do %>
-            |
-            <a href="https://twitter.com/intent/retweet?tweet_id=<%= @posting.published_tweet_uid %>" target="_blank"><i class="icon-retweet"></i> Retweet this</a>
-          <% end %>
+      <span class="post__functions">
+        <%= if @posting.published_tweet_uid do %>
+          |
+          <a href="https://twitter.com/intent/retweet?tweet_id=<%= @posting.published_tweet_uid %>" target="_blank"><i class="icon-retweet"></i> Retweet this</a>
+        <% end %>
 
-          <%= if @belongs_to_me? || admin?(@conn) do %>
-            |
-            <a href="<%= posting_path(@conn, :edit, @posting) %>"><i class="icon-pen"></i> Edit</a>
-          <% end %>
+        <%= if @belongs_to_me? || admin?(@conn) do %>
+          |
+          <a href="<%= posting_path(@conn, :edit, @posting) %>"><i class="icon-pen"></i> Edit</a>
+        <% end %>
 
-          <%= if admin?(@conn) do %>
-            <span class="admin">
-              <a href="#" data-toggle="#unpublish-<%= @posting.uid %>"><i class=icon-cross_mark></i></a>
-              <span id="unpublish-<%= @posting.uid %>" style="display: none">
-                <%= link "Unpublish", to: posting_path(@conn, :unpublish, @posting), method: :post %>
-              </span>
+        <%= if admin?(@conn) do %>
+          <span class="admin">
+            <a href="#" data-toggle="#unpublish-<%= @posting.uid %>"><i class=icon-cross_mark></i></a>
+            <span id="unpublish-<%= @posting.uid %>" style="display: none">
+              <%= link "Unpublish", to: posting_path(@conn, :unpublish, @posting), method: :post %>
             </span>
-          <% end %>
-        </span>
+          </span>
+        <% end %>
+      </span>
     </span>
 
     <div class="post__body">

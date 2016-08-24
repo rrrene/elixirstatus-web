@@ -14,6 +14,7 @@ config :elixir_status, ElixirStatus.Endpoint,
   pubsub: [name: ElixirStatus.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
