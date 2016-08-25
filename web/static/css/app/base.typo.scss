@@ -15,8 +15,15 @@ html {
 body {
   color: #515151;
   background-color: #fff;
+  padding-top: 40px;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
+}
+@include tablet_landscape_and_bigger {
+  /* Move sidebar to the left */
+  body {
+    padding-top: 0;
+  }
 }
 
 /* No `:visited` state is required by default (browsers will use `a`) */

@@ -7,12 +7,16 @@
  * out above content in mobile and later moves to the side with wider viewports.
  */
 .sidebar {
-  height: 100%;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
   overflow-y: auto;
   text-align: center;
   color: rgba(255,255,255,.5);
-  background-color: #432C50;
-  border: 2px solid #432C50;
+  background-color: #2e2148;
+  border: 2px solid #2e2148;
 }
 
 /* Sidebar links */
@@ -134,16 +138,14 @@ a.sidebar-nav-item:focus {
   }
 
   .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
     bottom: 0;
-    width: 16rem;
+    width: 14rem;
+    height: 100%;
 
     padding: 2rem 1rem 1rem 1rem;
 
     border-bottom-color: transparent;
-    border-right-color: #8F58B9;
+    border-right-color: #63407d;
   }
 
   .sidebar-header {
