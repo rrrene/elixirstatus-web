@@ -4,7 +4,7 @@ defmodule ElixirStatus.ShortLinkControllerTest do
   alias ElixirStatus.LinkShortener
 
   setup do
-    conn = conn()
+    conn = build_conn()
     {:ok, conn: conn}
   end
 

@@ -6,7 +6,7 @@ defmodule ElixirStatus.ImpressionControllerTest do
   @invalid_attrs %{context: ""}
 
   setup do
-    conn = conn()
+    conn = build_conn()
     {:ok, conn: conn}
   end
 

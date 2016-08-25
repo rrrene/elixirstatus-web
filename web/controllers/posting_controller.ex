@@ -1,7 +1,7 @@
 defmodule ElixirStatus.PostingController do
   use ElixirStatus.Web, :controller
-  use Timex
 
+  alias ElixirStatus.Date
   alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
   alias ElixirStatus.PostingTypifier
@@ -208,11 +208,11 @@ defmodule ElixirStatus.PostingController do
 
   defp load_created_posting_by_uid(nil), do: nil
   defp load_created_posting_by_uid(uid) do
-    case get_by_uid(uid) do
+    case get_by_uid(uid) |> IO.inspect do
       nil ->
         nil
       posting ->
-        seconds_since_posting = Date.diff(posting.published_at, Date.now, :secs)
+        seconds_since_posting = Date.diff(posting.published_at, Ecto.DateTime.utc) |> IO.inspect
         if seconds_since_posting < @just_created_timeout do
           posting
         else
@@ -245,7 +245,7 @@ defmodule ElixirStatus.PostingController do
       text: params["text"],
       title: params["title"],
       scheduled_at: params["scheduled_at"],
-      published_at: Date.now,
+      published_at: Ecto.DateTime.utc,
       public: true,
       type: PostingTypifier.run(tmp_post)["choice"] |> to_string,
       referenced_urls: PostingUrlFinder.run(tmp_post) |> Poison.encode!

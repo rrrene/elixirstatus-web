@@ -1,11 +1,10 @@
 defmodule ElixirStatus.PublisherTest do
   use ElixirStatus.ModelCase
-  use Timex
 
   alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
 
-  @valid_attrs %{title: "some content", text: "some content", permalink: "some-content", public: true, published_at: Date.now, scheduled_at: nil, uid: "some content", user_id: 42}
+  @valid_attrs %{title: "some content", text: "some content", permalink: "some-content", public: true, published_at: Ecto.DateTime.utc, scheduled_at: nil, uid: "some content", user_id: 42}
   @invalid_attrs %{}
 
   test "after_create works without twitter_handle" do
@@ -56,7 +55,7 @@ defmodule ElixirStatus.PublisherTest do
     assert expected == result
   end
 
-  test "short title for long titles, does not break URLs 2" do
+  test "short title for long titles, does not break URLs 3" do
     input = "ElixirStatus v1.0.0 Released! https://github.com/rrrene/elixirstatus-web/releases/tag/v1.0.0"
     expected = "ElixirStatus v1.0.0 Released!..."
     result = Publisher.short_title(input, 80)

@@ -1,6 +1,5 @@
 defmodule ElixirStatus.Admin.PostingController do
   use ElixirStatus.Web, :controller
-  use Timex
 
   alias  ElixirStatus.Posting
 
@@ -37,7 +36,7 @@ defmodule ElixirStatus.Admin.PostingController do
   end
 
   defp days_earlier(count) do
-    Date.now
+    Ecto.DateTime.utc
     |> Date.subtract(Time.to_timestamp(count, :days))
   end
 end
