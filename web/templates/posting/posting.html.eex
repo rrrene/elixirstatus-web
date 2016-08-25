@@ -7,9 +7,10 @@
     <h1 class="post__title"><%= link strip_tags(@posting.title), to: permalink_posting_path(@conn, :show, @posting.permalink) %></h1>
 
     <span class="post__meta">
-      <span class="post-date"><%= @posting.published_at |> human_readable_date() %></span>
 
-      &ndash;<span class="posting-type-selector"><%= humanize_type @posting.type %></span><span class="post-author">by
+      <span class="posting-type posting-type--<%= @posting.type %>"><span><%= humanize_type @posting.type %></span></span>
+      <span class="post-date"><%= @posting.published_at |> human_readable_date() %></span>
+      <span class="post-author">by
         <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank"><i class="icon-git_circle"></i> <%= raw @posting.user.user_name %></a>
         <%= if @posting.user.twitter_handle do %>
           /

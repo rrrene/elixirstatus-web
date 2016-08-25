@@ -90,6 +90,28 @@
 .post__meta-information {
   color: #9a9a9a;
 }
+.posting-type {
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 0.675rem;
+  vertical-align: text-bottom;
+
+  background: #aaa;
+  color: #fff;
+
+  &:hover {
+  //  border: 1px dashed #9a9a9a;
+  }
+}
+.posting-type--blog_post {
+  background: #12982e;
+  color: #fff;
+}
+.posting-type--project_update {
+  background: #ffe100;
+  color: #222222;
+}
 .posting-type-selector {
   color: #555;
   border: 1px dashed #fff;
@@ -162,12 +184,13 @@ select.posting-type-selector {
     padding-top: 2rem;
     padding-left: 80px;
     border: none;
-    border-top: 1px solid #EED7FF;
+    border-bottom: 1px solid #eee;
   }
 
   .post__avatar {
     display: block !important;
     position: absolute;
+    z-index: 50;
     margin-left: -80px;
 
     .image {
