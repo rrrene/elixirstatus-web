@@ -1,0 +1,58 @@
+<!--
+  DESKTOP navi
+-->
+<div class="tab-nav tab-nav--desktop<%= if @current_posting_filter == "search", do: " tab-nav--search-active" %>">
+  <div class="tab-nav__inner">
+    <div class="tab-nav__tab<%= if is_nil(@current_posting_filter), do: " tab-nav__tab--active" %>">
+      <a href="?filter=">Recent</a>
+    </div>
+    <%= for posting_filter <- @posting_filters do %>
+      <%= render ElixirStatus.PostingView, "_tab-posting_filter.html", [class: "tab-nav__tab", active?: @current_posting_filter == posting_filter, posting_filter: posting_filter] %>
+    <% end %>
+    <div class="tab-nav__tab tab-nav__tab--right tab-nav__tab--search<%= if @current_posting_filter == "search", do: " tab-nav__tab--active" %>">
+      <%= form_for @conn, posting_path(@conn, :index), [method: :get, as: :edit], fn _ -> %>
+        <input type="hidden" name="filter" value="search">
+        <div class="tab-nav__tab__search-icon">
+          <i class="icon-magnifying"></i>
+        </div>
+        <input type="text" class="tab-nav__tab__search" name="q" value="<%= @search %>" placeholder="Search your projects ..." autocomplete="off"<%= if @current_posting_filter == "search", do: " data-auto-select" %>>
+        <div class="tab-nav__tab__search-cancel">
+          <a href="<%= posting_path(@conn, :index) %>"><i class="icon-cross_mark"></i></a>
+        </div>
+        <%= submit "Go", class: "btn btn--primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!--
+  MOBILE navi
+-->
+<div class="tab-nav tab-nav--mobile">
+  <div class="tab-nav__inner">
+    <div class="tab-nav__tab<%= if is_nil(@current_posting_filter), do: " tab-nav__tab--active" %>">
+      <a href="?filter=">Recent</a>
+    </div>
+    <%= if @current_posting_filter do %>
+      <%= render ElixirStatus.PostingView, "_tab-posting_filter.html", [class: "tab-nav__tab", active?: true, posting_filter: @current_posting_filter] %>
+    <% end %>
+    <%= render ElixirStatus.PostingView, "_tab_hamburger.html" %>
+  </div>
+
+  <input type="checkbox" class="tab-nav__dropdown-checkbox" id="tab-nav__dropdown-checkbox">
+  <div class="tab-nav__dropdown">
+    <div class="tab-nav__dropdown__tab<%= if is_nil(@current_posting_filter), do: " tab-nav__dropdown__tab--active" %>">
+      <a href="?filter=">Recent</a>
+    </div>
+    <%= for posting_filter <- @posting_filters do %>
+      <%= render ElixirStatus.PostingView, "_tab-posting_filter.html", [class: "tab-nav__dropdown__tab", active?: @current_posting_filter == posting_filter, posting_filter: posting_filter] %>
+    <% end %>
+    <div class="tab-nav__dropdown__tab tab-nav__dropdown__tab--search<%= if @current_posting_filter == "search", do: " tab-nav__dropdown__tab--active" %>">
+      <%= form_for @conn, posting_path(@conn, :index), [method: :get, as: :edit], fn _ -> %>
+        <input type="hidden" name="filter" value="search">
+        <input type="text" class="tab-nav__dropdown__tab__search" name="q" value="<%= @search %>" placeholder="Search your projects ...">
+        <%= submit "Go", class: "btn btn--primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

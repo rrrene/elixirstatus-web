@@ -1,0 +1,5 @@
+<div class="tab-nav__tab tab-nav__tab--right">
+  <label for="tab-nav__dropdown-checkbox" class="tab-nav__dropdown-toggle">
+    <i class="icon-reorder_square"></i>
+  </label>
+</div>

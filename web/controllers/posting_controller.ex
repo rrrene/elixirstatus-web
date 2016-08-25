@@ -11,6 +11,7 @@ defmodule ElixirStatus.PostingController do
   @postings_per_page          20
   @just_created_timeout       60 # seconds
   @current_posting_assign_key :posting
+  @posting_filters            ~w(blog_post project_update)
 
   plug :load_posting when action in [:edit, :update, :delete, :show]
 
@@ -32,6 +33,9 @@ defmodule ElixirStatus.PostingController do
                             referred_via_elixirweekly: params["ref"] == "elixirweekly",
                             searching?: !is_nil(params["q"]),
                             search_query: params["q"],
+                            current_posting_filter: params["filter"] |> nil_if_empty(),
+                            posting_filters: @posting_filters,
+                            search: params["q"] |> nil_if_empty(),
                             changeset: Posting.changeset(%Posting{}))
   end
 
@@ -286,4 +290,7 @@ defmodule ElixirStatus.PostingController do
     query = from(p in Posting, where: p.uid == ^uid)
     query |> Ecto.Query.preload(:user) |> Repo.one
   end
+
+  defp nil_if_empty(""), do: nil
+  defp nil_if_empty(val), do: val
 end
