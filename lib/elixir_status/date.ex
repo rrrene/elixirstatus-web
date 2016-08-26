@@ -1,10 +1,10 @@
 defmodule ElixirStatus.Date do
+  @seconds_per_day 24 * 60 * 60
 
   def days_earlier(date, days) do
-    # TODO: implement me
     date
     |> castin()
-    |> Calendar.DateTime.subtract!(days * 24 * 60)
+    |> Calendar.DateTime.subtract!(days * @seconds_per_day)
     |> castout()
   end
 
