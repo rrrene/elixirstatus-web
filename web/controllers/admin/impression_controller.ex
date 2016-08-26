@@ -35,7 +35,7 @@ defmodule ElixirStatus.Admin.ImpressionController do
     query |> Repo.all
   end
 
-  defp get_all(params \\ %{}) do
+  defp get_all(_params) do
     query = from p in Impression,
                   order_by: [desc: :inserted_at]
     query |> Repo.all

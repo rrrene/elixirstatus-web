@@ -1,5 +1,13 @@
 defmodule ElixirStatus.Date do
 
+  def days_earlier(date, days) do
+    # TODO: implement me
+    date
+    |> castin()
+    |> Calendar.DateTime.subtract!(days * 24 * 60)
+    |> castout()
+  end
+
   def diff(date1, date2) do
     date1 = date1 |> castin()
     date2 = date2 |> castin()

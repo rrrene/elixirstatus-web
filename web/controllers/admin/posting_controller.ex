@@ -1,7 +1,7 @@
 defmodule ElixirStatus.Admin.PostingController do
   use ElixirStatus.Web, :controller
 
-  alias  ElixirStatus.Posting
+  alias ElixirStatus.Posting
 
   plug ElixirStatus.Plugs.Admin
 
@@ -33,10 +33,5 @@ defmodule ElixirStatus.Admin.PostingController do
                                 total_pages: page.total_pages,
                                 stats_clicks: stats_clicks,
                                 stats_views: stats_views
-  end
-
-  defp days_earlier(count) do
-    Ecto.DateTime.utc
-    |> Date.subtract(Time.to_timestamp(count, :days))
   end
 end

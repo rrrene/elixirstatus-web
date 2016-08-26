@@ -73,7 +73,7 @@ defmodule ElixirStatus.Publisher do
   end
 
   defp send_on_twitter(text, :prod) do
-    ExTwitter.send_direct_message(@direct_message_recipient, text)
+    ExTwitter.new_direct_message(@direct_message_recipient, text)
   end
 
   defp send_on_twitter(tweet, _) do

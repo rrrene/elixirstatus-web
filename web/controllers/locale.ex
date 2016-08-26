@@ -1,7 +1,7 @@
 defmodule ElixirStatus.Locale do
   import Plug.Conn
 
-  def init(opts), do: nil
+  def init(_), do: nil
 
   def call(conn, _opts) do
     case conn.params["locale"] || get_session(conn, :locale) do
