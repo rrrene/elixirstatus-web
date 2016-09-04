@@ -32,10 +32,13 @@ defmodule ViewHelper do
   @doc "Returns a date formatted for humans."
   def human_readable_date(date, use_abbrevs? \\ true) do
     if use_abbrevs? && this_year?(date) do
-      if today?(date) do
-        "Today"
-      else
-        date |> Date.strftime("%e %b")
+      cond do
+        today?(date) ->
+          "Today"
+        yesterday?(date) ->
+          "Yesterday"
+        true ->
+          date |> Date.strftime("%e %b")
       end
     else
       date |> Date.strftime("%e %b %Y")
@@ -52,6 +55,12 @@ defmodule ViewHelper do
   defp today?(date) do
     now = Ecto.DateTime.utc
     date.day == now.day && date.month == now.month && date.year == now.year
+  end
+
+  def yesterday?(date) do
+    now = Ecto.DateTime.utc
+    difference =ElixirStatus.Date.diff(now, date)
+    difference < 2 * 24 * 60 * 60 && difference > 1 * 24 * 60 * 60
   end
 
   def sanitized_markdown(nil), do: ""

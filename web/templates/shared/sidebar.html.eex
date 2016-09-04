@@ -2,8 +2,8 @@
   <div class="container">
     <div class="sidebar-header">
       <a href="/"><img src="<%= static_path(@conn, "/images/logo.png") %>" class="logo"/></a>
-      <h1><a href="/">ElixirStatus</a></h1>
-      <p><%= gettext "Announce your new project, blog post or version update." %></p>
+      <h1 class="sidebar-header__title"><a href="/">ElixirStatus</a></h1>
+      <p class="sidebar-header__text"><%= gettext "Announce your new project, blog post or version update." %></p>
     </div>
   </div>
   <div class="container sidebar-nav-container">

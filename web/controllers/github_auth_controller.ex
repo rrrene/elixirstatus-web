@@ -43,25 +43,11 @@ defmodule ElixirStatus.GitHubAuthController do
   end
 
   defp sign_in_via_auth(conn, user_auth_params) do
-    current_user = find_or_create_user(user_auth_params)
+    current_user = ElixirStatus.Persistence.User.find_or_create(user_auth_params)
 
     conn
     |> put_session(:current_user_id, current_user.id)
     |> assign(:current_user, current_user)
     |> redirect(to: "/?just_signed_in=true")
-  end
-
-  def find_or_create_user(user_auth_params) do
-    %{"login" => user_name, "avatar_url" => url} = user_auth_params
-    try do
-      ElixirStatus.Avatar.load! user_name, url
-    rescue
-      e -> IO.inspect {"error", e}
-    end
-
-    case UserController.find_by_user_name(user_name) do
-      nil -> UserController.create_from_auth_params(user_auth_params)
-      user -> user
-    end
   end
 end

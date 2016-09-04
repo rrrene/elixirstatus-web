@@ -101,7 +101,7 @@ defmodule ElixirStatus.Router do
   # `@current_user`.
   defp assign_current_user(conn, _) do
     user_id = get_session(conn, :current_user_id)
-    assign(conn, :current_user, ElixirStatus.Admin.UserController.find_by_id(user_id))
+    assign(conn, :current_user, ElixirStatus.Persistence.User.find_by_id(user_id))
   end
 
   # Other scopes may use custom stacks.

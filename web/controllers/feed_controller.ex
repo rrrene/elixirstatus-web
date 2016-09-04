@@ -1,10 +1,10 @@
 defmodule ElixirStatus.FeedController do
   use ElixirStatus.Web, :controller
 
-  alias ElixirStatus.PostingController
+  alias ElixirStatus.Persistence.Posting
 
   def avatar(conn, %{"user_name" => user_name, "uid" => posting_uid}) do
-    posting = PostingController.get_by_uid(posting_uid)
+    posting = Posting.get_by_uid(posting_uid)
 
     conn
     |> ElixirStatus.Impressionist.record("rss", "posting", posting.uid)
@@ -12,7 +12,7 @@ defmodule ElixirStatus.FeedController do
   end
 
   def rss(conn, _params) do
-    postings = PostingController.get_all
+    postings = Posting.published
     render(conn, "rss.xml", postings: postings.entries)
   end
 end

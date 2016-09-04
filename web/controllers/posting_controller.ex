@@ -8,7 +8,6 @@ defmodule ElixirStatus.PostingController do
   alias ElixirStatus.PostingUrlFinder
   alias ElixirStatus.User
 
-  @postings_per_page          20
   @just_created_timeout       60 # seconds
   @current_posting_assign_key :posting
   @posting_filters            ~w(blog_post project_update)
@@ -22,7 +21,8 @@ defmodule ElixirStatus.PostingController do
   plug :scrub_params, "posting" when action in [:create, :update]
 
   def index(conn, params) do
-    page = get_all(params)
+    page = ElixirStatus.Persistence.Posting.published(params)
+
     conn
     |> ElixirStatus.Impressionist.record("frontpage")
     |> render("index.html", postings: page.entries,
@@ -40,11 +40,9 @@ defmodule ElixirStatus.PostingController do
   end
 
   def user(conn, %{"user_name" => user_name} = params) do
-    user =
-      (from p in User, where: p.user_name == ^user_name)
-      |> Repo.one
+    user = ElixirStatus.Persistence.User.find_by_user_name(user_name)
+    page = ElixirStatus.Persistence.Posting.published_by_user(user)
 
-    page = get_all(%{"user_id" => user.id})
     conn
     |> ElixirStatus.Impressionist.record("frontpage")
     |> render("user.html", postings: page.entries,
@@ -166,8 +164,8 @@ defmodule ElixirStatus.PostingController do
 
   defp load_posting(conn, _) do
     posting = case conn do
-      %{params: %{"id" => id}} -> get_by_id(id)
-      %{params: %{"permalink" => permalink}} -> get_by_permalink(permalink)
+      %{params: %{"id" => id}} -> ElixirStatus.Persistence.Posting.find_by_id(id)
+      %{params: %{"permalink" => permalink}} -> ElixirStatus.Persistence.Posting.find_by_permalink(permalink)
       _ -> nil
     end
     if is_nil(posting) || posting.public == false do
@@ -212,11 +210,11 @@ defmodule ElixirStatus.PostingController do
 
   defp load_created_posting_by_uid(nil), do: nil
   defp load_created_posting_by_uid(uid) do
-    case get_by_uid(uid) |> IO.inspect do
+    case ElixirStatus.Persistence.Posting.find_by_uid(uid) do
       nil ->
         nil
       posting ->
-        seconds_since_posting = Date.diff(posting.published_at, Ecto.DateTime.utc) |> IO.inspect
+        seconds_since_posting = Date.diff(posting.published_at, Ecto.DateTime.utc)
         if seconds_since_posting < @just_created_timeout do
           posting
         else
@@ -254,41 +252,6 @@ defmodule ElixirStatus.PostingController do
       type: PostingTypifier.run(tmp_post)["choice"] |> to_string,
       referenced_urls: PostingUrlFinder.run(tmp_post) |> Poison.encode!
     }
-  end
-
-  @doc "Returns the latest postings."
-  def get_all(params \\ %{}) do
-    params = Map.put(params, :page_size, params["page_size"] || @postings_per_page)
-    query_for(params) |> Ecto.Query.preload(:user) |> Repo.paginate(params)
-  end
-
-  defp query_for(%{"q" => q}) do
-    term = "%" <> String.replace(q, " ", "%") <> "%"
-    from p in Posting, where: p.public == ^true and (like(p.title, ^term) or like(p.text, ^term)),
-                        order_by: [desc: :published_at]
-  end
-  defp query_for(%{"user_id" => user_id}) do
-    from p in Posting, where: p.public == ^true and p.user_id == ^user_id,
-                        order_by: [desc: :published_at]
-  end
-  defp query_for(_) do
-    from p in Posting, where: p.public == ^true,
-                        order_by: [desc: :published_at]
-  end
-
-  defp get_by_id(id) do
-    query = from(p in Posting, where: p.id == ^id)
-    query |> Ecto.Query.preload(:user) |> Repo.one
-  end
-
-  defp get_by_permalink(permalink) do
-    String.split(permalink, "-") |> Enum.at(0) |> get_by_uid
-  end
-
-  @doc "Returns the posting with the given +uid+."
-  def get_by_uid(uid) do
-    query = from(p in Posting, where: p.uid == ^uid)
-    query |> Ecto.Query.preload(:user) |> Repo.one
   end
 
   defp nil_if_empty(""), do: nil
