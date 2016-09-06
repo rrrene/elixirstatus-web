@@ -65,8 +65,6 @@
 
   <% #= render ElixirStatus.PostingView, "_tab_nav_index.html", assigns %>
 
-  <h1>Today</h1>
-
   <%= for {posting, index} <- Enum.with_index(@postings) do %>
     <%= render ElixirStatus.PostingView, "posting.html", conn: @conn,
                 posting: posting,
