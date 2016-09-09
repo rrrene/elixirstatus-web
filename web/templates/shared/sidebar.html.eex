@@ -7,6 +7,7 @@
     </div>
   </div>
   <div class="container sidebar-nav-container">
+    <div class="sidebar__search-icon"><i class="icon-plus"></i></div>
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 
     <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular

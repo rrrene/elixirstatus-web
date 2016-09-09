@@ -99,7 +99,7 @@ a.sidebar-nav-item:focus {
 .sidebar-toggle {
   position: absolute;
   top:  0.5rem;
-  left: 1rem;
+  left: .25rem;
   display: block;
   width: 2.2rem;
   padding: .5rem .65rem;
@@ -126,6 +126,18 @@ a.sidebar-nav-item:focus {
   opacity: 0.6;
 }
 
+.sidebar__search-icon {
+  position: absolute;
+  top:  0.5rem;
+  right: .25rem;
+  display: block;
+  width: 2.2rem;
+  padding: 0 .65rem;
+  color: #FFFFFF;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 /* Move sidebar to the left */
 @include tablet_landscape_and_bigger {
   .sidebar-toggle {
@@ -136,6 +148,10 @@ a.sidebar-nav-item:focus {
     padding-bottom: .15rem;
     border-top-width: .45rem;
     border-bottom-width: .15rem;
+  }
+
+  .sidebar__search-icon {
+    display: none;
   }
 
   .sidebar {
@@ -197,4 +213,6 @@ a.sidebar-nav-item:focus {
 .badge--new {
   background: #e2d20b;
   color: #6d561b;
+  background: #2e2148;
+  color: #72e20b;
 }

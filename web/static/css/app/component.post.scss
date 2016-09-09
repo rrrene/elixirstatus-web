@@ -179,9 +179,9 @@ select.posting-type-selector {
 
 @include phablet_landscape_and_bigger {
   .post {
-    margin-bottom: 2em;
-    margin-top: 2rem;
     padding-top: 2rem;
+    padding-bottom: 1.75rem; /* the last <p> in the post accounts for 1rem,
+                              so we add another to arrive at 2rem */
     padding-left: 80px;
     border: none;
     border-bottom: 1px solid #eee;
