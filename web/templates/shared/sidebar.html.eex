@@ -4,10 +4,12 @@
       <a href="/"><img src="<%= static_path(@conn, "/images/logo.png") %>" class="logo"/></a>
       <h1 class="sidebar-header__title"><a href="/">ElixirStatus</a></h1>
       <p class="sidebar-header__text"><%= gettext "Announce your new project, blog post or version update." %></p>
+      <p class="sidebar-header__text">Over 5,000 will be listening.</p>
     </div>
   </div>
   <div class="container sidebar-nav-container">
-    <div class="sidebar__search-icon"><i class="icon-plus"></i></div>
+    <!--<div class="sidebar__search-icon"><i class="icon-plus"></i></div>
+    -->
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 
     <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
@@ -15,17 +17,18 @@
     <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
 
     <nav class="sidebar-nav">
-      <a class="sidebar-nav-item active" href="/"><%= gettext "Home" %></a>
       <%= if logged_in?(@conn) do %>
         <a class="sidebar-nav-item" href="<%= posting_path(@conn, :user, current_user(@conn).user_name) %>"><%= gettext "Your posts" %></a>
       <% end %>
-      <a class="sidebar-nav-item" href="<%= page_path(@conn, :about) %>"><%= gettext "About" %></a>
-      <span class="sidebar-nav-item"><%= gettext "You can follow via" %></span>
-      <a class="sidebar-nav-item" href="http://elixirweekly.net/" target="_blank"><span class="badge badge--new">NEW!</span> ElixirWeekly</a>
+      <span class="sidebar-nav-item sidebar-nav-item--text"><%= gettext "You can follow via" %></span>
+      <a class="sidebar-nav-item no-hover-decoration" href="http://elixirweekly.net/" target="_blank"><span class="badge badge--new">NEW!</span> <span class="hover-decoration">ElixirWeekly</span></a>
       <a class="sidebar-nav-item" href="https://twitter.com/elixirstatus" target="_blank">Twitter</a>
       <a class="sidebar-nav-item" href="/rss">RSS</a>
-      <span class="sidebar-nav-item"><%= gettext "Running on Phoenix!" %></span>
+
+      <span class="sidebar-nav-item sidebar-nav-item--text"><%= gettext "Running on Phoenix!" %></span>
       <a class="sidebar-nav-item" href="https://github.com/rrrene/elixirstatus-web" target="_blank"><%= gettext "Open Source" %></a>
+      <a class="sidebar-nav-item" href="<%= page_path(@conn, :about) %>"><%= gettext "About" %></a>
+
     </nav>
   </div>
 </div>

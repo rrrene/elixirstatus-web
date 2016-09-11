@@ -37,9 +37,11 @@
   }
   h1 {
     display: inline;
+    margin-bottom: 0;
   }
   p {
     margin: 0;
+    margin-top: 0.5rem;
     line-height: 1.25rem;
     display: none;
   }
@@ -211,8 +213,14 @@ a.sidebar-nav-item:focus {
 }
 
 .badge--new {
-  background: #e2d20b;
-  color: #6d561b;
   background: #2e2148;
   color: #72e20b;
+  border: 1px solid #72e20b;
+}
+
+a.no-hover-decoration:hover {
+  text-decoration: none;
+  .hover-decoration {
+    text-decoration: underline;
+  }
 }
