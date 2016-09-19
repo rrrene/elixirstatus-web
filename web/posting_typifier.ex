@@ -3,7 +3,8 @@ defmodule ElixirStatus.PostingTypifier do
 
   @categorizers [
       __MODULE__.IsProjectUpdate,
-      __MODULE__.IsBlogPost
+      __MODULE__.IsBlogPost,
+      __MODULE__.IsVideo,
     ]
 
   def run(posting) do
@@ -95,6 +96,22 @@ defmodule ElixirStatus.PostingTypifier do
       {t_sum, t_roles} = increment_if_matching(@title_regex, title)
       {b_sum, b_roles} = increment_if_matching(@text_regex, text)
       {t_sum + b_sum, :blog_post, t_roles ++ b_roles}
+    end
+  end
+
+  defmodule IsVideo do
+    @title_regex [
+    ]
+    @text_regex [
+      {:typical_domain, 0.5, ~r{(https://youtu.be/|https://www.youtube.com/)}},
+    ]
+
+    import ElixirStatus.PostingTypifier.IsProjectUpdate
+
+    def run(%Posting{title: title, text: text}) do
+      {t_sum, t_roles} = increment_if_matching(@title_regex, title)
+      {b_sum, b_roles} = increment_if_matching(@text_regex, text)
+      {t_sum + b_sum, :video, t_roles ++ b_roles}
     end
   end
 end
