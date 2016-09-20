@@ -72,7 +72,7 @@
                 just_created_by_me?: @created_posting == posting
                 %>
     <%= if index == 2 || index == 8 do %>
-      <%= render ElixirStatus.SharedView, "promo_elixirweekly.html", conn: @conn %>
+      <%= render ElixirStatus.SharedView, promo_template_name(), conn: @conn %>
     <% end %>
   <% end %>
 </div>

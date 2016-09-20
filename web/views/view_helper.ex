@@ -4,6 +4,12 @@ defmodule ViewHelper do
   alias ElixirStatus.User
   alias ElixirStatus.Date
 
+  @promo_templates ["promo_credo.html", "promo_elixirweekly.html"]
+
+  def promo_template_name do
+    @promo_templates |> Enum.random()
+  end
+
   def avatar_path(%User{user_name: user_name}), do: avatar_path(user_name)
 
   def avatar_path(user_name) when is_binary(user_name) do
