@@ -97,7 +97,7 @@
   font-size: 0.675rem;
   vertical-align: text-bottom;
 
-  background: #aaa;
+  background: #b066ff;
   color: #fff;
 
   &:hover {
@@ -108,9 +108,17 @@
   background: #12982e;
   color: #fff;
 }
+.posting-type--meetup {
+  background: #00acff;
+  color: #fff;
+}
 .posting-type--project_update {
   background: #ffe100;
   color: #222222;
+}
+.posting-type--video {
+  background: #e62117;
+  color: #fff;
 }
 .posting-type-selector {
   color: #555;

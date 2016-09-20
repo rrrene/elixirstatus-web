@@ -8,6 +8,8 @@ defmodule ElixirStatus.PostingView do
 
   def humanize_type("blog_post"), do: "Blog post"
   def humanize_type("project_update"), do: "Project update"
-  def humanize_type(_), do: "Other"
+  def humanize_type("video"), do: "Video"
+  def humanize_type("meetup"), do: "Meetup"
+  def humanize_type(_), do: "Misc"
 
 end
