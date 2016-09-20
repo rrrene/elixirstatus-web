@@ -28,13 +28,13 @@ defmodule ElixirStatus.PostingTypifier do
   defp choose([], _sum_all) do
     nil
   end
-  defp choose([{sum_all, type, _}|tail], sum_all) do
+  defp choose([{sum_all, type, _}|_], sum_all) do
     type
   end
-  defp choose([{points, type, _}|tail], sum_all) when points > 0.5 do
+  defp choose([{points, type, _}|_], _sum_all) when points > 0.5 do
     type
   end
-  defp choose([{points, type, _}|tail], sum_all) do
+  defp choose([{_points, _type, _}|tail], sum_all) do
     choose(tail, sum_all)
   end
 
@@ -77,7 +77,7 @@ defmodule ElixirStatus.PostingTypifier do
       end
     end
 
-    def increment_if_matching([], string, sum, roles), do: {sum, roles}
+    def increment_if_matching([], _string, sum, roles), do: {sum, roles}
   end
 
   defmodule IsBlogPost do

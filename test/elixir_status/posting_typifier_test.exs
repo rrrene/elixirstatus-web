@@ -4,13 +4,16 @@ defmodule ElixirStatus.PostingTypifierTest do
   alias ElixirStatus.Posting
   alias ElixirStatus.PostingTypifier
 
-  defp assert_url_result(url, expected_result) do
+  defp assert_result(text, expected_result) do
+    assert_result("some title", text, expected_result)
+  end
+  defp assert_result(title, text, expected_result) do
     result =
-      %Posting{title: "title", text: url}
+      %Posting{title: title, text: text}
       |> PostingTypifier.run()
 
     assert expected_result == result["choice"],
-      "Expected result #{inspect expected_result} for #{url} (got #{inspect result["choice"]})"
+      "Expected result #{inspect expected_result} for text: #{inspect text} (got #{inspect result["choice"]})"
   end
 
   test "recognizes VIDEO links by url" do
@@ -19,7 +22,7 @@ defmodule ElixirStatus.PostingTypifierTest do
       "https://youtu.be/aZXc11eOEpI",
       "https://vimeo.com/131643017",
     ]
-    |> Enum.each(&assert_url_result(&1, :video))
+    |> Enum.each(&assert_result(&1, :video))
   end
 
   test "recognizes MEETUP links by url" do
@@ -28,6 +31,6 @@ defmodule ElixirStatus.PostingTypifierTest do
       "https://www.meetup.com//elixir-addicts/events/234038108/?showDescription=true",
       "https://www.bigmarker.com/remote-meetup/Elixir-Remote-Meetup-3#.V9su84Wi81k.twitter",
     ]
-    |> Enum.each(&assert_url_result(&1, :meetup))
+    |> Enum.each(&assert_result(&1, :meetup))
   end
 end
