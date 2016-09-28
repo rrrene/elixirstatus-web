@@ -3,14 +3,14 @@ defmodule ElixirStatus.PostingController do
 
   alias ElixirStatus.Date
   alias ElixirStatus.Publisher
-  alias ElixirStatus.Posting
   alias ElixirStatus.PostingTypifier
   alias ElixirStatus.PostingUrlFinder
-  alias ElixirStatus.User
 
   @just_created_timeout       60 # seconds
   @current_posting_assign_key :posting
   @posting_filters            ~w(blog_post project_update)
+  @preview_default_title "-- insert title --"
+  @preview_default_text  "-- insert text --"
 
   plug :load_posting when action in [:edit, :update, :delete, :show]
 
@@ -23,40 +23,50 @@ defmodule ElixirStatus.PostingController do
   def index(conn, params) do
     page = ElixirStatus.Persistence.Posting.published(params)
 
+    assigns =
+      [
+        postings: page.entries,
+        page_number: page.page_number,
+        total_pages: page.total_pages,
+        created_posting: load_created_posting(conn),
+        just_signed_in: params["just_signed_in"] == "true",
+        referred_via_elixirweekly: params["ref"] == "elixirweekly",
+        searching?: !is_nil(params["q"]),
+        search_query: params["q"],
+        current_posting_filter: params["filter"] |> nil_if_empty(),
+        posting_filters: @posting_filters,
+        search: params["q"] |> nil_if_empty(),
+        changeset: changeset()
+      ]
+
     conn
     |> ElixirStatus.Impressionist.record("frontpage")
-    |> render("index.html", postings: page.entries,
-                            page_number: page.page_number,
-                            total_pages: page.total_pages,
-                            created_posting: load_created_posting(conn),
-                            just_signed_in: params["just_signed_in"] == "true",
-                            referred_via_elixirweekly: params["ref"] == "elixirweekly",
-                            searching?: !is_nil(params["q"]),
-                            search_query: params["q"],
-                            current_posting_filter: params["filter"] |> nil_if_empty(),
-                            posting_filters: @posting_filters,
-                            search: params["q"] |> nil_if_empty(),
-                            changeset: Posting.changeset(%Posting{}))
+    |> render("index.html", assigns)
   end
 
   def user(conn, %{"user_name" => user_name} = params) do
     user = ElixirStatus.Persistence.User.find_by_user_name(user_name)
     page = ElixirStatus.Persistence.Posting.published_by_user(user)
 
+    assigns =
+      [
+        postings: page.entries,
+        page_number: page.page_number,
+        total_pages: page.total_pages,
+        created_posting: load_created_posting(conn),
+        just_signed_in: params["just_signed_in"] == "true",
+        searching?: !is_nil(params["q"]),
+        search_query: params["q"],
+        changeset: changeset()
+      ]
+
     conn
     |> ElixirStatus.Impressionist.record("frontpage")
-    |> render("user.html", postings: page.entries,
-                            page_number: page.page_number,
-                            total_pages: page.total_pages,
-                            created_posting: load_created_posting(conn),
-                            just_signed_in: params["just_signed_in"] == "true",
-                            searching?: !is_nil(params["q"]),
-                            search_query: params["q"],
-                            changeset: Posting.changeset(%Posting{}))
+    |> render("user.html", assigns)
   end
 
   def new(conn, _params) do
-    render(conn, "new.html", changeset: Posting.changeset(%Posting{}))
+    render(conn, "new.html", changeset: changeset())
   end
 
   def create(conn, %{"posting" => posting_params}) do
@@ -65,7 +75,7 @@ defmodule ElixirStatus.PostingController do
       |> extract_valid_params
       |> to_create_params(conn)
 
-    changeset = Posting.changeset(%Posting{}, posting_params)
+    changeset = ElixirStatus.Posting.changeset(%ElixirStatus.Posting{}, posting_params)
 
     if changeset.valid? do
       posting = Repo.insert!(changeset)
@@ -79,21 +89,14 @@ defmodule ElixirStatus.PostingController do
     end
   end
 
-  @preview_default_title "-- insert title --"
-  @preview_default_text  "-- insert text --"
-
   def preview(conn, params) do
     render(conn, "preview.html",
             layout: {ElixirStatus.LayoutView, "blank.html"},
-            posting: %Posting{
+            posting: %ElixirStatus.Posting{
                       title: default(params["title"], @preview_default_title),
                       text: default(params["text"], @preview_default_text)
                     })
   end
-
-  def default(nil, value), do: value
-  def default("", value), do: value
-  def default(value, _), do: value
 
   def show(conn, %{"permalink" => _}) do
     show(conn, %{"id" => current_posting(conn)})
@@ -102,12 +105,17 @@ defmodule ElixirStatus.PostingController do
   def show(conn, %{"id" => _}) do
     posting = current_posting(conn)
 
+    assigns =
+      [
+        posting: posting,
+        created_posting: load_created_posting(conn),
+        prev_posting: load_prev_posting(posting),
+        next_posting: load_next_posting(posting)
+      ]
+
     conn
     |> ElixirStatus.Impressionist.record("detail", "posting", posting.uid)
-    |> render("show.html",  posting: posting,
-                            created_posting: load_created_posting(conn),
-                            prev_posting: load_prev_posting(posting),
-                            next_posting: load_next_posting(posting))
+    |> render("show.html", assigns)
   end
 
   def edit(conn, %{"permalink" => _}) do
@@ -116,14 +124,14 @@ defmodule ElixirStatus.PostingController do
 
   def edit(conn, %{"id" => _}) do
     posting = current_posting(conn)
-    changeset = Posting.changeset(posting)
+    changeset = ElixirStatus.Posting.changeset(posting)
     render(conn, "edit.html", posting: posting, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "posting" => original_params}) do
-    posting = Repo.get!(Posting, id)
+    posting = Repo.get!(ElixirStatus.Posting, id)
     posting_params = original_params |> extract_valid_params
-    changeset = Posting.changeset(posting, posting_params)
+    changeset = ElixirStatus.Posting.changeset(posting, posting_params)
 
     if changeset.valid? do
       Repo.update!(changeset)
@@ -137,15 +145,17 @@ defmodule ElixirStatus.PostingController do
     end
   end
 
-  def update_published_tweet_uid(posting, tweet_uid) do
-    posting
-    |> Posting.changeset(%{published_tweet_uid: tweet_uid})
-    |> Repo.update!
+  defp changeset do
+    ElixirStatus.Posting.changeset(%ElixirStatus.Posting{})
   end
 
+  defp default(nil, value), do: value
+  defp default("", value), do: value
+  defp default(value, _), do: value
+
   def unpublish(conn, %{"id" => id}) do
-    posting = Repo.get!(Posting, id)
-    changeset = Posting.changeset(posting, %{public: false})
+    posting = Repo.get!(ElixirStatus.Posting, id)
+    changeset = ElixirStatus.Posting.changeset(posting, %{public: false})
 
     if changeset.valid?, do: Repo.update!(changeset)
 
@@ -154,7 +164,7 @@ defmodule ElixirStatus.PostingController do
   end
 
   def delete(conn, %{"id" => id}) do
-    posting = Repo.get!(Posting, id)
+    posting = Repo.get!(ElixirStatus.Posting, id)
     Repo.delete!(posting)
 
     conn
@@ -180,7 +190,7 @@ defmodule ElixirStatus.PostingController do
   end
 
   defp load_prev_posting(posting) do
-    query = from p in Posting,
+    query = from p in ElixirStatus.Posting,
                   where: p.public == ^true and
                           p.published_at < ^posting.published_at,
                   order_by: [desc: :published_at],
@@ -189,7 +199,7 @@ defmodule ElixirStatus.PostingController do
   end
 
   defp load_next_posting(posting) do
-    query = from p in Posting,
+    query = from p in ElixirStatus.Posting,
                   where: p.public == ^true and
                           p.published_at > ^posting.published_at,
                   order_by: [asc: :published_at],
@@ -238,8 +248,10 @@ defmodule ElixirStatus.PostingController do
   end
 
   defp to_create_params(params, conn) do
-    uid = ElixirStatus.UID.generate(Posting)
-    tmp_post = %Posting{title: params["title"], text: params["text"]}
+    uid = ElixirStatus.UID.generate(ElixirStatus.Posting)
+    tmp_post =
+      %ElixirStatus.Posting{title: params["title"], text: params["text"]}
+
     %{
       user_id: Auth.current_user(conn).id,
       uid: uid,

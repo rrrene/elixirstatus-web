@@ -35,10 +35,6 @@
     border-radius: 25%;
     vertical-align: top;
   }
-  h1 {
-    display: inline;
-    margin-bottom: 0;
-  }
   p {
     margin: 0;
     margin-top: 0.5rem;
@@ -51,10 +47,13 @@
 }
 
 /* About section */
-.sidebar-header h1 {
+.sidebar-header__title {
+  display: inline;
   color: #fff;
   font-family: sans-serif;
   font-size: 1.25rem;
+  line-height: 32px;
+  margin-bottom: 0;
 }
 
 /* Sidebar nav */
@@ -113,8 +112,9 @@ a.sidebar-nav-item:focus {
   display: block;
   content: "";
   width: 100%;
-  padding-bottom: .125rem;
-  border-top: .375rem double;
+
+  height: .5rem;
+  border-top: .125rem solid;
   border-bottom: .125rem solid;
 
   /* Make the border inside the box */
@@ -168,9 +168,6 @@ a.sidebar-nav-item:focus {
   }
 
   .sidebar-header {
-    h1 {
-      display: block;
-    }
     img {
       width: 128px;
       height: 128px;
@@ -178,6 +175,9 @@ a.sidebar-nav-item:focus {
     p {
       display: block;
     }
+  }
+  .sidebar-header__title {
+    display: block;
   }
 
   .sidebar-nav-container {

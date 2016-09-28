@@ -45,4 +45,11 @@ defmodule ElixirStatus.Persistence.Posting do
                         order_by: [desc: :published_at]
   end
 
+  @doc "Update the tweet_uid for an existing posting"
+  def update_published_tweet_uid(posting, tweet_uid) do
+    posting
+    |> ElixirStatus.Posting.changeset(%{published_tweet_uid: tweet_uid})
+    |> Repo.update!
+  end
+
 end

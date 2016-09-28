@@ -7,9 +7,8 @@ defmodule ElixirStatus.Publisher do
 
   require Logger
 
+  alias ElixirStatus.Persistence.Posting
   alias ElixirStatus.LinkShortener
-  alias ElixirStatus.Posting
-  alias ElixirStatus.PostingController
 
   @direct_message_recipient Application.get_env(:elixir_status, :twitter_dm_recipient)
 
@@ -24,7 +23,7 @@ defmodule ElixirStatus.Publisher do
     |> send_direct_message
 
     tweet_uid = post_to_twitter(new_posting, author_twitter_handle)
-    PostingController.update_published_tweet_uid(new_posting, tweet_uid)
+    Posting.update_published_tweet_uid(new_posting, tweet_uid)
   end
 
   @doc """
@@ -32,7 +31,7 @@ defmodule ElixirStatus.Publisher do
   """
   def after_update(updated_posting) do
     updated_posting
-    |> create_all_short_links
+    |> create_all_short_links()
   end
 
   @doc """
@@ -44,7 +43,6 @@ defmodule ElixirStatus.Publisher do
   def permalink(_uid, nil) do
     nil
   end
-
   def permalink(uid, title) do
     permatitle =
       ~r/\s|\%20/
@@ -67,13 +65,13 @@ defmodule ElixirStatus.Publisher do
   end
 
   # Sends a direct message via Twitter.
-  defp send_direct_message(%Posting{title: title, permalink: permalink}) do
+  defp send_direct_message(%ElixirStatus.Posting{title: title, permalink: permalink}) do
     "#{short_title(title)} #{short_url(permalink)}"
     |> send_on_twitter(Mix.env)
   end
 
   defp send_on_twitter(text, :prod) do
-    ExTwitter.send_direct_message(@direct_message_recipient, text)
+    ExTwitter.new_direct_message(@direct_message_recipient, text)
   end
 
   defp send_on_twitter(tweet, _) do
@@ -100,7 +98,7 @@ defmodule ElixirStatus.Publisher do
   @doc """
     Returns the text for the tweet announcing the given posting.
   """
-  def tweet_text(%Posting{title: title, permalink: permalink}, author_twitter_handle) do
+  def tweet_text(%ElixirStatus.Posting{title: title, permalink: permalink}, author_twitter_handle) do
     suffix =
       if author_twitter_handle do
         " by @#{author_twitter_handle}"
@@ -110,7 +108,8 @@ defmodule ElixirStatus.Publisher do
     #hashtag = "#elixirlang"
     hashtag = "/cc @elixirweekly"
 
-    # 23 = magic number for "all urls on twitter are this long"
+    # 140 = magic number for "tweet text can be this long"
+    #  23 = magic number for "all urls on twitter are this long"
     text = "#{short_title(title, 140-String.length(suffix)-1-23-1-String.length(hashtag))}#{suffix} #{short_url(permalink)} #{hashtag}"
 
     if String.length(text) < 128 do

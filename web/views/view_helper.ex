@@ -5,6 +5,7 @@ defmodule ViewHelper do
   alias ElixirStatus.Date
 
   @promo_templates ["promo_credo.html", "promo_elixirweekly.html"]
+  @twitter_screen_name Application.get_env(:elixir_status, :twitter_screen_name)
 
   def promo_template_name do
     @promo_templates |> Enum.random()
@@ -81,6 +82,5 @@ defmodule ViewHelper do
     sanitize(text, :strip_tags)
   end
 
-  @twitter_screen_name Application.get_env(:elixir_status, :twitter_screen_name)
   def twitter_screen_name, do: @twitter_screen_name
 end
