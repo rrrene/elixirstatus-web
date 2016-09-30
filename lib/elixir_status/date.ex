@@ -18,12 +18,14 @@ defmodule ElixirStatus.Date do
     string
   end
 
+  # Casts Ecto.DateTimes coming into this module
   defp castin(date) do
     date
     |> Ecto.DateTime.to_erl
     |> Calendar.DateTime.from_erl!("Etc/UTC")
   end
 
+  # Casts Calendar.DateTime leaving this module back to erl
   defp castout({:ok, date}) do
     date
     |> castout()
