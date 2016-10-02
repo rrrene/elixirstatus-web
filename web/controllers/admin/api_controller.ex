@@ -1,11 +1,12 @@
 defmodule ElixirStatus.Admin.ApiController do
   use ElixirStatus.Web, :controller
 
-  alias  ElixirStatus.Posting
+  alias ElixirStatus.Posting
+  alias ElixirStatus.Date
 
-  def recent(conn, params) do
+  def recent(conn, _params) do
     from_date = Ecto.DateTime.utc
-    until_date = days_earlier(30)
+    until_date = Date.days_ago(30)
     query = from p in Posting,
                   where: p.public == ^true and
                   p.published_at <= ^from_date and p.published_at > ^until_date,
@@ -17,10 +18,5 @@ defmodule ElixirStatus.Admin.ApiController do
     stats_views = ElixirStatus.Impressionist.stats_views(postings)
 
     render conn, "recent.json", postings: postings, stats_clicks: stats_clicks, stats_views: stats_views
-  end
-
-  defp days_earlier(count) do
-    Ecto.DateTime.utc
-    |> Date.subtract(Time.to_timestamp(count, :days))
   end
 end

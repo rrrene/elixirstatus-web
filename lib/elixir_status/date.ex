@@ -18,6 +18,18 @@ defmodule ElixirStatus.Date do
     string
   end
 
+  def days_ago(count) do
+    Ecto.DateTime.utc
+    |> days_ago(count)
+  end
+
+  def days_ago(date, count) do
+    date
+    |> castin()
+    |> Calendar.DateTime.subtract!(count)
+    |> castout()
+  end
+
   # Casts Ecto.DateTimes coming into this module
   defp castin(date) do
     date
