@@ -8,7 +8,7 @@
     <span class="post__meta">
       <span class="post-date">Today</span> &ndash;
       <%= if @editing? do %>
-        <%= select(f, :type, ["Blog post": "blog_post", "Project update": "project_update", "Other": ""], class: "posting-type-selector") %>
+        <%= select(f, :type, choosable_types(), class: "posting-type-selector") %>
       <% end %>
       <span class="post-author">
         by

@@ -1,6 +1,14 @@
 defmodule ElixirStatus.PostingView do
   use ElixirStatus.Web, :view
 
+  @choosable_types ["blog_post", "project_update", "meetup", "video", ""]
+
+  def choosable_types do
+    #["Blog post": "blog_post", "Project update": "project_update", "Meetup": "meetup", "Video": "video", "Other": ""]
+    @choosable_types
+    |> Enum.map(&({humanize_type(&1),&1}))
+  end
+
   def decode_urls(nil), do: []
   def decode_urls(string) do
     string |> Poison.decode!
