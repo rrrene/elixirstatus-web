@@ -3,7 +3,9 @@ defmodule ElixirStatus.PostingTypifier do
 
   @categorizers [
       __MODULE__.IsProjectUpdate,
-      __MODULE__.IsBlogPost
+      __MODULE__.IsBlogPost,
+      __MODULE__.IsVideo,
+      __MODULE__.IsMeetup,
     ]
 
   def run(posting) do
@@ -38,6 +40,7 @@ defmodule ElixirStatus.PostingTypifier do
 
 
   defmodule IsProjectUpdate do
+    @result :project_update
     @link_to_github ~r/https\:\/\/github.com\/[^\/]+\/[^\/]+/
     @link_to_github_release ~r/https\:\/\/github.com\/[^\/]+\/[^\/]+\/releases\/tag\/.+/
     @link_to_package ~r/https\:\/\/rubygems.org\/gems\/[^\/]+/
@@ -61,7 +64,7 @@ defmodule ElixirStatus.PostingTypifier do
     def run(%Posting{title: title, text: text}) do
       {t_sum, t_roles} = increment_if_matching(@title_regex, title)
       {b_sum, b_roles} = increment_if_matching(@text_regex, text)
-      {t_sum + b_sum, :project_update, t_roles ++ b_roles}
+      {t_sum + b_sum, @result, t_roles ++ b_roles}
     end
 
     def increment_if_matching(list, string \\ "", sum \\ 0, roles \\ [])
@@ -78,6 +81,7 @@ defmodule ElixirStatus.PostingTypifier do
   end
 
   defmodule IsBlogPost do
+    @result :blog_post
     @title_regex [
       {:typical_title_elements, 0.1, ~r{^(why|how)}i},
     ]
@@ -94,7 +98,42 @@ defmodule ElixirStatus.PostingTypifier do
     def run(%Posting{title: title, text: text}) do
       {t_sum, t_roles} = increment_if_matching(@title_regex, title)
       {b_sum, b_roles} = increment_if_matching(@text_regex, text)
-      {t_sum + b_sum, :blog_post, t_roles ++ b_roles}
+      {t_sum + b_sum, @result, t_roles ++ b_roles}
     end
   end
+
+  defmodule IsVideo do
+    @result :video
+    @title_regex [
+    ]
+    @text_regex [
+      {:typical_domain, 0.5, ~r{(https://youtu.be/|https://www.youtube.com/|https://vimeo.com/)}},
+    ]
+
+    import ElixirStatus.PostingTypifier.IsProjectUpdate
+
+    def run(%Posting{title: title, text: text}) do
+      {t_sum, t_roles} = increment_if_matching(@title_regex, title)
+      {b_sum, b_roles} = increment_if_matching(@text_regex, text)
+      {t_sum + b_sum, @result, t_roles ++ b_roles}
+    end
+  end
+
+  defmodule IsMeetup do
+    @result :meetup
+    @title_regex [
+    ]
+    @text_regex [
+      {:typical_domain, 0.5, ~r{https?://\S*meetup\S*}},
+    ]
+
+    import ElixirStatus.PostingTypifier.IsProjectUpdate
+
+    def run(%Posting{title: title, text: text}) do
+      {t_sum, t_roles} = increment_if_matching(@title_regex, title)
+      {b_sum, b_roles} = increment_if_matching(@text_regex, text)
+      {t_sum + b_sum, @result, t_roles ++ b_roles}
+    end
+  end
+
 end

@@ -1,0 +1,5 @@
+<div class="<%= @class %> <%= @class %>--<%= @posting_filter %> <%= if @active?, do: " #{@class}--active" %>">
+  <a href="?filter=<%= @posting_filter %>">
+    <span class="posting-type posting-type--<%= @posting_filter %>"><%= assigns[:label] || "#{@posting_filter}" |> String.capitalize %></span>
+  </a>
+</div>

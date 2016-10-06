@@ -4,6 +4,13 @@ defmodule ViewHelper do
   alias ElixirStatus.User
   alias ElixirStatus.Date
 
+  @promo_templates ["promo_credo.html", "promo_elixirweekly.html"]
+  @twitter_screen_name Application.get_env(:elixir_status, :twitter_screen_name)
+
+  def promo_template_name do
+    @promo_templates |> Enum.random()
+  end
+
   def avatar_path(%User{user_name: user_name}), do: avatar_path(user_name)
 
   def avatar_path(user_name) when is_binary(user_name) do
@@ -32,10 +39,13 @@ defmodule ViewHelper do
   @doc "Returns a date formatted for humans."
   def human_readable_date(date, use_abbrevs? \\ true) do
     if use_abbrevs? && this_year?(date) do
-      if today?(date) do
-        "Today"
-      else
-        date |> Date.strftime("%e %b")
+      cond do
+        today?(date) ->
+          "Today"
+        yesterday?(date) ->
+          "Yesterday"
+        true ->
+          date |> Date.strftime("%e %b")
       end
     else
       date |> Date.strftime("%e %b %Y")
@@ -54,6 +64,12 @@ defmodule ViewHelper do
     date.day == now.day && date.month == now.month && date.year == now.year
   end
 
+  def yesterday?(date) do
+    now = Ecto.DateTime.utc
+    difference =ElixirStatus.Date.diff(now, date)
+    difference < 2 * 24 * 60 * 60 && difference > 1 * 24 * 60 * 60
+  end
+
   def sanitized_markdown(nil), do: ""
 
   def sanitized_markdown(text) do
@@ -66,6 +82,5 @@ defmodule ViewHelper do
     sanitize(text, :strip_tags)
   end
 
-  @twitter_screen_name Application.get_env(:elixir_status, :twitter_screen_name)
   def twitter_screen_name, do: @twitter_screen_name
 end

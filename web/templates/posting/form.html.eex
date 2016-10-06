@@ -57,14 +57,14 @@
     </div>
   <% end %>
 
-  <%= if @editing? do %>
-    <hr>
-    <h2 class="danger">Danger zone</h2>
-    <p>
-      Deleting posts is irreversible.
-    </p>
-    <%= link raw("<i class=icon-trash_can></i> Delete this posting"), to: posting_path(@conn, :delete, @posting), method: :delete, class: "btn btn--danger" %>
-  <% end %>
+  <div class="js-post-preview-inject"></div>
 </div>
 
-<div class="js-post-preview-inject"></div>
+<%= if @editing? do %>
+  <hr>
+  <h2 class="danger">Danger zone</h2>
+  <p>
+    Deleting posts is irreversible.
+  </p>
+  <%= link raw("<i class=icon-trash_can></i> Delete this posting"), to: posting_path(@conn, :delete, @posting), method: :delete, class: "btn btn--danger" %>
+<% end %>

@@ -7,9 +7,10 @@
     <h1 class="post__title"><%= link strip_tags(@posting.title), to: permalink_posting_path(@conn, :show, @posting.permalink) %></h1>
 
     <span class="post__meta">
-      <span class="post-date"><%= @posting.published_at |> human_readable_date() %></span>
 
-      &ndash;<span class="posting-type-selector"><%= humanize_type @posting.type %></span><span class="post-author">by
+      <span class="posting-type posting-type--<%= @posting.type %>"><span><%= humanize_type @posting.type %></span></span>
+      <span class="post-date"><%= @posting.published_at |> human_readable_date() %></span>
+      <span class="post-author">by
         <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank"><i class="icon-git_circle"></i> <%= raw @posting.user.user_name %></a>
         <%= if @posting.user.twitter_handle do %>
           /
@@ -47,67 +48,7 @@
       <%= sanitized_markdown @posting.text %>
     </div>
 
-    <%= if Mix.env == :dev && admin?(@conn) do %>
-      <div class="post__meta-information">
-        <%= for url <- decode_urls(@posting.referenced_urls) do %>
-          <%= url %>
-        <% end %>
-        <span class="posting-url-selector"><i class="icon-octopus"></i> edib-tool/docker-edib-tool</span>
-        <span class="posting-url-selector"><i class="icon-coverflow"></i> docker-edib-tool</span>
-        <!-- <span class="posting-stats"><i class="icon-chart_alt"></i> Stats</span> -->
-        <a href="<%= posting_path(@conn, :edit, @posting) %>"><i class="icon-pen"></i> Edit</a>
-      </div>
-    <% end %>
-
     <%= if @just_created_by_me? do %>
-    <!--
-      <div class="form-section">
-        <div class="form-section__title">Additional information</div>
-        <p>
-          Please select the type of your post below.
-        </p>
-        <div class="post-type-list">
-          <div class="post-type">
-            <label class="post-type__label" for="post-type-1">
-              <input type="radio" name="post-type" id="post-type-1" />
-              Blog Post
-            </label>
-          </div>
-          <div class="post-type post-type--active">
-            <label class="post-type__label" for="post-type-2">
-              <input type="radio" name="post-type" id="post-type-2" checked="checked" />
-              New Project
-            </label>
-          </div>
-          <div class="post-type">
-            <label class="post-type__label" for="post-type-3">
-              <input type="radio" name="post-type" id="post-type-3" />
-              Version Update
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-section">
-        <p>
-          If your post is about any particular Elixir project, please post the GitHub repo url below:
-        </p>
-        <div class="form-section__input">
-          <label><i class="icon-octopus"></i></label>
-          <input type="text" value="https://github.com/rrrene/credo" />
-          <a class="btn" href="#"><i class="icon-plus"></i></a>
-        </div>
-
-      </div>
-
-      <div class="form-section">
-
-        <a class="btn btn--finalize" href="#">Save this information & finalize post</a>
-        or
-        <a href="">skip this step</a>
-      </div>
-      -->
-
       <%= if @posting.published_tweet_uid do %>
         <div class="post-options">
           <div class="twitter-integration">

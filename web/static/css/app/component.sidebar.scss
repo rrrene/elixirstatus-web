@@ -7,12 +7,16 @@
  * out above content in mobile and later moves to the side with wider viewports.
  */
 .sidebar {
-  height: 100%;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
   overflow-y: auto;
   text-align: center;
   color: rgba(255,255,255,.5);
-  background-color: #432C50;
-  border: 2px solid #432C50;
+  background-color: #2e2148;
+  border: 2px solid #2e2148;
 }
 
 /* Sidebar links */
@@ -31,11 +35,10 @@
     border-radius: 25%;
     vertical-align: top;
   }
-  h1 {
-    display: inline;
-  }
   p {
     margin: 0;
+    margin-top: 0.5rem;
+    line-height: 1.25rem;
     display: none;
   }
 }
@@ -44,10 +47,13 @@
 }
 
 /* About section */
-.sidebar-header h1 {
+.sidebar-header__title {
+  display: inline;
   color: #fff;
   font-family: sans-serif;
   font-size: 1.25rem;
+  line-height: 32px;
+  margin-bottom: 0;
 }
 
 /* Sidebar nav */
@@ -94,7 +100,7 @@ a.sidebar-nav-item:focus {
 .sidebar-toggle {
   position: absolute;
   top:  0.5rem;
-  left: 1rem;
+  left: .25rem;
   display: block;
   width: 2.2rem;
   padding: .5rem .65rem;
@@ -106,8 +112,9 @@ a.sidebar-nav-item:focus {
   display: block;
   content: "";
   width: 100%;
-  padding-bottom: .125rem;
-  border-top: .375rem double;
+
+  height: .5rem;
+  border-top: .125rem solid;
   border-bottom: .125rem solid;
 
   /* Make the border inside the box */
@@ -119,6 +126,18 @@ a.sidebar-nav-item:focus {
 .sidebar-toggle:active,
 #sidebar-checkbox:checked ~ .sidebar-toggle {
   opacity: 0.6;
+}
+
+.sidebar__search-icon {
+  position: absolute;
+  top:  0.5rem;
+  right: .25rem;
+  display: block;
+  width: 2.2rem;
+  padding: 0 .65rem;
+  color: #FFFFFF;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 /* Move sidebar to the left */
@@ -133,23 +152,22 @@ a.sidebar-nav-item:focus {
     border-bottom-width: .15rem;
   }
 
+  .sidebar__search-icon {
+    display: none;
+  }
+
   .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
     bottom: 0;
-    width: 16rem;
+    width: 14rem;
+    height: 100%;
 
     padding: 2rem 1rem 1rem 1rem;
 
     border-bottom-color: transparent;
-    border-right-color: #8F58B9;
+    border-right-color: #63407d;
   }
 
   .sidebar-header {
-    h1 {
-      display: block;
-    }
     img {
       width: 128px;
       height: 128px;
@@ -157,6 +175,9 @@ a.sidebar-nav-item:focus {
     p {
       display: block;
     }
+  }
+  .sidebar-header__title {
+    display: block;
   }
 
   .sidebar-nav-container {
@@ -192,6 +213,14 @@ a.sidebar-nav-item:focus {
 }
 
 .badge--new {
-  background: #e2d20b;
-  color: #6d561b;
+  background: #2e2148;
+  color: #72e20b;
+  border: 1px solid #72e20b;
+}
+
+a.no-hover-decoration:hover {
+  text-decoration: none;
+  .hover-decoration {
+    text-decoration: underline;
+  }
 }
