@@ -54,5 +54,6 @@ defmodule ElixirStatus.Date do
   defp castout(date) do
     date
     |> Calendar.DateTime.to_erl
+    |> Ecto.DateTime.cast!
   end
 end
