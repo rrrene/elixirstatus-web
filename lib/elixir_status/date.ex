@@ -1,13 +1,6 @@
 defmodule ElixirStatus.Date do
   @seconds_per_day 24 * 60 * 60
 
-  def days_earlier(date, days) do
-    date
-    |> castin()
-    |> Calendar.DateTime.subtract!(days * @seconds_per_day)
-    |> castout()
-  end
-
   def diff(date1, date2) do
     date1 = date1 |> castin()
     date2 = date2 |> castin()
@@ -34,7 +27,7 @@ defmodule ElixirStatus.Date do
   def days_ago(date, count) do
     date
     |> castin()
-    |> Calendar.DateTime.subtract!(count)
+    |> Calendar.DateTime.subtract!(count * @seconds_per_day)
     |> castout()
   end
 
