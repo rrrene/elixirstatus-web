@@ -1,5 +1,5 @@
 defmodule ViewHelper do
-  use PhoenixHtmlSanitizer, :basic_html
+  use PhoenixHtmlSanitizer, :markdown_html
 
   alias ElixirStatus.User
   alias ElixirStatus.Date
