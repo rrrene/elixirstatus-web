@@ -28,7 +28,7 @@ defmodule ElixirStatus.Admin.ApiView do
       type: posting.type,
       author: posting.user |> to_json(),
       title: posting.title,
-      text: posting.text,
+      text: HtmlSanitizeEx.strip_tags(html),
       html: html,
       urls: Impressionist.urls_sorted_by_most_clicks(stats_clicks, posting.uid),
       permalink: permalink_posting_path(conn, :show, posting.permalink),
