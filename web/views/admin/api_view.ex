@@ -28,12 +28,18 @@ defmodule ElixirStatus.Admin.ApiView do
       type: posting.type,
       author: posting.user |> to_json(),
       title: posting.title,
-      text: HtmlSanitizeEx.strip_tags(html),
+      text: html |> to_text(),
       html: html,
       urls: Impressionist.urls_sorted_by_most_clicks(stats_clicks, posting.uid),
       permalink: permalink_posting_path(conn, :show, posting.permalink),
       link_clicks: Impressionist.count_clicks(stats_clicks, posting.uid),
       detail_views: Impressionist.count_views(stats_views, posting.uid)
     }
+  end
+
+  defp to_text(html) do
+    html
+    |> String.replace("</p>", "\n\n")
+    |> HtmlSanitizeEx.strip_tags()
   end
 end
