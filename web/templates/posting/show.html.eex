@@ -13,10 +13,18 @@
   <% end %>
 </div>
 
+
 <%= render ElixirStatus.PostingView, "posting.html", conn: @conn,
             posting: @posting,
             context: "detail",
             belongs_to_me?: ElixirStatus.Auth.belongs_to_current_user?(@conn, @posting),
             just_created_by_me?: @created_posting == @posting %>
+
+<%= if @prev_posting do %>
+  <p class="read-next">
+    <strong class="read-next__label">Read next</strong>
+    <%= link strip_tags(@prev_posting.title), to: permalink_posting_path(@conn, :show, @prev_posting.permalink) %>
+  </p>
+<% end %>
 
 <%= render ElixirStatus.SharedView, promo_template_name(), conn: @conn %>

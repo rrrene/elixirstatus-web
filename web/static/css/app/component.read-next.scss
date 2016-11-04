@@ -1,0 +1,15 @@
+@import "_config";
+
+.read-next {
+  margin: 1rem 0;
+}
+.read-next__label {
+  display: block;
+  color: #999;
+}
+
+@include phablet_landscape_and_bigger {
+  .read-next {
+    padding-left: 80px;
+  }
+}
