@@ -37,10 +37,12 @@ defmodule ElixirStatus.GitHubAuthController do
   """
   def callback(conn, %{"code" => code}) do
     # Exchange an auth code for an access token
-    token = GitHubAuth.get_token!(code: code)
+    client = GitHubAuth.get_token!(code: code)
+    response = OAuth2.Client.get!(client, "/user")
+    user_auth_params = response.body
 
     # Request the user's data with the access token
-    sign_in_via_auth conn, OAuth2.AccessToken.get!(token, "/user")
+    sign_in_via_auth(conn, user_auth_params)
   end
 
   defp sign_in_via_auth(conn, user_auth_params) do

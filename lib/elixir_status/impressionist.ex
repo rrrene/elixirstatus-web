@@ -94,7 +94,6 @@ defmodule ElixirStatus.Impressionist do
     |> Enum.sort_by(fn(list) -> Enum.count(list) end)
     |> Enum.map(&list_to_url/1)
     |> Enum.reverse
-    |> IO.inspect
   end
 
   defp list_to_url(nil), do: nil
