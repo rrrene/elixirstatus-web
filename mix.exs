@@ -18,7 +18,7 @@ defmodule ElixirStatus.Mixfile do
   def application do
     [mod: {ElixirStatus, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :mariaex, :oauth2, :gettext]]
+                    :phoenix_ecto, :mariaex, :oauth2, :gettext, :appsignal]]
   end
 
   # Specifies which paths to compile per environment
@@ -36,15 +36,16 @@ defmodule ElixirStatus.Mixfile do
       {:mariaex, "~> 0.5"},
       {:phoenix, "~> 1.1"},
       {:phoenix_ecto, "~> 2.0"},
-      {:phoenix_html, "~> 2.3"},
+      {:phoenix_html, "~> 2.6.0"},
       {:phoenix_html_sanitizer, "~> 1.1.0-rc1"},
       #{:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:oauth2, "~> 0.3.0"},
+      {:oauth2, "~> 0.0"},
       {:oauth, github: "tim/erlang-oauth"},
       {:extwitter, "~> 0.7"},
       {:scrivener, "~> 1.1"},
       {:gettext, "~> 0.9"},
       {:calendar, "~> 0.14"},
+      {:appsignal, "~> 0.0"},
     ]
   end
 end

@@ -31,5 +31,7 @@ defmodule ElixirStatus.Endpoint do
     key: "_elixir_status_key",
     signing_salt: "XPXyl9lg"
 
+  use Appsignal.Phoenix
+
   plug ElixirStatus.Router
 end

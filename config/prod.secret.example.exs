@@ -20,3 +20,9 @@ config :ex_twitter, :oauth, [
    access_token: "secret",
    access_token_secret: "secret"
 ]
+
+config :appsignal, :config,
+  name: :elixir_status,
+  push_api_key: "your-hex-appsignal-key",
+  env: :prod,
+  revision: Mix.Project.config[:version]
