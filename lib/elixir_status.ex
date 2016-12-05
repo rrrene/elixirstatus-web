@@ -10,7 +10,7 @@ defmodule ElixirStatus do
       # Start the endpoint when the application starts
       supervisor(ElixirStatus.Endpoint, []),
       # Start the Ecto repository
-      worker(ElixirStatus.Repo, []),
+      supervisor(ElixirStatus.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(ElixirStatus.Worker, [arg1, arg2, arg3]),
     ]
