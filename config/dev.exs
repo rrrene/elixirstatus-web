@@ -29,11 +29,12 @@ config :logger, :console, format: "[$level] $message\n"
 
 # Configure your database
 config :elixir_status, ElixirStatus.Repo,
-  adapter: Ecto.Adapters.MySQL,
-  username: System.get_env("MYSQL_DEV_DB_USERNAME") || "root",
-  password: System.get_env("MYSQL_DEV_DB_PASSWORD") || "",
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "postgres",
   database: "elixir_status_dev",
-  size: 10 # The amount of database connections in the pool
+  hostname: "localhost",
+  pool_size: 10
 
 config :elixir_status, :base_url, "http://localhost:4000"
 

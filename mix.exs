@@ -18,7 +18,7 @@ defmodule ElixirStatus.Mixfile do
   def application do
     [mod: {ElixirStatus, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :mariaex, :oauth2, :gettext, :appsignal]]
+                    :phoenix_ecto, :postgrex, :oauth2, :gettext, :appsignal]]
   end
 
   # Specifies which paths to compile per environment
@@ -33,7 +33,7 @@ defmodule ElixirStatus.Mixfile do
       {:cowboy, "~> 1.0"},
       {:earmark, "1.0.1" },
       {:httpoison, "~> 0.7"},
-      {:mariaex, "~> 0.5"},
+      {:postgrex, "~> 0.5"},
       {:phoenix, "~> 1.1"},
       {:phoenix_ecto, "~> 2.0"},
       {:phoenix_html, "~> 2.6.0"},
