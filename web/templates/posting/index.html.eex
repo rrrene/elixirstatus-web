@@ -58,7 +58,7 @@
         <a class="btn btn--sign-in" href="/auth"><i class="icon-git"></i> Sign in and post</a>
       </div>
       <div class="post__body">
-        Here you can post your blog posts, project updates and other Elixir related news. The news will reach thousands of people via this site, RSS, <a href="https://twitter.com/elixirstatus" target="_blank">Twitter</a> and the <a href="https://elixirweekly.net" target="_blank">ElixirWeekly</a> newsletter.
+        Here you can share your blog posts, project updates and other Elixir related news. The news will reach thousands of people via this site, RSS, <a href="https://twitter.com/elixirstatus" target="_blank">Twitter</a> and the <a href="https://elixirweekly.net" target="_blank">ElixirWeekly</a> newsletter.
       </div>
     </div>
   <% end %>
