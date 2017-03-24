@@ -11,8 +11,13 @@ defmodule ElixirStatus.FeedController do
     |> send_file(200, "priv/static/images/github/#{user_name}.jpg")
   end
 
-  def rss(conn, _params) do
+  def full_feed(conn, _params) do
     postings = Posting.published
-    render(conn, "rss.xml", postings: postings.entries)
+    render(conn, "full.xml", postings: postings.entries)
+  end
+
+  def titles_feed(conn, _params) do
+    postings = Posting.published
+    render(conn, "titles.xml", postings: postings.entries)
   end
 end
