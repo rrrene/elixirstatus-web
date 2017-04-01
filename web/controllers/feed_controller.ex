@@ -1,6 +1,7 @@
 defmodule ElixirStatus.FeedController do
   use ElixirStatus.Web, :controller
 
+  alias ElixirStatus.Avatar
   alias ElixirStatus.Persistence.Posting
 
   def avatar(conn, %{"user_name" => user_name, "uid" => posting_uid}) do
@@ -8,7 +9,7 @@ defmodule ElixirStatus.FeedController do
 
     conn
     |> ElixirStatus.Impressionist.record("rss", "posting", posting.uid)
-    |> send_file(200, "priv/static/images/github/#{user_name}.jpg")
+    |> send_file(200, Avatar.image_path(user_name))
   end
 
   def rss(conn, _params) do
