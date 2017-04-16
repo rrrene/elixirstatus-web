@@ -23,8 +23,7 @@
       <span class="sidebar-nav-item sidebar-nav-item--text"><%= gettext "You can follow via" %></span>
       <a class="sidebar-nav-item no-hover-decoration" href="http://elixirweekly.net/" target="_blank"><span class="badge badge--new">NEW!</span> <span class="hover-decoration">ElixirWeekly</span></a>
       <a class="sidebar-nav-item" href="https://twitter.com/elixirstatus" target="_blank">Twitter</a>
-      <a class="sidebar-nav-item" href="/rss">RSS (full)</a>
-      <a class="sidebar-nav-item" href="/rss-titles">RSS (titles)</a>
+      <a class="sidebar-nav-item" href="/rss">RSS</a>
 
       <span class="sidebar-nav-item sidebar-nav-item--text"><%= gettext "Running on Phoenix!" %></span>
       <a class="sidebar-nav-item" href="https://github.com/rrrene/elixirstatus-web" target="_blank"><%= gettext "Open Source" %></a>
