@@ -67,6 +67,13 @@ defmodule ElixirStatus.Router do
     get "/callback", GitHubAuthController, :callback
   end
 
+  scope "/auth/twitter", alias ElixirStatus do
+    pipe_through :browser
+
+    get "/", TwitterAuthController, :sign_in
+    get "/callback", TwitterAuthController, :callback
+  end
+
   scope "/admin", alias: ElixirStatus.Admin do
     pipe_through :browser
 

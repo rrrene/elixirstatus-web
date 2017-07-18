@@ -14,7 +14,7 @@ config :elixir_status, ElixirStatus.Repo,
   database: "elixir_status_prod",
   size: 20 # The amount of database connections in the pool
 
-config :ex_twitter, :oauth, [
+config :extwitter, :oauth, [
    consumer_key: "secret",
    consumer_secret: "secret",
    access_token: "secret",

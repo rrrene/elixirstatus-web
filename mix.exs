@@ -41,7 +41,7 @@ defmodule ElixirStatus.Mixfile do
       #{:phoenix_live_reload, "~> 1.0", only: :dev},
       {:oauth2, "~> 0.0"},
       {:oauth, github: "tim/erlang-oauth"},
-      {:extwitter, "~> 0.7"},
+      {:extwitter, "~> 0.8.3"},
       {:scrivener, "~> 1.1"},
       {:gettext, "~> 0.9"},
       {:calendar, "~> 0.14"},
