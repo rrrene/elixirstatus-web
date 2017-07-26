@@ -16,10 +16,8 @@
         /
         <%= if @current_user.twitter_handle do %>
           <a href="https://twitter.com/<%= raw @current_user.twitter_handle %>" target="_blank"><i class="icon-twitter"></i> <%= raw @current_user.twitter_handle %></a>
-          |
-          <a href="<%= edit_user_path(@conn, :edit) %>">Edit your profile</a>
         <% else %>
-          <a href="<%= edit_user_path(@conn, :edit) %>" class="twitter-related"><i class="icon-twitter"></i> Add your Twitter handle</a>
+          <a href="auth/twitter" class="twitter-related"><i class="icon-twitter"></i> Add your Twitter handle</a>
         <% end %>
       </span>
     </span>
