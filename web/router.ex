@@ -52,8 +52,6 @@ defmodule ElixirStatus.Router do
     get "/p/:permalink", PostingController, :show, as: :permalink_posting
     get "/p/edit/:permalink", PostingController, :edit
 
-    get "/edit_profile", UserController, :edit, as: :edit_user
-    put "/update_profile", UserController, :update, as: :update_user
 
     get "/=:uid", ShortLinkController, :show
   end
@@ -65,6 +63,13 @@ defmodule ElixirStatus.Router do
     get "/sign_out", GitHubAuthController, :sign_out
     get "/github/callback", GitHubAuthController, :callback
     get "/callback", GitHubAuthController, :callback
+  end
+
+  scope "/auth/twitter", alias ElixirStatus do
+    pipe_through :browser
+
+    get "/", TwitterAuthController, :sign_in
+    get "/callback", TwitterAuthController, :callback
   end
 
   scope "/admin", alias: ElixirStatus.Admin do
