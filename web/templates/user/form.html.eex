@@ -4,16 +4,16 @@
   </div>
   <%= form_for @changeset, @action, fn f -> %>
     <label for="user_twitter_handle">Twitter handle:</label>
-    <%= text_input f, :twitter_handle, id: "user_twitter_handle", class: class_with_error(f, :title, "user-title"), placeholder: "Your Twitter handle goes here (skip the '@')" %>
+    <%= text_input f, :twitter_handle, id: "user_twitter_handle", class: class_with_error(f, :title, "user-title"), placeholder: "Your connected Twitter handle", disabled: "disabled" %>
 
     <div class="post__functions">
       <div>
         <small>
-          If you add your Twitter handle, it will be tweeted alongside your announcement.
+          Your Twitter handle will be mentioned alongside your announcement.
         </small>
 
         <span>
-          <%= submit "Update profile", class: "btn btn--primary" %>
+          <%= submit "Disconnect Twitter handle", class: "btn btn--primary" %>
         </span>
       </div>
     </div>
