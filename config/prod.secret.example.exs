@@ -15,6 +15,13 @@ config :elixir_status, ElixirStatus.Repo,
   hostname: "localhost",
   pool_size: 10
 
+config :elixir_status, :twitter_oauth_for_handle_verification, [
+   consumer_key: "",
+   consumer_secret: "",
+   access_token: " ",
+   access_token_secret: ""
+]
+
 config :ex_twitter, :oauth, [
    consumer_key: "secret",
    consumer_secret: "secret",

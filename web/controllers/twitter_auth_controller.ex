@@ -3,9 +3,13 @@ defmodule ElixirStatus.TwitterAuthController do
 
   alias ElixirStatus.User
 
-  plug ElixirStatus.Plugs.LoggedIn when action in [:confirm_handle, :callback]
+  plug ElixirStatus.Plugs.LoggedIn
+
+  @twitter_config Application.get_env(:elixir_status, :twitter_oauth_for_handle_verification)
 
   def confirm_handle(conn, _params) do
+    configure_extwitter_for_process()
+
     token = ExTwitter.request_token()
     {:ok, authenticate_url} = ExTwitter.authenticate_url(token.oauth_token)
 
@@ -15,9 +19,16 @@ defmodule ElixirStatus.TwitterAuthController do
   def callback(conn, %{"oauth_token" => token, "oauth_verifier" => verifier}) do
     {:ok, access_token} = ExTwitter.access_token(verifier, token)
     %{:screen_name => screen_name} = access_token
+
     user = Auth.current_user(conn)
     changeset = User.changeset(user, %{"twitter_handle" => screen_name})
+
     Repo.update!(changeset)
-    redirect(conn, to: "/")
+
+    redirect(conn, to: edit_user_path(conn, :edit))
+  end
+
+  defp configure_extwitter_for_process do
+    ExTwitter.configure(:process, @twitter_config)
   end
 end
