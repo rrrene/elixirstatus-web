@@ -65,6 +65,8 @@ defmodule ElixirStatus.Router do
     get "/sign_out", GitHubAuthController, :sign_out
     get "/github/callback", GitHubAuthController, :callback
     get "/callback", GitHubAuthController, :callback
+    get "/twitter/confirm", TwitterAuthController, :confirm_handle
+    get "/twitter/callback", TwitterAuthController, :callback
   end
 
   scope "/admin", alias: ElixirStatus.Admin do

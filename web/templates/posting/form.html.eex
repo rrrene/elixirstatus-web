@@ -19,7 +19,7 @@
           |
           <a href="<%= edit_user_path(@conn, :edit) %>">Edit your profile</a>
         <% else %>
-          <a href="<%= edit_user_path(@conn, :edit) %>" class="twitter-related"><i class="icon-twitter"></i> Add your Twitter handle</a>
+          <a href="<%= twitter_auth_path(@conn, :confirm_handle) %>" class="twitter-related"><i class="icon-twitter"></i> Add your Twitter handle</a>
         <% end %>
       </span>
     </span>
