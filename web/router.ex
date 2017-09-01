@@ -53,7 +53,7 @@ defmodule ElixirStatus.Router do
     get "/p/edit/:permalink", PostingController, :edit
 
     get "/edit_profile", UserController, :edit, as: :edit_user
-    put "/update_profile", UserController, :update, as: :update_user
+    put "/reset_twitter_handle", UserController, :reset_twitter_handle, as: :reset_twitter_handle
 
     get "/=:uid", ShortLinkController, :show
   end
