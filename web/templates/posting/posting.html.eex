@@ -1,4 +1,4 @@
-<div class="post" data-posting-uid="<%= raw @posting.uid %>">
+<div class="post<%= if admin?(@conn) && !@posting.public, do: " post--unpublished" %>" data-posting-uid="<%= raw @posting.uid %>">
   <div class="post__inner">
     <div class="post__avatar">
       <div class="image" style="background-image: url(<%= raw avatar_path(@posting.user) %>)"></div>
@@ -35,10 +35,14 @@
 
         <%= if admin?(@conn) do %>
           <span class="admin">
-            <a href="#" data-toggle="#unpublish-<%= @posting.uid %>"><i class=icon-cross_mark></i></a>
-            <span id="unpublish-<%= @posting.uid %>" style="display: none">
-              <%= link "Unpublish", to: posting_path(@conn, :unpublish, @posting), method: :post %>
-            </span>
+            <%= if @posting.public do %>
+              <a href="#" data-toggle="#unpublish-<%= @posting.uid %>"><i class=icon-cross_mark></i></a>
+              <span id="unpublish-<%= @posting.uid %>" style="display: none">
+                <%= link "Unpublish", to: posting_path(@conn, :unpublish, @posting), method: :post %>
+              </span>
+            <% else %>
+              Not public.
+            <% end %>
           </span>
         <% end %>
       </span>

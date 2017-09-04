@@ -22,27 +22,54 @@ defmodule ElixirStatus.Persistence.Posting do
   end
 
   def published_by_user(user) do
-    published(%{"user_id" => user.id})
+    published(%{"user_id" => user.id}, user, false)
   end
 
   @doc "Returns the latest postings."
-  def published(params \\ %{}) do
+  def published(params, current_user, admin?) do
     params = Map.put(params, :page_size, params["page_size"] || @postings_per_page)
-    query_for(params) |> Ecto.Query.preload(:user) |> Repo.paginate(params)
+
+    query_for(params, current_user, admin?)
+    |> Ecto.Query.preload(:user)
+    |> Repo.paginate(params)
   end
 
-  defp query_for(%{"q" => q}) do
+  defp query_for(%{"q" => q}, nil, false) do
     term = "%" <> String.replace(q, " ", "%") <> "%"
+
     from p in Posting, where: p.public == ^true and (like(p.title, ^term) or like(p.text, ^term)),
                         order_by: [desc: :published_at]
   end
-  defp query_for(%{"user_id" => user_id}) do
-    from p in Posting, where: p.public == ^true and p.user_id == ^user_id,
+  defp query_for(%{"q" => q}, current_user, false) do
+    term = "%" <> String.replace(q, " ", "%") <> "%"
+
+    from p in Posting, where: (p.public == ^true or p.user_id == ^current_user.id)
+                              and (like(p.title, ^term) or like(p.text, ^term)),
                         order_by: [desc: :published_at]
   end
-  defp query_for(_) do
+  defp query_for(%{"q" => q}, _current_user, true) do
+    term = "%" <> String.replace(q, " ", "%") <> "%"
+
+    from p in Posting, where: (like(p.title, ^term) or like(p.text, ^term)),
+                        order_by: [desc: :published_at]
+  end
+  defp query_for(%{"user_id" => user_id}, _, _) do
+    from p in Posting, where: p.user_id == ^user_id,
+                        order_by: [desc: :published_at]
+  end
+  # not logged in, no admin
+  defp query_for(_, nil, false) do
     from p in Posting, where: p.public == ^true,
                         order_by: [desc: :published_at]
+  end
+  # logged in, no admin
+  defp query_for(_, current_user, false) do
+    from p in Posting, where: p.public == ^true or p.user_id == ^current_user.id,
+                        order_by: [desc: :published_at]
+  end
+  # admin
+  defp query_for(_, _current_user, true) do
+    from p in Posting, order_by: [desc: :published_at]
   end
 
   @doc "Update the tweet_uid for an existing posting"
@@ -52,4 +79,9 @@ defmodule ElixirStatus.Persistence.Posting do
     |> Repo.update!
   end
 
+  def unpublish(posting) do
+    posting
+    |> ElixirStatus.Posting.changeset(%{public: false})
+    |> Repo.update!
+  end
 end

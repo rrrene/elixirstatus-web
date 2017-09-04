@@ -9,6 +9,8 @@ defmodule ElixirStatus.Publisher do
 
   alias ElixirStatus.Persistence.Posting
   alias ElixirStatus.LinkShortener
+  alias ElixirStatus.Publisher.Guard
+  alias ElixirStatus.Publisher.SharedUrls
 
   @direct_message_recipient Application.get_env(:elixir_status, :twitter_dm_recipient)
 
@@ -18,20 +20,47 @@ defmodule ElixirStatus.Publisher do
     Promotes the posting on Twitter, among other things.
   """
   def after_create(new_posting, author_twitter_handle) do
+    if Guard.blocked?(new_posting) do
+      after_create_blocked(new_posting, author_twitter_handle)
+    else
+      after_create_valid(new_posting, author_twitter_handle)
+    end
+  end
+
+  defp after_create_blocked(new_posting, author_twitter_handle) do
     new_posting
     |> create_all_short_links
-    |> send_direct_message
+    |> send_direct_message_blocked
+  end
+
+  defp after_create_valid(new_posting, author_twitter_handle) do
+    new_posting
+    |> create_all_short_links
+    |> send_direct_message_valid
 
     tweet_uid = post_to_twitter(new_posting, author_twitter_handle)
     Posting.update_published_tweet_uid(new_posting, tweet_uid)
   end
 
   @doc """
+    Called when a posting is unpublished by PostingController.
+  """
+  def after_unpublish(posting) do
+    if posting.published_tweet_uid do
+      ExTwitter.destroy_status(posting.published_tweet_uid)
+      Posting.update_published_tweet_uid(posting, nil)
+    end
+  end
+
+  @doc """
     Called when a posting is updated by PostingController.
   """
   def after_update(updated_posting) do
-    updated_posting
-    |> create_all_short_links()
+    if Guard.blocked?(updated_posting) do
+      send_direct_message_blocked(updated_posting)
+    else
+      create_all_short_links(updated_posting)
+    end
   end
 
   @doc """
@@ -50,24 +79,29 @@ defmodule ElixirStatus.Publisher do
       |> Enum.join("-")
       |> String.downcase
       |> String.replace(~r/[^a-z0-9\-]/, "")
+
     "#{uid}-#{permatitle}"
   end
 
-
   defp create_all_short_links(posting) do
-    text = Earmark.to_html(posting.text)
-
-    ~r/href=\"([^\"]+?)\"/
-    |> Regex.scan(text)
-    |> Enum.map(fn([_, x]) -> LinkShortener.to_uid(x) end)
+    posting
+    |> SharedUrls.for_posting
+    |> Enum.map(&LinkShortener.to_uid/1)
 
     posting
   end
 
   # Sends a direct message via Twitter.
-  defp send_direct_message(%ElixirStatus.Posting{title: title, permalink: permalink}) do
-    "#{short_title(title)} #{short_url(permalink)}"
-    |> send_on_twitter(Mix.env)
+  defp send_direct_message_blocked(%ElixirStatus.Posting{title: title, permalink: permalink}) do
+    text = "***BLOCKED*** #{short_title(title)} #{short_url(permalink)}"
+
+    send_on_twitter(text, Mix.env)
+  end
+
+  defp send_direct_message_valid(%ElixirStatus.Posting{title: title, permalink: permalink}) do
+    text = "#{short_title(title)} #{short_url(permalink)}"
+
+    send_on_twitter(text, Mix.env)
   end
 
   defp send_on_twitter(text, :prod) do
@@ -76,6 +110,7 @@ defmodule ElixirStatus.Publisher do
 
   defp send_on_twitter(tweet, _) do
     Logger.debug "send_direct_message: #{tweet}"
+
     nil
   end
 
@@ -87,11 +122,13 @@ defmodule ElixirStatus.Publisher do
 
   defp update_on_twitter(tweet, :prod) do
     %ExTwitter.Model.Tweet{id_str: uid} = ExTwitter.update(tweet)
+
     uid
   end
 
   defp update_on_twitter(tweet, _) do
     Logger.debug "update_twitter_status: #{tweet}"
+
     nil
   end
 
@@ -105,6 +142,7 @@ defmodule ElixirStatus.Publisher do
       else
         ""
       end
+
     #hashtag = "#elixirlang"
     hashtag = "/cc @elixirweekly"
 
@@ -131,6 +169,7 @@ defmodule ElixirStatus.Publisher do
         title
         |> String.split(" ")
         |> short_title_from_list("", max_wo_delimiter)
+
       "#{shortened_title}#{delimiter}"
     end
   end
@@ -140,17 +179,16 @@ defmodule ElixirStatus.Publisher do
   end
   defp short_title_from_list([], memo, max_length) do
     if String.length(memo) >= max_length do
-      memo
-      |> String.slice(0..max_length-1)
+      String.slice(memo, 0..max_length-1)
     else
       memo
     end
   end
   defp short_title_from_list([head|tail], memo, max_length) do
     new_memo = "#{memo} #{head}"
+
     if String.length(new_memo) >= max_length do
-      memo
-      |> String.slice(0..max_length-1)
+      String.slice(memo, 0..max_length-1)
     else
       short_title_from_list(tail, new_memo, max_length)
     end
@@ -161,7 +199,7 @@ defmodule ElixirStatus.Publisher do
       "/p/#{permalink}"
       |> ElixirStatus.URL.from_path
       |> LinkShortener.to_uid
-    "/=#{uid}"
-    |> ElixirStatus.URL.from_path
+
+    ElixirStatus.URL.from_path("/=#{uid}")
   end
 end

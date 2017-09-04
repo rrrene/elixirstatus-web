@@ -1,6 +1,7 @@
 defmodule ElixirStatus.PostingController do
   use ElixirStatus.Web, :controller
 
+  alias ElixirStatus.Auth
   alias ElixirStatus.Date
   alias ElixirStatus.Publisher
   alias ElixirStatus.PostingTypifier
@@ -21,7 +22,9 @@ defmodule ElixirStatus.PostingController do
   plug :scrub_params, "posting" when action in [:create, :update]
 
   def index(conn, params) do
-    page = ElixirStatus.Persistence.Posting.published(params)
+    current_user = Auth.current_user(conn)
+    admin? = Auth.admin?(conn)
+    page = ElixirStatus.Persistence.Posting.published(params, current_user, admin?)
 
     assigns =
       [
@@ -79,7 +82,9 @@ defmodule ElixirStatus.PostingController do
 
     if changeset.valid? do
       posting = Repo.insert!(changeset)
-      posting |> Publisher.after_create(Auth.current_user(conn).twitter_handle)
+      current_user = Auth.current_user(conn)
+
+      Publisher.after_create(posting, current_user.twitter_handle)
 
       conn
       |> put_session(:created_posting_uid, posting.uid)
@@ -154,10 +159,10 @@ defmodule ElixirStatus.PostingController do
   defp default(value, _), do: value
 
   def unpublish(conn, %{"id" => id}) do
-    posting = Repo.get!(ElixirStatus.Posting, id)
-    changeset = ElixirStatus.Posting.changeset(posting, %{public: false})
+    posting = ElixirStatus.Persistence.Posting.find_by_id(id)
 
-    if changeset.valid?, do: Repo.update!(changeset)
+    ElixirStatus.Persistence.Posting.unpublish(posting)
+    Publisher.after_unpublish(posting)
 
     conn
     |> redirect(to: posting_path(conn, :index))
