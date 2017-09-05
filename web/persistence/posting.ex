@@ -8,7 +8,10 @@ defmodule ElixirStatus.Persistence.Posting do
 
   def find_by_id(id) do
     query = from(p in Posting, where: p.id == ^id)
-    query |> Ecto.Query.preload(:user) |> Repo.one
+
+    query
+    |> Ecto.Query.preload(:user)
+    |> Repo.one
   end
 
   def find_by_permalink(permalink) do
@@ -82,6 +85,12 @@ defmodule ElixirStatus.Persistence.Posting do
   def unpublish(posting) do
     posting
     |> ElixirStatus.Posting.changeset(%{public: false})
+    |> Repo.update!
+  end
+
+  def republish(posting) do
+    posting
+    |> ElixirStatus.Posting.changeset(%{public: true})
     |> Repo.update!
   end
 end

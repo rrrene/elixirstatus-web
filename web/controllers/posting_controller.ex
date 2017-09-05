@@ -16,7 +16,7 @@ defmodule ElixirStatus.PostingController do
   plug :load_posting when action in [:edit, :update, :delete, :show]
 
   plug ElixirStatus.Plugs.LoggedIn when action in [:new, :create, :edit, :update, :delete]
-  plug ElixirStatus.Plugs.Admin when action in [:unpublish]
+  plug ElixirStatus.Plugs.Admin when action in [:republish, :unpublish]
   plug ElixirStatus.Plugs.SameUserOrAdmin, @current_posting_assign_key when action in [:edit, :update, :delete]
 
   plug :scrub_params, "posting" when action in [:create, :update]
@@ -164,8 +164,16 @@ defmodule ElixirStatus.PostingController do
     ElixirStatus.Persistence.Posting.unpublish(posting)
     Publisher.after_unpublish(posting)
 
-    conn
-    |> redirect(to: posting_path(conn, :index))
+    redirect(conn, to: posting_path(conn, :index))
+  end
+
+  def republish(conn, %{"id" => id}) do
+    posting = ElixirStatus.Persistence.Posting.find_by_id(id)
+
+    ElixirStatus.Persistence.Posting.republish(posting)
+    # TODO: Publisher.after_republish(posting)
+
+    redirect(conn, to: posting_path(conn, :index))
   end
 
   def delete(conn, %{"id" => id}) do

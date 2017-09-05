@@ -48,6 +48,7 @@ defmodule ElixirStatus.Router do
 
     get "/postings/preview", PostingController, :preview, as: :preview_posting
     post "/postings/unpublish/:id", PostingController, :unpublish
+    post "/postings/republish/:id", PostingController, :republish
     resources "/postings", PostingController
     get "/p/:permalink", PostingController, :show, as: :permalink_posting
     get "/p/edit/:permalink", PostingController, :edit

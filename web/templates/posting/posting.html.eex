@@ -42,6 +42,7 @@
               </span>
             <% else %>
               Not public.
+              <%= link "Re-Publish", to: posting_path(@conn, :republish, @posting), method: :post %>
             <% end %>
           </span>
         <% end %>
