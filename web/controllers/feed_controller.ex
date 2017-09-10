@@ -12,8 +12,10 @@ defmodule ElixirStatus.FeedController do
     |> send_file(200, Avatar.image_path(user_name))
   end
 
-  def rss(conn, _params) do
-    postings = Posting.published
+  def rss(conn, params) do
+    current_user = Auth.current_user(conn)
+    admin? = Auth.admin?(conn)
+    postings = Posting.published(params, current_user, admin?)
     render(conn, "rss.xml", postings: postings.entries)
   end
 end
