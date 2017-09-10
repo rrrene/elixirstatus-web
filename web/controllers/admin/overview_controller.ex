@@ -8,7 +8,7 @@ defmodule ElixirStatus.Admin.OverviewController do
   @layout {ElixirStatus.LayoutView, "admin.html"}
 
   def index(conn, params) do
-    page = ElixirStatus.Persistence.Posting.published(params)
+    page = ElixirStatus.Persistence.Posting.published(params, nil, true)
 
     stats_clicks = ElixirStatus.Impressionist.stats_clicks(page.entries)
     stats_views = ElixirStatus.Impressionist.stats_views(page.entries)

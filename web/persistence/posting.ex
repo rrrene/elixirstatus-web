@@ -29,6 +29,7 @@ defmodule ElixirStatus.Persistence.Posting do
   end
 
   @doc "Returns the latest postings."
+  def published, do: published(%{}, nil, false)
   def published(params, current_user, admin?) do
     params = Map.put(params, :page_size, params["page_size"] || @postings_per_page)
 

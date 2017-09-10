@@ -9,7 +9,7 @@ defmodule ElixirStatus.Admin.PostingController do
 
   def index(conn, params) do
     params = Map.put(params, "page_size", 200)
-    page = ElixirStatus.Persistence.Posting.published(params)
+    page = ElixirStatus.Persistence.Posting.published(params, nil, true)
     count = Repo.one(from r in Posting,
                       where: r.public == ^true,
                       select: count(r.id))
