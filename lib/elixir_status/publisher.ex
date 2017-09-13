@@ -31,6 +31,8 @@ defmodule ElixirStatus.Publisher do
     new_posting
     |> create_all_short_links
     |> send_direct_message_blocked
+
+    Posting.unpublish(new_posting)
   end
 
   defp after_create_valid(new_posting, author_twitter_handle) do
