@@ -9,7 +9,7 @@
     <%= if logged_in?(@conn) do %>
       <meta name="logged_in_as" content="<%= @current_user.user_name %>">
     <% end %>
-    <%= if @canonical_url do %>
+    <%= if assigns[:canonical_url] do %>
       <link rel="canonical" href="<%= @canonical_url %>">
     <% end %>
     <meta property="og:image" content="<%= og_image_url(assigns) %>" />
