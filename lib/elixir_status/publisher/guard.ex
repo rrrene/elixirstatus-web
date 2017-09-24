@@ -1,9 +1,20 @@
 defmodule ElixirStatus.Publisher.Guard do
   @publisher_blocked_urls Application.get_env(:elixir_status, :publisher_blocked_urls)
+  @publisher_blocked_user_names Application.get_env(:elixir_status, :publisher_blocked_user_names)
 
   alias ElixirStatus.Publisher.SharedUrls
 
-  def blocked?(posting) do
+  def blocked?(posting, author) do
+    blocked_author?(author) or blocked_posting?(posting)
+  end
+
+  def blocked_author?(author) do
+    blocked_user_names = all_blocked_user_names()
+
+    Enum.member?(blocked_user_names, author.user_name)
+  end
+
+  def blocked_posting?(posting) do
     any_blocked_urls?(posting)
   end
 
@@ -23,5 +34,9 @@ defmodule ElixirStatus.Publisher.Guard do
 
   defp all_blocked_urls do
     @publisher_blocked_urls
+  end
+
+  defp all_blocked_user_names do
+    @publisher_blocked_user_names
   end
 end

@@ -84,7 +84,7 @@ defmodule ElixirStatus.PostingController do
       posting = Repo.insert!(changeset)
       current_user = Auth.current_user(conn)
 
-      Publisher.after_create(posting, current_user.twitter_handle)
+      Publisher.after_create(posting, current_user)
 
       conn
       |> put_session(:created_posting_uid, posting.uid)
@@ -139,8 +139,10 @@ defmodule ElixirStatus.PostingController do
     changeset = ElixirStatus.Posting.changeset(posting, posting_params)
 
     if changeset.valid? do
+      current_user = Auth.current_user(conn)
+
       Repo.update!(changeset)
-      |> Publisher.after_update
+      |> Publisher.after_update(current_user)
 
       conn
       |> put_flash(:info, "Posting updated successfully.")

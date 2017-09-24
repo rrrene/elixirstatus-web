@@ -19,15 +19,15 @@ defmodule ElixirStatus.Publisher do
 
     Promotes the posting on Twitter, among other things.
   """
-  def after_create(new_posting, author_twitter_handle) do
-    if Guard.blocked?(new_posting) do
-      after_create_blocked(new_posting, author_twitter_handle)
+  def after_create(new_posting, author) do
+    if Guard.blocked?(new_posting, author) do
+      after_create_blocked(new_posting, author)
     else
-      after_create_valid(new_posting, author_twitter_handle)
+      after_create_valid(new_posting, author)
     end
   end
 
-  defp after_create_blocked(new_posting, author_twitter_handle) do
+  defp after_create_blocked(new_posting, _author) do
     new_posting
     |> create_all_short_links
     |> send_direct_message_blocked
@@ -35,12 +35,12 @@ defmodule ElixirStatus.Publisher do
     Posting.unpublish(new_posting)
   end
 
-  defp after_create_valid(new_posting, author_twitter_handle) do
+  defp after_create_valid(new_posting, author) do
     new_posting
     |> create_all_short_links
     |> send_direct_message_valid
 
-    tweet_uid = post_to_twitter(new_posting, author_twitter_handle)
+    tweet_uid = post_to_twitter(new_posting, author.twitter_handle)
     Posting.update_published_tweet_uid(new_posting, tweet_uid)
   end
 
@@ -57,8 +57,8 @@ defmodule ElixirStatus.Publisher do
   @doc """
     Called when a posting is updated by PostingController.
   """
-  def after_update(updated_posting) do
-    if Guard.blocked?(updated_posting) do
+  def after_update(updated_posting, author) do
+    if Guard.blocked?(updated_posting, author) do
       send_direct_message_blocked(updated_posting)
     else
       create_all_short_links(updated_posting)
