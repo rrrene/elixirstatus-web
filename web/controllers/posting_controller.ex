@@ -31,7 +31,7 @@ defmodule ElixirStatus.PostingController do
       {"just_signed_in", _} -> false
       _ -> true
     end)
-    canonical_url = posting_url(:index, canonical_params)
+    canonical_url = posting_url(conn, :index, canonical_params)
 
     assigns =
       [
