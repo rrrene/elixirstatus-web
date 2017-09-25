@@ -27,12 +27,6 @@ defmodule ElixirStatus.Router do
     plug :assign_current_user
   end
 
-  scope "/embed", ElixirStatus do
-    pipe_through :embedded
-
-    get "/", PostingController, :index
-  end
-
   scope "/", ElixirStatus do
     pipe_through :browser # Use the default browser stack
 
@@ -57,6 +51,12 @@ defmodule ElixirStatus.Router do
     put "/reset_twitter_handle", UserController, :reset_twitter_handle, as: :reset_twitter_handle
 
     get "/=:uid", ShortLinkController, :show
+  end
+
+  scope "/embed", ElixirStatus do
+    pipe_through :embedded
+
+    get "/", PostingController, :index
   end
 
   scope "/auth", alias: ElixirStatus do
