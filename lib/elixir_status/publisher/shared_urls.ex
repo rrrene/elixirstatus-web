@@ -27,10 +27,10 @@ defmodule ElixirStatus.Publisher.SharedUrls do
         headers
         |> Enum.find_value(&find_location_header/1)
         |> expand_url(acc ++ [url])
-      {:ok, %HTTPoison.Response{status_code: status_code}} ->
-        nil
-      {:error, %HTTPoison.Error{reason: reason}} ->
-        nil
+      {:ok, %HTTPoison.Response{status_code: _status_code}} ->
+        acc ++ [url]
+      {:error, %HTTPoison.Error{reason: _reason}} ->
+        acc ++ [url]
     end
   end
 
