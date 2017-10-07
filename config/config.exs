@@ -14,6 +14,8 @@ config :elixir_status, ElixirStatus.Endpoint,
   pubsub: [name: ElixirStatus.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :elixir_status, publisher_blocked_user_names: []
+config :elixir_status, publisher_blocked_urls: []
 
 # Configures Elixir's Logger
 config :logger, :console,

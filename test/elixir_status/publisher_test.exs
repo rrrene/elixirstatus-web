@@ -3,24 +3,25 @@ defmodule ElixirStatus.PublisherTest do
 
   alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
+  alias ElixirStatus.User
 
   @valid_attrs %{title: "some content", text: "some content", permalink: "some-content", public: true, published_at: Ecto.DateTime.utc, scheduled_at: nil, uid: "some content", user_id: 42}
   @invalid_attrs %{}
 
-  test "after_create works without twitter_handle" do
+  test "after_create works with a user without a twitter_handle" do
     changeset = Posting.changeset(%Posting{}, @valid_attrs)
     assert changeset.valid?
 
     Repo.insert!(changeset)
-    |> Publisher.after_create(nil)
+    |> Publisher.after_create(%User{twitter_handle: nil})
   end
 
-  test "after_create works with twitter_handle" do
+  test "after_create works with a user with a twitter_handle" do
     changeset = Posting.changeset(%Posting{}, @valid_attrs)
     assert changeset.valid?
 
     Repo.insert!(changeset)
-    |> Publisher.after_create("rrrene")
+    |> Publisher.after_create(%User{twitter_handle: "rrrene"})
   end
 
   test "short title for long titles" do
