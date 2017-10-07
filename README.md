@@ -78,6 +78,20 @@ To start the ElixirStatus application:
 Now you can visit `localhost:4000` from your browser.
 
 
+## Tests
+
+To run all the tests
+
+1. Install mix dependencies with:
+    ```bash
+    $ mix deps.get
+    ```
+
+2. Run the tests
+   ```bash
+   $ mix test
+   ```
+
 
 ## Contribution
 
