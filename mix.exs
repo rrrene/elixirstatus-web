@@ -46,6 +46,7 @@ defmodule ElixirStatus.Mixfile do
       {:gettext, "~> 0.9"},
       {:calendar, "~> 0.14"},
       {:appsignal, "~> 0.0"},
+      {:gelf_logger, "~> 0.7.3"},
     ]
   end
 end
