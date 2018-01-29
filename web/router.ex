@@ -40,6 +40,8 @@ defmodule ElixirStatus.Router do
     get "/u/:user_name", PostingController, :user
 
     get "/rss", FeedController, :rss
+    get "/rss-titles-only", FeedController, :rss_titles_only
+
     get "/about", PageController, :about
     get "/open_source", PageController, :open_source
 

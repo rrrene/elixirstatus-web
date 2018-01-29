@@ -16,4 +16,9 @@ defmodule ElixirStatus.FeedController do
     postings = Posting.published
     render(conn, "rss.xml", postings: postings.entries)
   end
+
+  def rss_titles_only(conn, _params) do
+    postings = Posting.published
+    render(conn, "rss_titles_only.xml", postings: postings.entries)
+  end
 end

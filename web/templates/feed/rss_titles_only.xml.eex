@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>ElixirStatus</title>
+    <description><%= ElixirStatus.Meta.rss_title %></description>
+    <link><%= ElixirStatus.URL.from_path("/") %></link>
+    <%= for posting <- @postings do %>
+      <item>
+        <title><![CDATA[<%= xml_strip_tags posting.title %>]]></title>
+        <pubDate><%= xml_readable_date posting.published_at %></pubDate>
+        <link><%= to_permalink(@conn, posting) %></link>
+        <guid><%= to_permalink(@conn, posting) %></guid>
+      </item>
+    <% end %>
+  </channel>
+</rss>
