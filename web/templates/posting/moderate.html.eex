@@ -1,0 +1,28 @@
+<%= if @posting.metadata["moderated_at"] do %>
+  <p>
+    This post has already been moderated at <%= @posting.metadata["moderated_at"] |> human_readable_date(false) %>.
+  </p>
+<% end %>
+<%= if @posting.metadata["marked_as_spam_at"] do %>
+  <p>
+    This post has been marked as spam and unpublished at <%= @posting.metadata["marked_as_spam_at"] |> human_readable_date(false) %>.
+  </p>
+<% end %>
+
+<p>
+  <%= link "Publish", to: posting_path(@conn, :moderate_publish, @posting.moderation_key), class: "btn", method: :post %>
+</p>
+<p>
+  <%= link "Do not publish", to: posting_path(@conn, :moderate_mark_as_spam, @posting.moderation_key), class: "btn btn--danger", method: :post %>
+</p>
+
+<pre><%= inspect @posting.metadata["moderation_reasons"], pretty: true %></pre>
+
+
+<%= render ElixirStatus.PostingView, "posting.html", conn: @conn,
+            posting: @posting,
+            belongs_to_me?: false,
+            just_created_by_me?: false
+            %>
+
+<pre><%= inspect @posting, pretty: true %></pre>

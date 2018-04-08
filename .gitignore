@@ -28,3 +28,4 @@ erl_crash.dump
 /config/logger.extension.exs
 .envrc
 .tool-versions-e
+lib/elixir_status_moderation.ex

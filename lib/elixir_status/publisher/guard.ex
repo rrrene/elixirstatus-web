@@ -1,11 +1,23 @@
 defmodule ElixirStatus.Publisher.Guard do
   @publisher_blocked_urls Application.get_env(:elixir_status, :publisher_blocked_urls)
   @publisher_blocked_user_names Application.get_env(:elixir_status, :publisher_blocked_user_names)
+  @publisher_moderation_reasons Application.get_env(:elixir_status, :publisher_moderation_reasons)
 
   alias ElixirStatus.Publisher.SharedUrls
 
   def blocked?(posting, author) do
     blocked_author?(author) or blocked_posting?(posting)
+  end
+
+  def moderation_required?(posting, author) do
+    moderation_reasons(posting, author)
+    |> List.wrap()
+    |> Enum.any?()
+  end
+
+  def moderation_reasons(posting, author) do
+    @publisher_moderation_reasons.(posting, author)
+    |> Enum.reject(&is_nil/1)
   end
 
   def blocked_author?(author) do

@@ -1,4 +1,4 @@
-<div class="post<%= if admin?(@conn) && !@posting.public, do: " post--unpublished" %>" data-posting-uid="<%= raw @posting.uid %>">
+<div class="post <%= if admin?(@conn) && !@posting.public && !@posting.awaiting_moderation, do: "post--unpublished" %> <%= if @posting.awaiting_moderation, do: "post--awaiting-moderation" %>" data-posting-uid="<%= raw @posting.uid %>">
   <div class="post__inner">
     <div class="post__avatar">
       <div class="image" style="background-image: url(<%= raw avatar_path(@posting.user) %>)"></div>
@@ -48,6 +48,36 @@
         <% end %>
       </span>
     </span>
+
+    <%= if admin?(@conn) && !@posting.public do %>
+      <div class="post__not-public-hint">
+        <h3>This post is not public.</h3>
+
+        <p>
+          <%= link "Re-Publish", to: posting_path(@conn, :republish, @posting), method: :post %>
+        </p>
+      </div>
+    <% end %>
+    <%= if @posting.awaiting_moderation do %>
+      <div class="post__moderation-hint">
+        <h3>This post awaits moderation.</h3>
+
+        <p>
+          There is a growing number of posts plugging services not related to Elixir.
+          To keep the quality of this community, some posts have to moderatored.
+        </p>
+        <p>
+          Sorry for this inconvenience!
+        </p>
+
+        <%= if admin?(@conn) do %>
+          <p>
+            <%= link "Moderate", to: posting_path(@conn, :moderate, @posting.moderation_key) %>
+          </p>
+        <% end %>
+
+      </div>
+    <% end %>
 
     <div class="post__body">
       <%= sanitized_markdown @posting.text %>

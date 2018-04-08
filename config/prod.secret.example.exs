@@ -31,3 +31,10 @@ config :appsignal, :config,
   push_api_key: "your-hex-appsignal-key",
   env: :prod,
   revision: Mix.Project.config()[:version]
+
+# This function receives the posting and author as arguments and determines
+# reasons why it requires moderation
+# Return an empty list if no moderation is necessary
+config :elixir_status,
+       :publisher_moderation_reasons,
+       &ElixirStatusModerationSample.moderation_reasons/2

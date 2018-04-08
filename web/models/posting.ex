@@ -10,6 +10,9 @@ defmodule ElixirStatus.Posting do
     field(:published_at, Ecto.DateTime)
     field(:published_tweet_uid, :string)
     field(:public, :boolean, default: false)
+    field(:moderation_key, :string)
+    field(:awaiting_moderation, :boolean, default: false)
+    field(:metadata, :map)
 
     field(:type, :string)
     field(:referenced_urls, :string)
@@ -20,7 +23,7 @@ defmodule ElixirStatus.Posting do
   end
 
   @required_fields ~w(user_id uid permalink title text published_at public)
-  @optional_fields ~w(published_tweet_uid scheduled_at type referenced_urls)
+  @optional_fields ~w(published_tweet_uid scheduled_at type referenced_urls moderation_key awaiting_moderation metadata)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

@@ -37,7 +37,14 @@ defmodule ViewHelper do
   def admin?(conn), do: ElixirStatus.Auth.admin?(conn)
 
   @doc "Returns a date formatted for humans."
-  def human_readable_date(date, use_abbrevs? \\ true) do
+  def human_readable_date(date, use_abbrevs? \\ true)
+
+  def human_readable_date(date, use_abbrevs?) when is_binary(date) do
+    Ecto.DateTime.cast!(date)
+    |> human_readable_date(use_abbrevs?)
+  end
+
+  def human_readable_date(date, use_abbrevs?) do
     if use_abbrevs? && this_year?(date) do
       cond do
         today?(date) ->

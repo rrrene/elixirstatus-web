@@ -192,6 +192,37 @@ defmodule ElixirStatus.PostingController do
     |> redirect(to: posting_path(conn, :index))
   end
 
+  def moderate(conn, %{"moderation_key" => moderation_key}) do
+    assigns = [
+      moderation_key: moderation_key,
+      posting: ElixirStatus.Persistence.Posting.find_by_moderation_key(moderation_key)
+    ]
+
+    render(conn, "moderate.html", assigns)
+  end
+
+  def moderate_mark_as_spam(conn, %{"moderation_key" => moderation_key}) do
+    posting = ElixirStatus.Persistence.Posting.find_by_moderation_key(moderation_key)
+
+    ElixirStatus.Persistence.Posting.mark_as_spam(posting)
+    Publisher.after_mark_as_spam(posting)
+
+    conn
+    |> put_flash(:info, "Posting was not published.")
+    |> redirect(to: posting_path(conn, :index))
+  end
+
+  def moderate_publish(conn, %{"moderation_key" => moderation_key}) do
+    posting = ElixirStatus.Persistence.Posting.find_by_moderation_key(moderation_key)
+
+    ElixirStatus.Persistence.Posting.publish_moderated(posting)
+    Publisher.after_publish_moderated(posting, posting.user)
+
+    conn
+    |> put_flash(:info, "Posting was successfully published.")
+    |> redirect(to: posting_path(conn, :index))
+  end
+
   defp load_posting(conn, _) do
     posting =
       case conn do
@@ -301,7 +332,10 @@ defmodule ElixirStatus.PostingController do
       title: params["title"],
       scheduled_at: params["scheduled_at"],
       published_at: Ecto.DateTime.utc(),
+      metadata: %{},
+      awaiting_moderation: false,
       public: true,
+      moderation_key: Ecto.UUID.generate(),
       type: PostingTypifier.run(tmp_post)["choice"] |> to_string,
       referenced_urls: PostingUrlFinder.run(tmp_post) |> Poison.encode!()
     }

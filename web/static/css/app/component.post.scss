@@ -23,6 +23,9 @@
 .post--unpublished {
   opacity: 0.4;
 }
+.post--awaiting-moderation {
+  border: 1px solid #b066ff;
+}
 
 .post--preview {
   margin-bottom: -2rem;
@@ -187,6 +190,32 @@ select.posting-type-selector {
   @include clearAfter
 }
 
+.post__moderation-hint {
+  color: #b066ff;
+  border: 1px solid #b066ff;
+  padding: 1rem 1rem 0 1rem;
+  margin-bottom: 1rem;
+
+  h3 {
+    color: #fff;
+    background-color: #b066ff;
+    padding: 1rem;
+    margin: -1rem -1rem 1rem -1rem;
+  }
+}
+
+.post__not-public-hint {
+  color: #e62117;
+  border: 1px solid #e62117;
+  padding: 1rem 1rem 0 1rem;
+
+  h3 {
+    color: #fff;
+    background-color: #e62117;
+    padding: 1rem;
+    margin: -1rem -1rem 1rem -1rem;
+  }
+}
 
 .post__body {
   a {

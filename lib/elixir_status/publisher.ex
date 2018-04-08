@@ -23,7 +23,11 @@ defmodule ElixirStatus.Publisher do
     if Guard.blocked?(new_posting, author) do
       after_create_blocked(new_posting, author)
     else
-      after_create_valid(new_posting, author)
+      if Guard.moderation_required?(new_posting, author) do
+        after_create_moderation_required(new_posting, author)
+      else
+        after_create_valid(new_posting, author)
+      end
     end
   end
 
@@ -35,26 +39,43 @@ defmodule ElixirStatus.Publisher do
     Posting.unpublish(new_posting)
   end
 
+  defp after_create_moderation_required(new_posting, author) do
+    new_posting
+    |> create_all_short_links
+    |> send_direct_message_moderation_required
+
+    reasons = Guard.moderation_reasons(new_posting, author)
+
+    Posting.require_moderation(new_posting, reasons)
+  end
+
   defp after_create_valid(new_posting, author) do
     new_posting
     |> create_all_short_links
     |> send_direct_message_valid
 
-    tweet_uid = post_to_twitter(new_posting, author.twitter_handle)
-    Posting.update_published_tweet_uid(new_posting, tweet_uid)
+    tweet_about_posting!(new_posting, author)
+  end
+
+  @doc """
+    Called when a posting is published during moderation by PostingController.
+  """
+  def after_publish_moderated(posting, author) do
+    tweet_about_posting!(posting, author)
   end
 
   @doc """
     Called when a posting is unpublished by PostingController.
   """
   def after_unpublish(posting) do
-    if posting.published_tweet_uid do
-      spawn(fn ->
-        ExTwitter.destroy_status(posting.published_tweet_uid)
-      end)
+    remove_tweet!(posting)
+  end
 
-      Posting.update_published_tweet_uid(posting, nil)
-    end
+  @doc """
+    Called when a posting is marked as spam during moderation by PostingController.
+  """
+  def after_mark_as_spam(posting) do
+    remove_tweet!(posting)
   end
 
   @doc """
@@ -89,6 +110,21 @@ defmodule ElixirStatus.Publisher do
     "#{uid}-#{permatitle}"
   end
 
+  def tweet_about_posting!(posting, author) do
+    tweet_uid = post_to_twitter(posting, author.twitter_handle)
+    Posting.update_published_tweet_uid(posting, tweet_uid)
+  end
+
+  defp remove_tweet!(posting) do
+    if posting.published_tweet_uid do
+      spawn(fn ->
+        ExTwitter.destroy_status(posting.published_tweet_uid)
+      end)
+
+      Posting.update_published_tweet_uid(posting, nil)
+    end
+  end
+
   defp create_all_short_links(posting) do
     posting
     |> SharedUrls.for_posting()
@@ -100,6 +136,18 @@ defmodule ElixirStatus.Publisher do
   # Sends a direct message via Twitter.
   defp send_direct_message_blocked(%ElixirStatus.Posting{title: title, permalink: permalink}) do
     text = "***BLOCKED*** #{short_title(title)} #{short_url(permalink)}"
+
+    send_on_twitter(text, Mix.env())
+  end
+
+  def send_direct_message_moderation_required(posting) do
+    text = """
+    ***MODERATE***
+
+    #{short_title(posting.title)}
+
+    #{moderation_url(posting)}
+    """
 
     send_on_twitter(text, Mix.env())
   end
@@ -213,5 +261,10 @@ defmodule ElixirStatus.Publisher do
       |> LinkShortener.to_uid()
 
     ElixirStatus.URL.from_path("/=#{uid}")
+  end
+
+  defp moderation_url(posting) do
+    "/moderate/#{posting.moderation_key}"
+    |> ElixirStatus.URL.from_path()
   end
 end

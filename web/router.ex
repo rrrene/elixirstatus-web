@@ -54,6 +54,10 @@ defmodule ElixirStatus.Router do
     get("/p/:permalink", PostingController, :show, as: :permalink_posting)
     get("/p/edit/:permalink", PostingController, :edit)
 
+    get("/moderate/:moderation_key", PostingController, :moderate)
+    post("/moderate/:moderation_key/publish", PostingController, :moderate_publish)
+    post("/moderate/:moderation_key/mark_as_spam", PostingController, :moderate_mark_as_spam)
+
     get("/edit_profile", UserController, :edit, as: :edit_user)
     put("/reset_twitter_handle", UserController, :reset_twitter_handle, as: :reset_twitter_handle)
 

@@ -14,6 +14,14 @@ defmodule ElixirStatus.Persistence.Posting do
     |> Repo.one()
   end
 
+  def find_by_moderation_key(moderation_key) do
+    query = from(p in Posting, where: p.moderation_key == ^moderation_key)
+
+    query
+    |> Ecto.Query.preload(:user)
+    |> Repo.one()
+  end
+
   def find_by_permalink(permalink) do
     String.split(permalink, "-") |> Enum.at(0) |> find_by_uid
   end
@@ -115,9 +123,42 @@ defmodule ElixirStatus.Persistence.Posting do
     |> Repo.update!()
   end
 
+  def mark_as_spam(posting) do
+    metadata = posting.metadata || %{}
+    metadata = Map.put(metadata, "marked_as_spam_at", Ecto.DateTime.utc())
+
+    attributes = %{public: false, awaiting_moderation: false, metadata: metadata}
+
+    posting
+    |> ElixirStatus.Posting.changeset(attributes)
+    |> Repo.update!()
+  end
+
   def republish(posting) do
     posting
     |> ElixirStatus.Posting.changeset(%{public: true})
+    |> Repo.update!()
+  end
+
+  def publish_moderated(posting) do
+    metadata = posting.metadata || %{}
+    metadata = Map.put(metadata, "moderated_at", Ecto.DateTime.utc())
+
+    attributes = %{public: true, awaiting_moderation: false, metadata: metadata}
+
+    posting
+    |> ElixirStatus.Posting.changeset(attributes)
+    |> Repo.update!()
+  end
+
+  def require_moderation(posting, reasons) do
+    metadata = posting.metadata || %{}
+    metadata = Map.put(metadata, "moderation_reasons", reasons)
+
+    attributes = %{public: false, awaiting_moderation: true, metadata: metadata}
+
+    posting
+    |> ElixirStatus.Posting.changeset(attributes)
     |> Repo.update!()
   end
 end
