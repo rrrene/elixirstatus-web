@@ -33,7 +33,7 @@ defmodule ElixirStatus.Persistence.User do
 
     case find_by_user_name(user_name) do
       nil -> create_from_auth_params(user_auth_params)
-      user -> user
+      user -> update_from_auth_params(user, user_auth_params)
     end
   end
 
@@ -42,8 +42,15 @@ defmodule ElixirStatus.Persistence.User do
       full_name: user_auth_params["name"],
       user_name: user_auth_params["login"],
       email: user_auth_params["email"],
-      provider: "github"
+      provider: "github",
+      github_metadata: user_auth_params
     }
     |> Repo.insert!()
+  end
+
+  defp update_from_auth_params(user, user_auth_params) do
+    changeset = User.changeset(user, %{github_metadata: user_auth_params})
+
+    Repo.update!(changeset)
   end
 end
