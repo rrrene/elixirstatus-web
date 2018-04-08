@@ -2,15 +2,15 @@ defmodule ElixirStatus.User do
   use ElixirStatus.Web, :model
 
   schema "users" do
-    field :full_name, :string
-    field :email, :string
-    field :provider, :string
-    field :user_name, :string
-    field :twitter_handle, :string
+    field(:full_name, :string)
+    field(:email, :string)
+    field(:provider, :string)
+    field(:user_name, :string)
+    field(:twitter_handle, :string)
 
     timestamps
 
-    has_many :postings, Posting
+    has_many(:postings, Posting)
   end
 
   @required_fields ~w(provider user_name)

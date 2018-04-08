@@ -3,7 +3,7 @@ defmodule ElixirStatus.TwitterAuthController do
 
   alias ElixirStatus.User
 
-  plug ElixirStatus.Plugs.LoggedIn
+  plug(ElixirStatus.Plugs.LoggedIn)
 
   @twitter_config Application.get_env(:elixir_status, :twitter_oauth_for_handle_verification)
 

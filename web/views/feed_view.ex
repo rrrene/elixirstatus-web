@@ -15,6 +15,6 @@ defmodule ElixirStatus.FeedView do
 
   def to_permalink(conn, posting) do
     permalink_posting_path(conn, :show, posting.permalink)
-      |> URL.from_path
+    |> URL.from_path()
   end
 end

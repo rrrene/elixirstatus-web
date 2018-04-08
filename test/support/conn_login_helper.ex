@@ -14,13 +14,13 @@ defmodule ElixirStatus.ConnLoginHelper do
       end
 
       def logged_in_conn do
-        conn = get build_conn(), "/auth"
+        conn = get(build_conn(), "/auth")
         assert html_response(conn, 302)
         conn
       end
 
       def logged_out_conn do
-        conn = get build_conn(), "/auth/sign_out"
+        conn = get(build_conn(), "/auth/sign_out")
         assert html_response(conn, 302)
         conn
       end

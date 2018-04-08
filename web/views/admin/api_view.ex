@@ -3,10 +3,16 @@ defmodule ElixirStatus.Admin.ApiView do
 
   alias ElixirStatus.Impressionist
 
-  def render("recent.json", %{postings: postings, stats_clicks: stats_clicks, stats_views: stats_views, conn: conn}) do
+  def render("recent.json", %{
+        postings: postings,
+        stats_clicks: stats_clicks,
+        stats_views: stats_views,
+        conn: conn
+      }) do
     data = Enum.map(postings, &to_json(&1, conn, stats_clicks, stats_views))
+
     %{
-      postings: data,
+      postings: data
       # TODO: first_time_authors
     }
   end
@@ -17,11 +23,13 @@ defmodule ElixirStatus.Admin.ApiView do
       email: user.email,
       provider: user.provider,
       user_name: user.user_name,
-      twitter_handle: user.twitter_handle,
+      twitter_handle: user.twitter_handle
     }
   end
+
   def to_json(posting, conn, stats_clicks, stats_views) do
     {:safe, html} = posting.text |> sanitized_markdown
+
     %{
       id: posting.id,
       published_at: posting.published_at |> xml_readable_date(),

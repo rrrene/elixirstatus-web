@@ -2,8 +2,8 @@ defmodule ElixirStatus.ShortLink do
   use ElixirStatus.Web, :model
 
   schema "short_links" do
-    field :uid, :string
-    field :url, :string
+    field(:uid, :string)
+    field(:url, :string)
 
     timestamps
   end

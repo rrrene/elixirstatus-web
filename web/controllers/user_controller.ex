@@ -7,7 +7,7 @@ defmodule ElixirStatus.UserController do
 
   @current_user_assign_key :user
 
-  plug ElixirStatus.Plugs.LoggedIn when action in [:edit, :reset_twitter_handle]
+  plug(ElixirStatus.Plugs.LoggedIn when action in [:edit, :reset_twitter_handle])
 
   def edit(conn, _) do
     user = Auth.current_user(conn)
@@ -26,9 +26,8 @@ defmodule ElixirStatus.UserController do
       |> put_flash(:info, "Disconnected Twitter handle.")
       |> redirect(to: edit_user_path(conn, :edit))
     else
-      Logger.error "POST update_profile: #{inspect(changeset.errors)}"
+      Logger.error("POST update_profile: #{inspect(changeset.errors)}")
       render(conn, "edit.html", user: user, changeset: changeset)
     end
   end
-
 end

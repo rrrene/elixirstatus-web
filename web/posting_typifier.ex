@@ -2,21 +2,20 @@ defmodule ElixirStatus.PostingTypifier do
   alias ElixirStatus.Posting
 
   @categorizers [
-      __MODULE__.IsProjectUpdate,
-      __MODULE__.IsBlogPost,
-      __MODULE__.IsVideo,
-      __MODULE__.IsMeetup,
-    ]
+    __MODULE__.IsProjectUpdate,
+    __MODULE__.IsBlogPost,
+    __MODULE__.IsVideo,
+    __MODULE__.IsMeetup
+  ]
 
   def run(posting) do
     all =
       @categorizers
-      |> Enum.map(&(&1.run(posting)))
-      |> Enum.sort
-      |> Enum.reverse
+      |> Enum.map(& &1.run(posting))
+      |> Enum.sort()
+      |> Enum.reverse()
 
-    sum_all =
-      Enum.reduce(all, 0, fn({points, _type, _}, acc) -> points + acc end)
+    sum_all = Enum.reduce(all, 0, fn {points, _type, _}, acc -> points + acc end)
 
     %{
       "all" => all,
@@ -25,19 +24,22 @@ defmodule ElixirStatus.PostingTypifier do
   end
 
   defp choose(_, 0), do: nil
+
   defp choose([], _sum_all) do
     nil
   end
-  defp choose([{sum_all, type, _}|_tail], sum_all) do
+
+  defp choose([{sum_all, type, _} | _tail], sum_all) do
     type
-  end
-  defp choose([{points, type, _}|_tail], _sum_all) when points > 0.5 do
-    type
-  end
-  defp choose([{_points, _type, _}|tail], sum_all) do
-    choose(tail, sum_all)
   end
 
+  defp choose([{points, type, _} | _tail], _sum_all) when points > 0.5 do
+    type
+  end
+
+  defp choose([{_points, _type, _} | tail], sum_all) do
+    choose(tail, sum_all)
+  end
 
   defmodule IsProjectUpdate do
     @result :project_update
@@ -50,7 +52,7 @@ defmodule ElixirStatus.PostingTypifier do
 
     @title_regex [
       {:version_number, 0.4, @version_number},
-      {:release_mentioned, 0.1, @release_mentioned},
+      {:release_mentioned, 0.1, @release_mentioned}
     ]
     @text_regex [
       {:version_number, 0.1, @version_number},
@@ -58,7 +60,7 @@ defmodule ElixirStatus.PostingTypifier do
       {:link_to_github_release, 0.4, @link_to_github_release},
       {:link_to_package, 0.4, @link_to_package},
       {:release_mentioned, 0.1, @release_mentioned},
-      {:features_or_improvements_mentioned, 0.1, @features_or_improvements_mentioned},
+      {:features_or_improvements_mentioned, 0.1, @features_or_improvements_mentioned}
     ]
 
     def run(%Posting{title: title, text: text}) do
@@ -83,14 +85,14 @@ defmodule ElixirStatus.PostingTypifier do
   defmodule IsBlogPost do
     @result :blog_post
     @title_regex [
-      {:typical_title_elements, 0.1, ~r{^(why|how)}i},
+      {:typical_title_elements, 0.1, ~r{^(why|how)}i}
     ]
     @text_regex [
       {:typical_domain, 0.3, ~r{https://medium.com/(p/|\@)}},
       {:typical_subdomain_or_dir, 0.2, ~r/\/(blog|posts?|articles?)(\.|\/)+/},
       {:year_month_day_slug, 0.2, ~r/\/\d{4}\/\d{2}\/\d{2}\/\D+/},
       {:year_month_slug, 0.2, ~r/\/\d{4}\/\d{2}\/\D+/},
-      {:blog_post_mentioned, 0.1, ~r/blog[\s-]post/},
+      {:blog_post_mentioned, 0.1, ~r/blog[\s-]post/}
     ]
 
     import ElixirStatus.PostingTypifier.IsProjectUpdate
@@ -104,10 +106,9 @@ defmodule ElixirStatus.PostingTypifier do
 
   defmodule IsVideo do
     @result :video
-    @title_regex [
-    ]
+    @title_regex []
     @text_regex [
-      {:typical_domain, 0.5, ~r{(https://youtu.be/|https://www.youtube.com/|https://vimeo.com/)}},
+      {:typical_domain, 0.5, ~r{(https://youtu.be/|https://www.youtube.com/|https://vimeo.com/)}}
     ]
 
     import ElixirStatus.PostingTypifier.IsProjectUpdate
@@ -121,10 +122,9 @@ defmodule ElixirStatus.PostingTypifier do
 
   defmodule IsMeetup do
     @result :meetup
-    @title_regex [
-    ]
+    @title_regex []
     @text_regex [
-      {:typical_domain, 0.5, ~r{https?://\S*meetup\S*}},
+      {:typical_domain, 0.5, ~r{https?://\S*meetup\S*}}
     ]
 
     import ElixirStatus.PostingTypifier.IsProjectUpdate
@@ -135,5 +135,4 @@ defmodule ElixirStatus.PostingTypifier do
       {t_sum + b_sum, @result, t_roles ++ b_roles}
     end
   end
-
 end

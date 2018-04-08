@@ -16,8 +16,8 @@ config :elixir_status, ElixirStatus.Repo,
   username: "postgres",
   password: "postgres",
   database: "elixir_status_test",
-  size: 1 # Use a single connection for transactional tests
-
+  # Use a single connection for transactional tests
+  size: 1
 
 config :elixir_status, :base_url, "http://test.local"
 config :elixir_status, :admin_user_ids, [1234]

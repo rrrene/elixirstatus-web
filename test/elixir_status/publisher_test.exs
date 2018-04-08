@@ -4,7 +4,16 @@ defmodule ElixirStatus.PublisherTest do
   alias ElixirStatus.Publisher
   alias ElixirStatus.Posting
 
-  @valid_attrs %{title: "some content", text: "some content", permalink: "some-content", public: true, published_at: Ecto.DateTime.utc, scheduled_at: nil, uid: "some content", user_id: 42}
+  @valid_attrs %{
+    title: "some content",
+    text: "some content",
+    permalink: "some-content",
+    public: true,
+    published_at: Ecto.DateTime.utc(),
+    scheduled_at: nil,
+    uid: "some content",
+    user_id: 42
+  }
   @invalid_attrs %{}
 
   test "after_create works without twitter_handle" do
@@ -24,7 +33,9 @@ defmodule ElixirStatus.PublisherTest do
   end
 
   test "short title for long titles" do
-    input = "Remember this function works with unicode codepoints and consider the slices to represent codepoints offsets. If you want to split on raw bytes, check Kernel.binary_part/3 instead."
+    input =
+      "Remember this function works with unicode codepoints and consider the slices to represent codepoints offsets. If you want to split on raw bytes, check Kernel.binary_part/3 instead."
+
     expected = "Remembe..."
     result = Publisher.short_title(input, 10)
     assert expected == result
@@ -32,7 +43,9 @@ defmodule ElixirStatus.PublisherTest do
   end
 
   test "short title for long titles, cut complete words" do
-    input = "Remember this function works with unicode codepoints and consider the slices to represent codepoints offsets. If you want to split on raw bytes, check Kernel.binary_part/3 instead."
+    input =
+      "Remember this function works with unicode codepoints and consider the slices to represent codepoints offsets. If you want to split on raw bytes, check Kernel.binary_part/3 instead."
+
     expected = "Remember this..."
     result = Publisher.short_title(input, 20)
     assert expected == result
@@ -56,7 +69,9 @@ defmodule ElixirStatus.PublisherTest do
   end
 
   test "short title for long titles, does not break URLs 3" do
-    input = "ElixirStatus v1.0.0 Released! https://github.com/rrrene/elixirstatus-web/releases/tag/v1.0.0"
+    input =
+      "ElixirStatus v1.0.0 Released! https://github.com/rrrene/elixirstatus-web/releases/tag/v1.0.0"
+
     expected = "ElixirStatus v1.0.0 Released!..."
     result = Publisher.short_title(input, 80)
     assert String.length(result) <= 80

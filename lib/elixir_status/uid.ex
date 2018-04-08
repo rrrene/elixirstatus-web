@@ -10,9 +10,9 @@ defmodule ElixirStatus.UID do
   end
 
   defp new_uid(size) do
-    size*2
-    |> :crypto.strong_rand_bytes
-    |> :base64.encode_to_string
+    (size * 2)
+    |> :crypto.strong_rand_bytes()
+    |> :base64.encode_to_string()
     |> to_string
     |> String.replace(~r/[\/\-\+\=]/, "")
     |> String.slice(0, size)
@@ -21,7 +21,7 @@ defmodule ElixirStatus.UID do
   defp new_uid(model, size, uid) do
     case Repo.get_by(model, uid: uid) do
       nil -> uid
-      _   -> new_uid(model, size, new_uid(size))
+      _ -> new_uid(model, size, new_uid(size))
     end
   end
 end

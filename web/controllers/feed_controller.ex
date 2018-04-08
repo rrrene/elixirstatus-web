@@ -13,7 +13,7 @@ defmodule ElixirStatus.FeedController do
   end
 
   def rss(conn, _params) do
-    postings = Posting.published
+    postings = Posting.published()
     render(conn, "rss.xml", postings: postings.entries)
   end
 end

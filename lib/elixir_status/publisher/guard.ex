@@ -22,12 +22,12 @@ defmodule ElixirStatus.Publisher.Guard do
     blocked_urls = all_blocked_urls()
 
     posting
-    |> SharedUrls.for_posting
+    |> SharedUrls.for_posting()
     |> Enum.any?(&blocked_url?(&1, blocked_urls))
   end
 
   defp blocked_url?(url, list_of_patterns) do
-    Enum.any?(list_of_patterns, fn(pattern) ->
+    Enum.any?(list_of_patterns, fn pattern ->
       url =~ pattern
     end)
   end

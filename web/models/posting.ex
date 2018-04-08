@@ -2,21 +2,21 @@ defmodule ElixirStatus.Posting do
   use ElixirStatus.Web, :model
 
   schema "postings" do
-    field :uid, :string
-    field :permalink, :string
-    field :title, :string
-    field :text, :string
-    field :scheduled_at, Ecto.DateTime
-    field :published_at, Ecto.DateTime
-    field :published_tweet_uid, :string
-    field :public, :boolean, default: false
+    field(:uid, :string)
+    field(:permalink, :string)
+    field(:title, :string)
+    field(:text, :string)
+    field(:scheduled_at, Ecto.DateTime)
+    field(:published_at, Ecto.DateTime)
+    field(:published_tweet_uid, :string)
+    field(:public, :boolean, default: false)
 
-    field :type, :string
-    field :referenced_urls, :string
+    field(:type, :string)
+    field(:referenced_urls, :string)
 
     timestamps
 
-    belongs_to :user, ElixirStatus.User
+    belongs_to(:user, ElixirStatus.User)
   end
 
   @required_fields ~w(user_id uid permalink title text published_at public)

@@ -5,8 +5,10 @@ defmodule ElixirStatus.Locale do
 
   def call(conn, _opts) do
     case conn.params["locale"] || get_session(conn, :locale) do
-      nil     -> conn
-      locale  ->
+      nil ->
+        conn
+
+      locale ->
         Gettext.put_locale(ElixirStatus.Gettext, locale)
         conn |> put_session(:locale, locale)
     end

@@ -2,15 +2,15 @@ defmodule ElixirStatus.Impression do
   use ElixirStatus.Web, :model
 
   schema "impressions" do
-    field :current_user_id, :integer
-    field :path, :string
-    field :context, :string
-    field :subject_type, :string
-    field :subject_uid, :string
-    field :accept_language, :string
-    field :session_hash, :string
-    field :user_agent, :string
-    field :remote_ip, :string
+    field(:current_user_id, :integer)
+    field(:path, :string)
+    field(:context, :string)
+    field(:subject_type, :string)
+    field(:subject_uid, :string)
+    field(:accept_language, :string)
+    field(:session_hash, :string)
+    field(:user_agent, :string)
+    field(:remote_ip, :string)
 
     timestamps
   end

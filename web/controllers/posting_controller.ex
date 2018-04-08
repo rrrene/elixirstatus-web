@@ -7,40 +7,44 @@ defmodule ElixirStatus.PostingController do
   alias ElixirStatus.PostingTypifier
   alias ElixirStatus.PostingUrlFinder
 
-  @just_created_timeout       60 # seconds
+  # seconds
+  @just_created_timeout 60
   @current_posting_assign_key :posting
-  @posting_filters            ~w(blog_post project_update)
+  @posting_filters ~w(blog_post project_update)
   @preview_default_title "-- insert title --"
-  @preview_default_text  "-- insert text --"
+  @preview_default_text "-- insert text --"
 
-  plug :load_posting when action in [:edit, :update, :delete, :show]
+  plug(:load_posting when action in [:edit, :update, :delete, :show])
 
-  plug ElixirStatus.Plugs.LoggedIn when action in [:new, :create, :edit, :update, :delete]
-  plug ElixirStatus.Plugs.Admin when action in [:republish, :unpublish]
-  plug ElixirStatus.Plugs.SameUserOrAdmin, @current_posting_assign_key when action in [:edit, :update, :delete]
+  plug(ElixirStatus.Plugs.LoggedIn when action in [:new, :create, :edit, :update, :delete])
+  plug(ElixirStatus.Plugs.Admin when action in [:republish, :unpublish])
 
-  plug :scrub_params, "posting" when action in [:create, :update]
+  plug(
+    ElixirStatus.Plugs.SameUserOrAdmin,
+    @current_posting_assign_key when action in [:edit, :update, :delete]
+  )
+
+  plug(:scrub_params, "posting" when action in [:create, :update])
 
   def index(conn, params) do
     current_user = Auth.current_user(conn)
     admin? = Auth.admin?(conn)
     page = ElixirStatus.Persistence.Posting.published(params, current_user, admin?)
 
-    assigns =
-      [
-        postings: page.entries,
-        page_number: page.page_number,
-        total_pages: page.total_pages,
-        created_posting: load_created_posting(conn),
-        just_signed_in: params["just_signed_in"] == "true",
-        referred_via_elixirweekly: params["ref"] == "elixirweekly",
-        searching?: !is_nil(params["q"]),
-        search_query: params["q"],
-        current_posting_filter: params["filter"] |> nil_if_empty(),
-        posting_filters: @posting_filters,
-        search: params["q"] |> nil_if_empty(),
-        changeset: changeset()
-      ]
+    assigns = [
+      postings: page.entries,
+      page_number: page.page_number,
+      total_pages: page.total_pages,
+      created_posting: load_created_posting(conn),
+      just_signed_in: params["just_signed_in"] == "true",
+      referred_via_elixirweekly: params["ref"] == "elixirweekly",
+      searching?: !is_nil(params["q"]),
+      search_query: params["q"],
+      current_posting_filter: params["filter"] |> nil_if_empty(),
+      posting_filters: @posting_filters,
+      search: params["q"] |> nil_if_empty(),
+      changeset: changeset()
+    ]
 
     conn
     |> ElixirStatus.Impressionist.record("frontpage")
@@ -51,17 +55,16 @@ defmodule ElixirStatus.PostingController do
     user = ElixirStatus.Persistence.User.find_by_user_name(user_name)
     page = ElixirStatus.Persistence.Posting.published_by_user(user)
 
-    assigns =
-      [
-        postings: page.entries,
-        page_number: page.page_number,
-        total_pages: page.total_pages,
-        created_posting: load_created_posting(conn),
-        just_signed_in: params["just_signed_in"] == "true",
-        searching?: !is_nil(params["q"]),
-        search_query: params["q"],
-        changeset: changeset()
-      ]
+    assigns = [
+      postings: page.entries,
+      page_number: page.page_number,
+      total_pages: page.total_pages,
+      created_posting: load_created_posting(conn),
+      just_signed_in: params["just_signed_in"] == "true",
+      searching?: !is_nil(params["q"]),
+      search_query: params["q"],
+      changeset: changeset()
+    ]
 
     conn
     |> ElixirStatus.Impressionist.record("frontpage")
@@ -95,12 +98,15 @@ defmodule ElixirStatus.PostingController do
   end
 
   def preview(conn, params) do
-    render(conn, "preview.html",
-            layout: {ElixirStatus.LayoutView, "blank.html"},
-            posting: %ElixirStatus.Posting{
-                      title: default(params["title"], @preview_default_title),
-                      text: default(params["text"], @preview_default_text)
-                    })
+    render(
+      conn,
+      "preview.html",
+      layout: {ElixirStatus.LayoutView, "blank.html"},
+      posting: %ElixirStatus.Posting{
+        title: default(params["title"], @preview_default_title),
+        text: default(params["text"], @preview_default_text)
+      }
+    )
   end
 
   def show(conn, %{"permalink" => _}) do
@@ -110,13 +116,12 @@ defmodule ElixirStatus.PostingController do
   def show(conn, %{"id" => _}) do
     posting = current_posting(conn)
 
-    assigns =
-      [
-        posting: posting,
-        created_posting: load_created_posting(conn),
-        prev_posting: load_prev_posting(posting),
-        next_posting: load_next_posting(posting)
-      ]
+    assigns = [
+      posting: posting,
+      created_posting: load_created_posting(conn),
+      prev_posting: load_prev_posting(posting),
+      next_posting: load_next_posting(posting)
+    ]
 
     conn
     |> ElixirStatus.Impressionist.record("detail", "posting", posting.uid)
@@ -188,11 +193,18 @@ defmodule ElixirStatus.PostingController do
   end
 
   defp load_posting(conn, _) do
-    posting = case conn do
-      %{params: %{"id" => id}} -> ElixirStatus.Persistence.Posting.find_by_id(id)
-      %{params: %{"permalink" => permalink}} -> ElixirStatus.Persistence.Posting.find_by_permalink(permalink)
-      _ -> nil
-    end
+    posting =
+      case conn do
+        %{params: %{"id" => id}} ->
+          ElixirStatus.Persistence.Posting.find_by_id(id)
+
+        %{params: %{"permalink" => permalink}} ->
+          ElixirStatus.Persistence.Posting.find_by_permalink(permalink)
+
+        _ ->
+          nil
+      end
+
     if is_nil(posting) || posting.public == false do
       conn
       |> put_status(:not_found)
@@ -205,41 +217,54 @@ defmodule ElixirStatus.PostingController do
   end
 
   defp load_prev_posting(posting) do
-    query = from p in ElixirStatus.Posting,
-                  where: p.public == ^true and
-                          p.published_at < ^posting.published_at,
-                  order_by: [desc: :published_at],
-                  limit: 1
-    query |> Ecto.Query.preload(:user) |> Repo.one
+    query =
+      from(
+        p in ElixirStatus.Posting,
+        where: p.public == ^true and p.published_at < ^posting.published_at,
+        order_by: [desc: :published_at],
+        limit: 1
+      )
+
+    query |> Ecto.Query.preload(:user) |> Repo.one()
   end
 
   defp load_next_posting(posting) do
-    query = from p in ElixirStatus.Posting,
-                  where: p.public == ^true and
-                          p.published_at > ^posting.published_at,
-                  order_by: [asc: :published_at],
-                  limit: 1
-    query |> Ecto.Query.preload(:user) |> Repo.one
+    query =
+      from(
+        p in ElixirStatus.Posting,
+        where: p.public == ^true and p.published_at > ^posting.published_at,
+        order_by: [asc: :published_at],
+        limit: 1
+      )
+
+    query |> Ecto.Query.preload(:user) |> Repo.one()
   end
 
   defp load_created_posting(conn) do
     uid = get_session(conn, :created_posting_uid)
-    case load_created_posting_by_uid(uid)  do
+
+    case load_created_posting_by_uid(uid) do
       nil ->
         conn
         |> put_session(:created_posting_uid, nil)
+
         nil
-      posting -> posting
+
+      posting ->
+        posting
     end
   end
 
   defp load_created_posting_by_uid(nil), do: nil
+
   defp load_created_posting_by_uid(uid) do
     case ElixirStatus.Persistence.Posting.find_by_uid(uid) do
       nil ->
         nil
+
       posting ->
-        seconds_since_posting = Date.diff(posting.published_at, Ecto.DateTime.utc)
+        seconds_since_posting = Date.diff(posting.published_at, Ecto.DateTime.utc())
+
         if seconds_since_posting < @just_created_timeout do
           posting
         else
@@ -255,17 +280,18 @@ defmodule ElixirStatus.PostingController do
   defp extract_valid_params(%{"title" => title, "text" => text, "type" => type}) do
     %{"title" => title || "", "text" => text || "", "type" => type}
   end
+
   defp extract_valid_params(%{"title" => title, "text" => text}) do
     %{"title" => title || "", "text" => text || ""}
   end
+
   defp extract_valid_params(_) do
     %{"title" => "", "text" => ""}
   end
 
   defp to_create_params(params, conn) do
     uid = ElixirStatus.UID.generate(ElixirStatus.Posting)
-    tmp_post =
-      %ElixirStatus.Posting{title: params["title"], text: params["text"]}
+    tmp_post = %ElixirStatus.Posting{title: params["title"], text: params["text"]}
 
     %{
       user_id: Auth.current_user(conn).id,
@@ -274,10 +300,10 @@ defmodule ElixirStatus.PostingController do
       text: params["text"],
       title: params["title"],
       scheduled_at: params["scheduled_at"],
-      published_at: Ecto.DateTime.utc,
+      published_at: Ecto.DateTime.utc(),
       public: true,
       type: PostingTypifier.run(tmp_post)["choice"] |> to_string,
-      referenced_urls: PostingUrlFinder.run(tmp_post) |> Poison.encode!
+      referenced_urls: PostingUrlFinder.run(tmp_post) |> Poison.encode!()
     }
   end
 

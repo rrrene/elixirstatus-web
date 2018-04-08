@@ -8,6 +8,7 @@ defmodule ElixirStatus.Plugs.SameUserOrAdmin do
 
   def call(conn, object_assign_key) do
     object = conn.assigns[object_assign_key]
+
     if Auth.belongs_to_current_user?(conn, object) || Auth.admin?(conn) do
       conn
     else

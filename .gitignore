@@ -27,3 +27,4 @@ erl_crash.dump
 /config/prod.secret.exs
 /config/logger.extension.exs
 .envrc
+.tool-versions-e

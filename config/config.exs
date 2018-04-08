@@ -11,9 +11,7 @@ config :elixir_status, ElixirStatus.Endpoint,
   root: Path.dirname(__DIR__),
   secret_key_base: "LstH3/4lI4FeMXhEDifTp4UP+EAUR8RsyElC9rzzC7uyR1+hJ9U94iTHiajgzEwQ",
   debug_errors: false,
-  pubsub: [name: ElixirStatus.PubSub,
-           adapter: Phoenix.PubSub.PG2]
-
+  pubsub: [name: ElixirStatus.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -22,6 +20,6 @@ config :logger, :console,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"
 
 import_config "*.extension.exs"
