@@ -12,8 +12,7 @@ defmodule ElixirStatus.Admin.ApiController do
       from(
         p in Posting,
         where:
-          p.public == ^true and not is_nil(p.published_tweet_uid) and p.published_at <= ^from_date and
-            p.published_at > ^until_date,
+          p.public == ^true and p.published_at <= ^from_date and p.published_at > ^until_date,
         order_by: [desc: :published_at]
       )
 
