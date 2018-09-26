@@ -160,6 +160,8 @@ defmodule ElixirStatus.Publisher do
 
   defp send_on_twitter(text, :prod) do
     ExTwitter.new_direct_message(@direct_message_recipient, text)
+  rescue
+    _ -> nil
   end
 
   defp send_on_twitter(tweet, _) do
