@@ -70,13 +70,18 @@ defmodule ViewHelper do
 
   defp today?(date) do
     now = Ecto.DateTime.utc()
-    date.day == now.day && date.month == now.month && date.year == now.year
+    same_day?(date, now)
   end
 
   def yesterday?(date) do
     now = Ecto.DateTime.utc()
-    difference = ElixirStatus.Date.diff(now, date)
-    difference < 2 * 24 * 60 * 60 && difference > 1 * 24 * 60 * 60
+    yesterday = ElixirStatus.Date.days_ago(now, 1)
+
+    same_day?(date, yesterday)
+  end
+
+  defp same_day?(date1, date2) do
+    date1.day == date2.day && date1.month == date2.month && date1.year == date2.year
   end
 
   def sanitized_markdown(nil), do: ""
