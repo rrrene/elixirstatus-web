@@ -13,6 +13,7 @@
 
     <title><%= html_title(assigns) %></title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="manifest" href="<%= static_path(@conn, "/manifest.json") %>">
 
     <%= render ElixirStatus.SharedView, "cookieconsent.html", conn: @conn %>
   </head>
