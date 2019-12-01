@@ -5,7 +5,7 @@ defmodule ElixirStatus.Admin.ApiController do
   alias ElixirStatus.Date
 
   def recent(conn, _params) do
-    from_date = Ecto.DateTime.utc()
+    from_date = NaiveDateTime.utc_now()
     until_date = Date.days_ago(30)
 
     query =

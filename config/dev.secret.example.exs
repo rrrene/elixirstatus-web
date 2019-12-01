@@ -18,3 +18,6 @@ config :elixir_status, :twitter_oauth_for_handle_verification,
 config :elixir_status,
        :publisher_moderation_reasons,
        &ElixirStatusModerationSample.moderation_reasons/2
+
+config :elixir_status, :publisher_blocked_urls, []
+config :elixir_status, :publisher_blocked_user_names, []

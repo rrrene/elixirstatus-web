@@ -29,3 +29,5 @@ erl_crash.dump
 .envrc
 .tool-versions-e
 lib/elixir_status_moderation.ex
+
+.elixir_ls

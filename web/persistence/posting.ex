@@ -125,7 +125,7 @@ defmodule ElixirStatus.Persistence.Posting do
 
   def mark_as_spam(posting) do
     metadata = posting.metadata || %{}
-    metadata = Map.put(metadata, "marked_as_spam_at", Ecto.DateTime.utc())
+    metadata = Map.put(metadata, "marked_as_spam_at", NaiveDateTime.utc_now())
 
     attributes = %{public: false, awaiting_moderation: false, metadata: metadata}
 
@@ -142,7 +142,7 @@ defmodule ElixirStatus.Persistence.Posting do
 
   def publish_moderated(posting) do
     metadata = posting.metadata || %{}
-    metadata = Map.put(metadata, "moderated_at", Ecto.DateTime.utc())
+    metadata = Map.put(metadata, "moderated_at", NaiveDateTime.utc_now())
 
     attributes = %{public: true, awaiting_moderation: false, metadata: metadata}
 

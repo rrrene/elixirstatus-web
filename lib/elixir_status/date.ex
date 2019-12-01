@@ -22,7 +22,7 @@ defmodule ElixirStatus.Date do
   end
 
   def days_ago(count) do
-    Ecto.DateTime.utc()
+    NaiveDateTime.utc_now()
     |> days_ago(count)
   end
 
@@ -33,10 +33,10 @@ defmodule ElixirStatus.Date do
     |> castout()
   end
 
-  # Casts Ecto.DateTimes coming into this module
+  # Casts NaiveDateTimes coming into this module
   defp castin(date) do
     date
-    |> Ecto.DateTime.to_erl()
+    |> NaiveDateTime.to_erl()
     |> Calendar.DateTime.from_erl!("Etc/UTC")
   end
 
@@ -49,6 +49,6 @@ defmodule ElixirStatus.Date do
   defp castout(date) do
     date
     |> Calendar.DateTime.to_erl()
-    |> Ecto.DateTime.cast!()
+    |> NaiveDateTime.from_erl!()
   end
 end

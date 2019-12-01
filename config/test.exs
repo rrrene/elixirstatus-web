@@ -21,3 +21,13 @@ config :elixir_status, ElixirStatus.Repo,
 
 config :elixir_status, :base_url, "http://test.local"
 config :elixir_status, :admin_user_ids, [1234]
+
+# This function receives the posting and author as arguments and determines
+# reasons why it requires moderation
+# Return an empty list if no moderation is necessary
+config :elixir_status,
+       :publisher_moderation_reasons,
+       &ElixirStatusModerationSample.moderation_reasons/2
+
+config :elixir_status, :publisher_blocked_urls, []
+config :elixir_status, :publisher_blocked_user_names, []

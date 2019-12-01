@@ -8,8 +8,8 @@ defmodule ElixirStatus.ShortLink do
     timestamps
   end
 
-  @required_fields ~w(uid url)
-  @optional_fields ~w()
+  @required_fields ~w(uid url)a
+  @all_fields @required_fields ++ ~w()a
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -17,8 +17,9 @@ defmodule ElixirStatus.ShortLink do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @all_fields)
+    |> validate_required(@required_fields)
   end
 end

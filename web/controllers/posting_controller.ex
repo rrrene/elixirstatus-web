@@ -294,7 +294,7 @@ defmodule ElixirStatus.PostingController do
         nil
 
       posting ->
-        seconds_since_posting = Date.diff(posting.published_at, Ecto.DateTime.utc())
+        seconds_since_posting = Date.diff(posting.published_at, NaiveDateTime.utc_now())
 
         if seconds_since_posting < @just_created_timeout do
           posting
@@ -331,7 +331,7 @@ defmodule ElixirStatus.PostingController do
       text: params["text"],
       title: params["title"],
       scheduled_at: params["scheduled_at"],
-      published_at: Ecto.DateTime.utc(),
+      published_at: NaiveDateTime.utc_now(),
       metadata: %{},
       awaiting_moderation: false,
       public: true,

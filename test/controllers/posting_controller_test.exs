@@ -34,7 +34,7 @@ defmodule ElixirStatus.PostingControllerTest do
       uid: "abcd",
       permalink: "abcd-some-more-gibberish",
       public: true,
-      published_at: Ecto.DateTime.utc()
+      published_at: NaiveDateTime.utc_now()
     }
   end
 

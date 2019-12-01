@@ -10,6 +10,7 @@ defmodule ElixirStatus.Mixfile do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -29,7 +30,8 @@ defmodule ElixirStatus.Mixfile do
         :postgrex,
         :oauth2,
         :gettext,
-        :appsignal
+        :appsignal,
+        :scrivener_ecto
       ]
     ]
   end
@@ -43,23 +45,40 @@ defmodule ElixirStatus.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:cowboy, "~> 1.0"},
+      {:phoenix, "~> 1.4.3"},
+      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:ecto_sql, "~> 3.0"},
+      {:postgrex, ">= 0.0.0"},
+      {:phoenix_html, "~> 2.11"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:gettext, "~> 0.11"},
+      {:jason, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
       {:earmark, "1.0.1"},
       {:httpoison, "~> 0.7"},
-      {:postgrex, "~> 0.5"},
-      {:phoenix, "~> 1.1"},
-      {:phoenix_ecto, "~> 2.0"},
-      {:phoenix_html, "~> 2.6.0"},
       {:phoenix_html_sanitizer, "~> 1.1.0-rc1"},
-      # {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:oauth2, "~> 0.0"},
       {:oauth, github: "tim/erlang-oauth"},
       {:extwitter, "~> 0.7"},
-      {:scrivener, "~> 1.1"},
-      {:gettext, "~> 0.9"},
+      {:scrivener_ecto, "~> 2.0"},
       {:calendar, "~> 0.14"},
-      {:appsignal, "~> 1.0"},
+      {:appsignal, "~> 1.11.4"},
       {:gelf_logger, "~> 0.7.3"}
+    ]
+  end
+
+  # Aliases are shortcuts or tasks specific to the current project.
+  # For example, to create, migrate and run the seeds file at once:
+  #
+  #     $ mix ecto.setup
+  #
+  # See the documentation for `Mix` for more info on aliases.
+  defp aliases do
+    [
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

@@ -8,7 +8,7 @@ defmodule ElixirStatus.PostingTest do
     text: "some content",
     permalink: "some content",
     public: true,
-    published_at: Ecto.DateTime.utc(),
+    published_at: NaiveDateTime.utc_now(),
     scheduled_at: nil,
     uid: "some content",
     user_id: 42

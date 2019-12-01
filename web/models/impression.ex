@@ -15,8 +15,8 @@ defmodule ElixirStatus.Impression do
     timestamps
   end
 
-  @required_fields ~w(context remote_ip)
-  @optional_fields ~w(current_user_id subject_type subject_uid accept_language user_agent session_hash path)
+  @required_fields ~w(context remote_ip)a
+  @all_fields @required_fields ++ ~w(current_user_id subject_type subject_uid accept_language user_agent session_hash path)a
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -24,9 +24,10 @@ defmodule ElixirStatus.Impression do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @all_fields)
+    |> validate_required(@required_fields)
     |> validate_length(:context, min: 1)
     |> validate_length(:remote_ip, min: 1)
   end

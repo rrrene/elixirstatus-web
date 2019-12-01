@@ -40,7 +40,7 @@ defmodule ViewHelper do
   def human_readable_date(date, use_abbrevs? \\ true)
 
   def human_readable_date(date, use_abbrevs?) when is_binary(date) do
-    Ecto.DateTime.cast!(date)
+    NaiveDateTime.from_iso8601!(date)
     |> human_readable_date(use_abbrevs?)
   end
 
@@ -66,15 +66,15 @@ defmodule ViewHelper do
     Date.strftime(date, "%e %b %Y %T %z")
   end
 
-  defp this_year?(date), do: date.year == Ecto.DateTime.utc().year
+  defp this_year?(date), do: date.year == NaiveDateTime.utc_now().year
 
   defp today?(date) do
-    now = Ecto.DateTime.utc()
+    now = NaiveDateTime.utc_now()
     same_day?(date, now)
   end
 
   def yesterday?(date) do
-    now = Ecto.DateTime.utc()
+    now = NaiveDateTime.utc_now()
     yesterday = ElixirStatus.Date.days_ago(now, 1)
 
     same_day?(date, yesterday)
