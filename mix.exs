@@ -21,18 +21,19 @@ defmodule ElixirStatus.Mixfile do
   def application do
     [
       mod: {ElixirStatus, []},
-      applications: [
-        :phoenix,
-        :phoenix_html,
-        :cowboy,
-        :logger,
-        :phoenix_ecto,
-        :postgrex,
-        :oauth2,
-        :gettext,
-        :appsignal,
-        :scrivener_ecto
-      ]
+      extra_applications: [:logger, :runtime_tools]
+      # applications: [
+      #   :phoenix,
+      #   :phoenix_html,
+      #   :cowboy,
+      #   :logger,
+      #   :phoenix_ecto,
+      #   :postgrex,
+      #   :oauth2,
+      #   :gettext,
+      #   :appsignal,
+      #   :scrivener_ecto
+      # ]
     ]
   end
 

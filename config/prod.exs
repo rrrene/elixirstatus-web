@@ -47,6 +47,7 @@ config :elixir_status, :base_url, "http://elixirstatus.com"
 #
 #     config :elixir_status, ElixirStatus.Endpoint, server: true
 #
+config :elixir_status, ElixirStatus.Endpoint, server: true
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
