@@ -46,18 +46,18 @@ defmodule ViewHelper do
 
   def human_readable_date(date, use_abbrevs?) do
     if use_abbrevs? && this_year?(date) do
-      cond do
-        today?(date) ->
-          "Today"
+      case Date.diff(date, Ecto.DateTime.utc()) |> div(86_400) do
+        n when n in 0..1 ->
+          "< 1 day ago"
 
-        yesterday?(date) ->
-          "Yesterday"
+        n when n in 1..6 ->
+          "#{n} days ago"
 
-        true ->
-          date |> Date.strftime("%e %b")
+        _ ->
+          Date.strftime(date, "%e %b")
       end
     else
-      date |> Date.strftime("%e %b %Y")
+      Date.strftime(date, "%e %b %Y")
     end
   end
 

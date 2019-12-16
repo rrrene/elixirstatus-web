@@ -9,7 +9,7 @@
     <span class="post__meta">
 
       <span class="posting-type posting-type--<%= @posting.type %>"><span><%= humanize_type @posting.type %></span></span>
-      <span class="post-date"><%= @posting.published_at |> human_readable_date() %></span>
+      <span class="post-date" title="<%= @posting.published_at %>"><%= human_readable_date(@posting.published_at) %></span>
       <span class="post-author">by
         <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank"><i class="icon-git_circle"></i> <%= raw @posting.user.user_name %></a>
         <%= if @posting.user.twitter_handle do %>
