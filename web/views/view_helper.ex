@@ -46,12 +46,14 @@ defmodule ViewHelper do
 
   def human_readable_date(date, use_abbrevs?) do
     if use_abbrevs? && this_year?(date) do
-      case Date.diff(date, Ecto.DateTime.utc()) |> div(86_400) do
-        n when n in 0..1 ->
+      hours = Ecto.DateTime.utc() |> Date.diff(date) |> div(3600)
+
+      case hours do
+        n when n in 0..24 ->
           "< 1 day ago"
 
-        n when n in 1..6 ->
-          "#{n} days ago"
+        n when n in 25..144 ->
+          "#{round(n / 24)} days ago"
 
         _ ->
           Date.strftime(date, "%e %b")
