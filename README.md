@@ -36,6 +36,14 @@ The important thing here is this is inspired by the original RubyFlow. Giving de
 
 ## Usage
 
+Create the `secret` file for target environment:
+
+    ```bash
+    $ cp config/dev.secret.example.exs config/dev.secret.ex
+    ```
+
+_If you are in `prod` environment you to copy the `prod.secret.example.exs` instead_
+
 To start the ElixirStatus application:
 
 1. Install mix dependencies with:
@@ -48,7 +56,7 @@ To start the ElixirStatus application:
     $ npm install
     ```
 
-3. Make sure you have MySQL installed and then configure the database accordingly in config/dev.exs and config/test.exs.
+3. Make sure you have PostgreSQL installed and then configure the database accordingly in `config/dev.exs` and `config/test.exs`.
 
 4. Create and migrate the database with:
     ```bash
@@ -60,7 +68,7 @@ To start the ElixirStatus application:
     ```bash
     $ mix run priv/repo/seeds/seed.exs
     ```
-6. [Register a GitHub application](https://github.com/settings/applications/new) for local testing:
+6. [Register a GitHub application](https://github.com/settings/applications/new) to enable user authentication with GitHub:
 
     Application name: `<your choice>`
 
