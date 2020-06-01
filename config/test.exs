@@ -11,13 +11,13 @@ config :logger, level: :warn
 
 # Configure your database
 config :elixir_status, ElixirStatus.Repo,
-  adapter: Ecto.Adapters.MySQL,
+  adapter: Ecto.Adapters.Postgres,
   pool: Ecto.Adapters.SQL.Sandbox,
-  username: System.get_env("MYSQL_TEST_DB_USERNAME") || "neopoly",
-  password: System.get_env("MYSQL_TEST_DB_PASSWORD") || "neopoly",
+  username: "postgres",
+  password: "postgres",
   database: "elixir_status_test",
-  size: 1 # Use a single connection for transactional tests
-
+  # Use a single connection for transactional tests
+  size: 1
 
 config :elixir_status, :base_url, "http://test.local"
 config :elixir_status, :admin_user_ids, [1234]

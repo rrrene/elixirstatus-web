@@ -5,33 +5,41 @@ defmodule ElixirStatus.Endpoint do
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
-  plug Plug.Static,
-    at: "/", from: :elixir_status, gzip: false,
+  plug(
+    Plug.Static,
+    at: "/",
+    from: :elixir_status,
+    gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
+  )
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
-    #plug Phoenix.LiveReloader
-    plug Phoenix.CodeReloader
+    # plug Phoenix.LiveReloader
+    plug(Phoenix.CodeReloader)
   end
 
-  plug Plug.Logger
+  plug(Plug.Logger)
 
-  plug Plug.Parsers,
+  plug(
+    Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
     json_decoder: Poison
+  )
 
-  plug Plug.MethodOverride
-  plug Plug.Head
+  plug(Plug.MethodOverride)
+  plug(Plug.Head)
 
-  plug Plug.Session,
+  plug(
+    Plug.Session,
     store: :cookie,
     key: "_elixir_status_key",
     signing_salt: "XPXyl9lg"
+  )
 
   use Appsignal.Phoenix
 
-  plug ElixirStatus.Router
+  plug(ElixirStatus.Router)
 end

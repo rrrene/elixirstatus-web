@@ -9,7 +9,7 @@ defmodule ElixirStatus.Plugs.LoggedIn do
   def call(conn, _default) do
     case Auth.current_user(conn) do
       nil -> redirect(conn, to: "/") |> halt
-      _   -> conn
+      _ -> conn
     end
   end
 end

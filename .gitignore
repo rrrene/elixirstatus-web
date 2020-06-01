@@ -23,5 +23,9 @@ erl_crash.dump
 # Alternatively, you may comment the line below and commit the
 # secrets file as long as you replace its contents by environment
 # variables.
+/config/dev.secret.exs
 /config/prod.secret.exs
+/config/logger.extension.exs
 .envrc
+.tool-versions-e
+lib/elixir_status_moderation.ex

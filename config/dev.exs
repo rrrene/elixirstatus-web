@@ -11,8 +11,7 @@ config :elixir_status, ElixirStatus.Endpoint,
   debug_errors: true,
   code_reloader: true,
   cache_static_lookup: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch",
-               cd: Path.expand("../", __DIR__)]]
+  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", cd: Path.expand("../", __DIR__)]]
 
 # Watch static and templates for browser reloading.
 config :elixir_status, ElixirStatus.Endpoint,
@@ -29,11 +28,12 @@ config :logger, :console, format: "[$level] $message\n"
 
 # Configure your database
 config :elixir_status, ElixirStatus.Repo,
-  adapter: Ecto.Adapters.MySQL,
-  username: System.get_env("MYSQL_DEV_DB_USERNAME") || "root",
-  password: System.get_env("MYSQL_DEV_DB_PASSWORD") || "",
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "postgres",
   database: "elixir_status_dev",
-  size: 10 # The amount of database connections in the pool
+  hostname: "localhost",
+  pool_size: 10
 
 config :elixir_status, :base_url, "http://localhost:4000"
 
@@ -43,3 +43,7 @@ config :elixir_status, :twitter_dm_recipient, "elixirstatus"
 config :elixir_status, :admin_user_ids, [1]
 config :elixir_status, :admin_overview_iframe_url, "http://twitter.com/"
 config :elixir_status, :admin_site_switcher_html, ""
+
+# Finally import the config/dev.secret.exs
+# which should be versioned separately.
+import_config "dev.secret.exs"

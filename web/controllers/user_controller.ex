@@ -7,9 +7,7 @@ defmodule ElixirStatus.UserController do
 
   @current_user_assign_key :user
 
-  plug ElixirStatus.Plugs.LoggedIn when action in [:edit, :update]
-
-  plug :scrub_params, "user" when action in [:create, :update]
+  plug(ElixirStatus.Plugs.LoggedIn when action in [:edit, :reset_twitter_handle])
 
   def edit(conn, _) do
     user = Auth.current_user(conn)
@@ -17,31 +15,19 @@ defmodule ElixirStatus.UserController do
     render(conn, "edit.html", user: user, changeset: changeset)
   end
 
-  def update(conn, %{"user" => user_params}) do
+  def reset_twitter_handle(conn, _) do
     user = Auth.current_user(conn)
-    user_params = user_params |> extract_valid_params
-    changeset = User.changeset(user, user_params)
+    changeset = User.changeset(user, %{twitter_handle: nil})
 
     if changeset.valid? do
       Repo.update!(changeset)
 
       conn
-      |> put_flash(:info, "User updated successfully.")
-      |> redirect(to: "/")
+      |> put_flash(:info, "Disconnected Twitter handle.")
+      |> redirect(to: edit_user_path(conn, :edit))
     else
-      Logger.error "POST update_profile: #{inspect(changeset.errors)}"
+      Logger.error("POST update_profile: #{inspect(changeset.errors)}")
       render(conn, "edit.html", user: user, changeset: changeset)
     end
   end
-
-  defp extract_valid_params(%{"twitter_handle" => twitter_handle}) when is_binary(twitter_handle) do
-    %{"twitter_handle" => twitter_handle |> String.replace("@", "")}
-  end
-  defp extract_valid_params(%{"twitter_handle" => nil}) do
-    %{"twitter_handle" => nil}
-  end
-  defp extract_valid_params(_) do
-    %{}
-  end
-
 end

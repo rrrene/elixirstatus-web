@@ -5,9 +5,13 @@ defmodule ElixirStatus.Persistence.User do
   alias ElixirStatus.User
 
   def find_by_user_name(user_name, provider \\ "github") do
-    query = from u in User,
-            where: u.user_name == ^user_name and u.provider == ^provider,
-            select: u
+    query =
+      from(
+        u in User,
+        where: u.user_name == ^user_name and u.provider == ^provider,
+        select: u
+      )
+
     Repo.one(query)
   end
 
@@ -20,15 +24,16 @@ defmodule ElixirStatus.Persistence.User do
 
   def find_or_create(user_auth_params) do
     %{"login" => user_name, "avatar_url" => url} = user_auth_params
+
     try do
-      ElixirStatus.Avatar.load! user_name, url
+      ElixirStatus.Avatar.load!(user_name, url)
     rescue
-      e -> IO.inspect {"error", e}
+      e -> IO.inspect({"error", e})
     end
 
     case find_by_user_name(user_name) do
       nil -> create_from_auth_params(user_auth_params)
-      user -> user
+      user -> update_from_auth_params(user, user_auth_params)
     end
   end
 
@@ -37,7 +42,15 @@ defmodule ElixirStatus.Persistence.User do
       full_name: user_auth_params["name"],
       user_name: user_auth_params["login"],
       email: user_auth_params["email"],
-      provider: "github"
-    } |> Repo.insert!
+      provider: "github",
+      github_metadata: user_auth_params
+    }
+    |> Repo.insert!()
+  end
+
+  defp update_from_auth_params(user, user_auth_params) do
+    changeset = User.changeset(user, %{github_metadata: user_auth_params})
+
+    Repo.update!(changeset)
   end
 end

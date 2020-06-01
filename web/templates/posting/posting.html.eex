@@ -1,4 +1,4 @@
-<div class="post" data-posting-uid="<%= raw @posting.uid %>">
+<div class="post <%= if admin?(@conn) && !@posting.public && !@posting.awaiting_moderation, do: "post--unpublished" %> <%= if @posting.awaiting_moderation, do: "post--awaiting-moderation" %>" data-posting-uid="<%= raw @posting.uid %>">
   <div class="post__inner">
     <div class="post__avatar">
       <div class="image" style="background-image: url(<%= raw avatar_path(@posting.user) %>)"></div>
@@ -9,7 +9,7 @@
     <span class="post__meta">
 
       <span class="posting-type posting-type--<%= @posting.type %>"><span><%= humanize_type @posting.type %></span></span>
-      <span class="post-date"><%= @posting.published_at |> human_readable_date() %></span>
+      <span class="post-date" title="<%= @posting.published_at %>"><%= human_readable_date(@posting.published_at) %></span>
       <span class="post-author">by
         <a href="https://github.com/<%= raw @posting.user.user_name %>" target="_blank"><i class="icon-git_circle"></i> <%= raw @posting.user.user_name %></a>
         <%= if @posting.user.twitter_handle do %>
@@ -35,14 +35,49 @@
 
         <%= if admin?(@conn) do %>
           <span class="admin">
-            <a href="#" data-toggle="#unpublish-<%= @posting.uid %>"><i class=icon-cross_mark></i></a>
-            <span id="unpublish-<%= @posting.uid %>" style="display: none">
-              <%= link "Unpublish", to: posting_path(@conn, :unpublish, @posting), method: :post %>
-            </span>
+            <%= if @posting.public do %>
+              <a href="#" data-toggle="#unpublish-<%= @posting.uid %>"><i class=icon-cross_mark></i></a>
+              <span id="unpublish-<%= @posting.uid %>" style="display: none">
+                <%= link "Unpublish", to: posting_path(@conn, :unpublish, @posting), method: :post %>
+              </span>
+            <% else %>
+              Not public.
+              <%= link "Re-Publish", to: posting_path(@conn, :republish, @posting), method: :post %>
+            <% end %>
           </span>
         <% end %>
       </span>
     </span>
+
+    <%= if admin?(@conn) && !@posting.public do %>
+      <div class="post__not-public-hint">
+        <h3>This post is not public.</h3>
+
+        <p>
+          <%= link "Re-Publish", to: posting_path(@conn, :republish, @posting), method: :post %>
+        </p>
+      </div>
+    <% end %>
+    <%= if @posting.awaiting_moderation do %>
+      <div class="post__moderation-hint">
+        <h3>This post awaits moderation.</h3>
+
+        <p>
+          There is a growing number of posts plugging services not related to Elixir.
+          To keep the quality of this community, some posts have to moderatored.
+        </p>
+        <p>
+          Sorry for this inconvenience!
+        </p>
+
+        <%= if admin?(@conn) do %>
+          <p>
+            <%= link "Moderate", to: posting_path(@conn, :moderate, @posting.moderation_key) %>
+          </p>
+        <% end %>
+
+      </div>
+    <% end %>
 
     <div class="post__body">
       <%= sanitized_markdown @posting.text %>

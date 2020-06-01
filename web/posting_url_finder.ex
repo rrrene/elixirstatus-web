@@ -5,7 +5,7 @@ defmodule ElixirStatus.PostingUrlFinder do
 
   def run(%Posting{title: _title, text: text}) do
     Regex.run(@link_to_github, text)
-    |> List.wrap
-    |> Enum.uniq
+    |> List.wrap()
+    |> Enum.uniq()
   end
 end

@@ -14,7 +14,7 @@ defmodule ViewHelper do
   def avatar_path(%User{user_name: user_name}), do: avatar_path(user_name)
 
   def avatar_path(user_name) when is_binary(user_name) do
-    "/images/github/#{user_name}.jpg"
+    "https://github.com/#{user_name}.png?size=128"
   end
 
   def class_with_error(form, field, base_class) do
@@ -27,7 +27,7 @@ defmodule ViewHelper do
 
   def error_on_field?(form, field) do
     form.errors
-    |> Enum.map(fn({attr, _message}) -> attr end)
+    |> Enum.map(fn {attr, _message} -> attr end)
     |> Enum.member?(field)
   end
 
@@ -37,18 +37,29 @@ defmodule ViewHelper do
   def admin?(conn), do: ElixirStatus.Auth.admin?(conn)
 
   @doc "Returns a date formatted for humans."
-  def human_readable_date(date, use_abbrevs? \\ true) do
+  def human_readable_date(date, use_abbrevs? \\ true)
+
+  def human_readable_date(date, use_abbrevs?) when is_binary(date) do
+    Ecto.DateTime.cast!(date)
+    |> human_readable_date(use_abbrevs?)
+  end
+
+  def human_readable_date(date, use_abbrevs?) do
     if use_abbrevs? && this_year?(date) do
-      cond do
-        today?(date) ->
-          "Today"
-        yesterday?(date) ->
-          "Yesterday"
-        true ->
-          date |> Date.strftime("%e %b")
+      hours = Ecto.DateTime.utc() |> Date.diff(date) |> div(3600)
+
+      case hours do
+        n when n in 0..24 ->
+          "< 1 day ago"
+
+        n when n in 25..144 ->
+          "#{round(n / 24)} days ago"
+
+        _ ->
+          Date.strftime(date, "%e %b")
       end
     else
-      date |> Date.strftime("%e %b %Y")
+      Date.strftime(date, "%e %b %Y")
     end
   end
 
@@ -57,24 +68,29 @@ defmodule ViewHelper do
     Date.strftime(date, "%e %b %Y %T %z")
   end
 
-  defp this_year?(date), do: date.year == Ecto.DateTime.utc.year
+  defp this_year?(date), do: date.year == Ecto.DateTime.utc().year
 
   defp today?(date) do
-    now = Ecto.DateTime.utc
-    date.day == now.day && date.month == now.month && date.year == now.year
+    now = Ecto.DateTime.utc()
+    same_day?(date, now)
   end
 
   def yesterday?(date) do
-    now = Ecto.DateTime.utc
-    difference =ElixirStatus.Date.diff(now, date)
-    difference < 2 * 24 * 60 * 60 && difference > 1 * 24 * 60 * 60
+    now = Ecto.DateTime.utc()
+    yesterday = ElixirStatus.Date.days_ago(now, 1)
+
+    same_day?(date, yesterday)
+  end
+
+  defp same_day?(date1, date2) do
+    date1.day == date2.day && date1.month == date2.month && date1.year == date2.year
   end
 
   def sanitized_markdown(nil), do: ""
 
   def sanitized_markdown(text) do
     text
-    |> Earmark.to_html
+    |> Earmark.to_html()
     |> sanitize
   end
 

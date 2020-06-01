@@ -8,15 +8,20 @@ defmodule ElixirStatus.GitHubAuthController do
   based on the chosen strategy.
   """
   def sign_in(conn, _params) do
-    handle_sign_in_for(Mix.env, conn)
+    handle_sign_in_for(Mix.env(), conn)
   end
 
   defp handle_sign_in_for(:test, conn) do
-    sign_in_via_auth conn, %{"name" => "René Föhring", "login" => "rrrene", "email" => "rf@bamaru.de", "avatar_url" => "http://elixirstatus.com/images/avatar_rrrene.jpg"}
+    sign_in_via_auth(conn, %{
+      "name" => "René Föhring",
+      "login" => "rrrene",
+      "email" => "rf@bamaru.de",
+      "avatar_url" => "http://elixirstatus.com/images/avatar_rrrene.jpg"
+    })
   end
 
   defp handle_sign_in_for(_, conn) do
-    redirect conn, external: GitHubAuth.authorize_url!
+    redirect(conn, external: GitHubAuth.authorize_url!())
   end
 
   @doc """

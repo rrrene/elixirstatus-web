@@ -4,7 +4,7 @@
       <a href="/"><img src="<%= static_path(@conn, "/images/logo.png") %>" class="logo"/></a>
       <h1 class="sidebar-header__title"><a href="/">ElixirStatus</a></h1>
       <p class="sidebar-header__text"><%= gettext "Announce your new project, blog post or version update." %></p>
-      <p class="sidebar-header__text">Over 5,000 will be listening.</p>
+      <p class="sidebar-header__text">Over 12,000 will be listening.</p>
     </div>
   </div>
   <div class="container sidebar-nav-container">

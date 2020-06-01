@@ -4,6 +4,7 @@ defmodule ElixirStatus.Date do
   def diff(date1, date2) do
     date1 = date1 |> castin()
     date2 = date2 |> castin()
+
     case Calendar.DateTime.diff(date1, date2) do
       {:ok, seconds, _, :before} -> -1 * seconds
       {:ok, seconds, _, _} -> seconds
@@ -16,11 +17,12 @@ defmodule ElixirStatus.Date do
       date
       |> castin()
       |> Calendar.Strftime.strftime(format)
+
     string
   end
 
   def days_ago(count) do
-    Ecto.DateTime.utc
+    Ecto.DateTime.utc()
     |> days_ago(count)
   end
 
@@ -34,7 +36,7 @@ defmodule ElixirStatus.Date do
   # Casts Ecto.DateTimes coming into this module
   defp castin(date) do
     date
-    |> Ecto.DateTime.to_erl
+    |> Ecto.DateTime.to_erl()
     |> Calendar.DateTime.from_erl!("Etc/UTC")
   end
 
@@ -46,7 +48,7 @@ defmodule ElixirStatus.Date do
 
   defp castout(date) do
     date
-    |> Calendar.DateTime.to_erl
-    |> Ecto.DateTime.cast!
+    |> Calendar.DateTime.to_erl()
+    |> Ecto.DateTime.cast!()
   end
 end

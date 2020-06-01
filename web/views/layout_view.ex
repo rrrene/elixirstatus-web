@@ -10,13 +10,13 @@ defmodule ElixirStatus.LayoutView do
 
   def html_title(assigns) do
     case assigns[:posting] do
-      nil -> ElixirStatus.Meta.html_title
+      nil -> ElixirStatus.Meta.html_title()
       posting -> posting.title
     end
   end
 
   def og_image_url(assigns) do
-    og_image_path(assigns) |> URL.from_path
+    og_image_path(assigns) |> URL.from_path()
   end
 
   defp og_image_path(assigns) do

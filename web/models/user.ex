@@ -2,19 +2,20 @@ defmodule ElixirStatus.User do
   use ElixirStatus.Web, :model
 
   schema "users" do
-    field :full_name, :string
-    field :email, :string
-    field :provider, :string
-    field :user_name, :string
-    field :twitter_handle, :string
+    field(:full_name, :string)
+    field(:email, :string)
+    field(:provider, :string)
+    field(:user_name, :string)
+    field(:twitter_handle, :string)
+    field(:github_metadata, :map)
 
     timestamps
 
-    has_many :postings, Posting
+    has_many(:postings, Posting)
   end
 
   @required_fields ~w(provider user_name)
-  @optional_fields ~w(full_name twitter_handle)
+  @optional_fields ~w(full_name twitter_handle github_metadata)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

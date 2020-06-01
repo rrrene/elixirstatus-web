@@ -3,7 +3,7 @@ defmodule ElixirStatus.PageControllerTest do
   use ElixirStatus.ConnLoginHelper
 
   test "GET /" do
-    conn = get build_conn(), "/"
+    conn = get(build_conn(), "/")
     assert html_response(conn, 200) =~ "elixirstatus"
   end
 
@@ -11,6 +11,7 @@ defmodule ElixirStatus.PageControllerTest do
     conn =
       logged_in_conn()
       |> get("/")
+
     assert html_response(conn, 200)
   end
 
@@ -19,6 +20,7 @@ defmodule ElixirStatus.PageControllerTest do
     conn =
       logged_in_conn()
       |> get("/about")
+
     assert logged_in?(conn)
   end
 end
