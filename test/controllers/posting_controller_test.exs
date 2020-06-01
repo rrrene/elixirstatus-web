@@ -55,6 +55,18 @@ defmodule ElixirStatus.PostingControllerTest do
   end
 
   @tag posting_create: true
+  test "creates resource and redirects when data is includes emojies", _ do
+    attrs_with_emoji = %{text: "🗜🐳📦 some [content](http://github.com/) on the [web](http://google.com/)", title: "🗜🐳📦 some content"}
+    conn = logged_in_conn()
+    conn =
+      conn
+      |> post(posting_path(conn, :create), posting: attrs_with_emoji)
+
+    assert Repo.get_by(Posting, attrs_with_emoji)
+    assert redirected_to(conn) == posting_path(conn, :index)
+  end
+
+  @tag posting_create: true
   test "when NOT logged in -> does not create resource and renders errors when data is invalid",
        _ do
     conn = logged_out_conn()
